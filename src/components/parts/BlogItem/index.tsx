@@ -26,14 +26,16 @@ const BlogItem = ({ blog }: Props) => (
             </div>
           </Link>
 
-          <Link
-            to={`/blog?category_id=${blog.category.id}`}
-            className="position-absolute top-0 start-0 m-2 z-1 text-decoration-none d-none d-md-inline-block"
-          >
-            <Badge bg="primary" className="fw-medium">
-              {blog.category.name}
-            </Badge>
-          </Link>
+          {blog.category && (
+            <Link
+              to={`/blog?category_id=${blog.category.id}`}
+              className="position-absolute top-0 start-0 m-2 z-1 text-decoration-none d-none d-md-inline-block"
+            >
+              <Badge bg="primary" className="fw-medium">
+                {blog.category.name}
+              </Badge>
+            </Link>
+          )}
         </div>
       </Col>
 

@@ -13,7 +13,7 @@ import QuantityInput from "@/components/ui/QuantityInput";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import StarRating from "@/components/ui/StarRating";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { env } from "@/utils/config";
 import ProductImageSlider from "./ProductImageSlider";
 import ShareModal from "@/components/parts/ShareModal";
@@ -185,7 +185,9 @@ export default function ProductDetailPage() {
                         (
                         <span className="text-decoration-line-through text-muted">
                           {formatCurrency(
-                            pricingInfo?.strikeThroughPrice ?? product?.price ?? 0
+                            pricingInfo?.strikeThroughPrice ??
+                              product?.price ??
+                              0
                           )}
                         </span>
                         {discountLabel && (

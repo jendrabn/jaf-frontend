@@ -9,7 +9,7 @@ import Layout from "@/components/layouts/Layout";
 import { Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import NoData from "@/components/ui/NoData";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { env } from "@/utils/config";
 
 const FILTER_OPTIONS: { label: string; value: string }[] = [

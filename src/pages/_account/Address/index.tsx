@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import AccountLayout from "@/components/layouts/AccountLayout";
 import { env } from "@/utils/config";
 

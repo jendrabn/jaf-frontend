@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/parts/CustomerServiceContact";
 import { env } from "@/utils/config";

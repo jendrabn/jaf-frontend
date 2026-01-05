@@ -6,7 +6,7 @@ import Loading from "@/components/ui/Loading";
 import OurServices from "@/components/parts/OurServices";
 import OurMarketplace from "@/components/parts/OurMarketplace";
 import Newsletter from "@/components/parts/Newsletter";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { env } from "@/utils/config";
 import BannerSlider from "./BannerSlider";
 import Footer from "@/components/parts/Footer";

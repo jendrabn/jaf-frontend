@@ -74,7 +74,7 @@ const BannerSlider = ({ banners }: { banners: BannerTypes[] }) => {
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
         }}
-        loop={true}
+        loop={banners.length > 1}
         speed={500}
         slidesPerView={1}
         autoplay={{
@@ -83,7 +83,7 @@ const BannerSlider = ({ banners }: { banners: BannerTypes[] }) => {
           pauseOnMouseEnter: true,
         }}
         pagination={{
-          clickable: true, // <- cukup ini
+          clickable: true,
         }}
         navigation={false}
         className="banner-swiper"

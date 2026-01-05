@@ -6,7 +6,7 @@ import CountdownBlocks from "@/components/ui/CountdownBlocks";
 import { useFetchFlashSales } from "@/hooks/api/flash-sale";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { env } from "@/utils/config";
 import "./index.scss";
 
