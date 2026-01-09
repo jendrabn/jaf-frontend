@@ -1,7 +1,7 @@
 import Axios, { type InternalAxiosRequestConfig } from "axios";
 
 import { env } from "@/config/env";
-import { paths } from "@/config/paths";
+// import { paths } from "@/config/paths";
 import { getAuthToken, removeAuthToken } from "@/utils/functions";
 
 function authRequestInterceptor(config: InternalAxiosRequestConfig) {
@@ -25,6 +25,9 @@ export const api = Axios.create({
 api.interceptors.request.use(authRequestInterceptor);
 api.interceptors.response.use(
   (response) => {
+    if (response.data?.page) {
+      return response.data;
+    }
     return response.data?.data ?? response.data;
   },
   (error) => {
@@ -33,10 +36,10 @@ api.interceptors.response.use(
 
     if (error.response?.status === 401) {
       removeAuthToken();
-      const searchParams = new URLSearchParams();
-      const redirectTo =
-        searchParams.get("redirectTo") || window.location.pathname;
-      window.location.href = paths.auth.login.getHref(redirectTo);
+      // const searchParams = new URLSearchParams();
+      // const redirectTo =
+      //   searchParams.get("redirectTo") || window.location.pathname;
+      // window.location.href = paths.auth.login.getHref(redirectTo);
     }
 
     return Promise.reject(error);
