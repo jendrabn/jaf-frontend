@@ -6,11 +6,11 @@ import type { ChangeEvent } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import { formatCurrency, toNumber } from "@/utils/functions";
 import { toast } from "react-toastify";
-import DeliveryAddressModal from "./DeliveryAddressModal";
-import DeliveryAddress from "./DeliveryAddress";
-import ProductOrderedList from "./ProductOrderedList";
-import PaymentMethod from "./PaymentMethod";
-import ApplyCouponForm from "./ApplyCouponForm";
+import DeliveryAddressModal from "@/components/pages/Checkout/DeliveryAddressModal";
+import DeliveryAddress from "@/components/pages/Checkout/DeliveryAddress";
+import ProductOrderedList from "@/components/pages/Checkout/ProductOrderedList";
+import PaymentMethod from "@/components/pages/Checkout/PaymentMethod";
+import ApplyCouponForm from "@/components/pages/Checkout/ApplyCouponForm";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   useCheckoutDispatch,

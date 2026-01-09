@@ -8,7 +8,7 @@ import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/utils/config";
-import "./index.scss";
+import "@/components/pages/FlashSale/index.scss";
 
 const formatTime = (dateString: string) => {
   const d = new Date(dateString);

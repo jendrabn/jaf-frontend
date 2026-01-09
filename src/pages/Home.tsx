@@ -8,7 +8,7 @@ import OurMarketplace from "@/components/parts/OurMarketplace";
 import Newsletter from "@/components/parts/Newsletter";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/utils/config";
-import BannerSlider from "./BannerSlider";
+import BannerSlider from "@/components/pages/Home/BannerSlider";
 import Footer from "@/components/parts/Footer";
 import Navbar from "@/components/parts/Navbar";
 import BrandSlider from "@/components/parts/BrandSlider";

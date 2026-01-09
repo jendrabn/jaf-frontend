@@ -1,21 +1,21 @@
 import { useParams } from "react-router";
-import AccountLayout from "../../../components/layouts/AccountLayout";
-import { useFetchOrder } from "../../../hooks/api/order";
-import NotFoundPage from "../../NotFound";
-import Loading from "../../../components/ui/Loading";
+import AccountLayout from "@/components/layouts/AccountLayout";
+import { useFetchOrder } from "@/hooks/api/order";
+import NotFoundPage from "@/pages/NotFound";
+import Loading from "@/components/ui/Loading";
 import { Alert, Button } from "react-bootstrap";
 import {
   ORDER_STATUS_COLORS,
   ORDER_STATUSES,
   PAYMENT_METHOD_GATEWAY,
-} from "../../../utils/constans";
-import ProductImage from "../../../components/parts/ProductImage";
+} from "@/utils/constans";
+import ProductImage from "@/components/parts/ProductImage";
 import { useState, useEffect, useRef, useCallback } from "react";
-import ConfirmPaymentModal from "../../../components/parts/Order/ConfirmPaymentModal";
-import ConfirmOrderReceivedModal from "../../../components/parts/Order/ConfirmOrderReceivedModal";
+import ConfirmPaymentModal from "@/components/parts/Order/ConfirmPaymentModal";
+import ConfirmOrderReceivedModal from "@/components/parts/Order/ConfirmOrderReceivedModal";
 import { useLocation, useNavigate } from "react-router";
 import { Helmet } from "react-helmet-async";
-import AddRatingModal from "../../../components/parts/Order/AddRatingModal";
+import AddRatingModal from "@/components/parts/Order/AddRatingModal";
 import { formatCurrency } from "@/utils/format";
 import { env } from "@/utils/config";
 import { loadSnapScript, payWithSnap } from "@/lib/midtrans";
@@ -23,8 +23,8 @@ import { toast } from "react-toastify";
 import type { PaymentInfoTypes } from "@/types/order";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/utils/constans";
-import PayNowButton from "../../../components/parts/Order/PayNowButton";
-import TrackingModal from "../../../components/parts/Order/TrackingModal";
+import PayNowButton from "@/components/parts/Order/PayNowButton";
+import TrackingModal from "@/components/parts/Order/TrackingModal";
 import dayjs from "@/utils/dayjs";
 
 const OrderDetailPage = () => {
