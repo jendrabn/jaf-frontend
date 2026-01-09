@@ -50,8 +50,10 @@ const ApplyCouponForm: React.FC = () => {
 
     applyCoupon.mutate(
       {
-        code: trimmedCode,
-        cart_ids: cartIds,
+        data: {
+          code: trimmedCode,
+          cart_ids: cartIds,
+        },
       },
       {
         onSuccess: (response) => {
@@ -158,4 +160,3 @@ const ApplyCouponForm: React.FC = () => {
 };
 
 export default ApplyCouponForm;
-

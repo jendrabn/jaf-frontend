@@ -1,28 +1,27 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type {
-  ApplyCouponReqTypes,
-  ApplyCouponResTypes,
-} from "@/types/checkout";
+import type { UserTypes } from "@/types/user";
 
-export type ApplyCouponInput = ApplyCouponReqTypes;
+export type UpdateUserInput = FormData;
 
-export const applyCoupon = ({
+export type UpdateUserResponse = UserTypes;
+
+export const updateUser = ({
   data,
 }: {
-  data: ApplyCouponInput;
-}): Promise<ApplyCouponResTypes> => {
-  return api.post("/apply_coupon", data);
+  data: UpdateUserInput;
+}): Promise<UpdateUserResponse> => {
+  return api.post("/user?_method=PUT", data);
 };
 
-type UseApplyCouponOptions = {
-  mutationConfig?: MutationConfig<typeof applyCoupon>;
+type UseUpdateUserOptions = {
+  mutationConfig?: MutationConfig<typeof updateUser>;
 };
 
-export const useApplyCoupon = ({
+export const useUpdateUser = ({
   mutationConfig,
-}: UseApplyCouponOptions = {}) => {
+}: UseUpdateUserOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
@@ -30,11 +29,11 @@ export const useApplyCoupon = ({
     onSuccess: (...args) => {
       // Invalidate related queries
       queryClient.invalidateQueries({
-        queryKey: ["carts"],
+        queryKey: ["user"],
       });
       onSuccess?.(...args);
     },
     ...restConfig,
-    mutationFn: applyCoupon,
+    mutationFn: updateUser,
   });
 };

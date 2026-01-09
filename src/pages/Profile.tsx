@@ -2,14 +2,12 @@ import { Row, Col, Button, Form, Image } from "react-bootstrap";
 import { useAuthState } from "@/contexts/AuthContext";
 import type { UserTypes } from "@/types/user";
 import AccountLayout from "@/components/layouts/AccountLayout";
-import { useUpdateUser } from "@/features/user";
+import { useUpdateUser } from "@/features/user/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { type ChangeEvent, useRef } from "react";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useForm } from "react-hook-form";
-
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 const ProfilePage = () => {
@@ -55,17 +53,20 @@ const ProfilePage = () => {
       formData.append("avatar", inputAvatarRef.current.files[0]);
     }
 
-    mutate(formData, {
-      onSuccess: () => {
-        toast.success("Berhasil memperbarui profil.");
+    mutate(
+      { data: formData },
+      {
+        onSuccess: () => {
+          toast.success("Berhasil memperbarui profil.");
 
-        queryClient.invalidateQueries({ queryKey: ["user"] });
-      },
-      onError: () => {
-        resetForm();
-        avatarRef.current?.setAttribute("src", user?.avatar ?? "");
-      },
-    });
+          queryClient.invalidateQueries({ queryKey: ["user"] });
+        },
+        onError: () => {
+          resetForm();
+          avatarRef.current?.setAttribute("src", user?.avatar ?? "");
+        },
+      }
+    );
   };
 
   const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {

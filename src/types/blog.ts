@@ -26,6 +26,7 @@ export interface BlogItemTypes {
 }
 
 export interface BlogDetailTypes {
+  updated_at: string | undefined;
   id: number;
   title: string;
   slug: string;
@@ -47,4 +48,3 @@ export interface BlogParamsTypes {
   category_id?: number;
   tag_id?: number;
 }
-

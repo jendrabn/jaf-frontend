@@ -1,15 +1,13 @@
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router";
 import AuthLayout from "@/components/layouts/AuthLayout";
-import { useLogin } from "@/features/auth/api";
+import { useLogin, type LoginInput } from "@/features/auth/api";
 import type { LoginReqTypes } from "@/types/auth";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useLocation } from "react-router";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import PasswordInput from "@/components/ui/password-input";
-
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { env } from "@/config/env";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import SEO from "@/components/SEO";
 
@@ -23,46 +21,49 @@ function LoginPage() {
   const { register, handleSubmit } = useForm<LoginReqTypes>();
 
   const onSubmit: SubmitHandler<LoginReqTypes> = (data) => {
-    mutate(data, {
-      onSuccess: (resp) => {
-        // OTP required: server returns otp_required, otp_expires_at, otp_sent_to
-        if ((resp as { otp_required?: boolean }).otp_required) {
-          if (data.email) {
-            sessionStorage.setItem("pendingLoginEmail", data.email);
+    mutate(
+      { data: data as LoginInput },
+      {
+        onSuccess: (resp) => {
+          // OTP required: server returns otp_required, otp_expires_at, otp_sent_to
+          if ((resp as { otp_required?: boolean }).otp_required) {
+            if (data.email) {
+              sessionStorage.setItem("pendingLoginEmail", data.email);
+            }
+
+            const { otp_expires_at, otp_sent_to } = resp as {
+              otp_expires_at?: string;
+              otp_sent_to?: string;
+            };
+
+            if (otp_expires_at) {
+              sessionStorage.setItem("otpExpiresAt", otp_expires_at);
+            }
+            if (otp_sent_to) {
+              sessionStorage.setItem("otpSentTo", otp_sent_to);
+            }
+
+            navigate("/auth/verify-login", {
+              replace: true,
+              state: { email: data.email, from: location.state?.from },
+            });
+            return;
           }
 
-          const { otp_expires_at, otp_sent_to } = resp as {
-            otp_expires_at?: string;
-            otp_sent_to?: string;
-          };
-
-          if (otp_expires_at) {
-            sessionStorage.setItem("otpExpiresAt", otp_expires_at);
-          }
-          if (otp_sent_to) {
-            sessionStorage.setItem("otpSentTo", otp_sent_to);
+          const token = (resp as { auth_token?: string }).auth_token;
+          if (!token) {
+            return;
           }
 
-          navigate("/auth/verify-login", {
-            replace: true,
-            state: { email: data.email, from: location.state?.from },
-          });
-          return;
-        }
+          setAuthToken(token);
+          setSelectedCartIds([]);
 
-        const token = (resp as { auth_token?: string }).auth_token;
-        if (!token) {
-          return;
-        }
+          navigate(location.state?.from || "/", { replace: true });
 
-        setAuthToken(token);
-        setSelectedCartIds([]);
-
-        navigate(location.state?.from || "/", { replace: true });
-
-        window.location.reload();
-      },
-    });
+          window.location.reload();
+        },
+      }
+    );
   };
 
   return (

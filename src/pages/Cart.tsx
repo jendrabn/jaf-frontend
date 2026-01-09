@@ -7,8 +7,6 @@ import { useDeleteCart } from "@/features/carts/api";
 import CartItem from "@/features/carts/components/CartItem";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import NoData from "@/components/ui/no-data";
-
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 function CartPage() {
@@ -20,7 +18,7 @@ function CartPage() {
 
   const handleCheckout = () => {
     checkoutMutation.mutate(
-      { cart_ids: selectedIds },
+      { data: { cart_ids: selectedIds } },
       {
         onSuccess(data) {
           navigate("/checkout", { state: { checkout: data }, replace: true });
@@ -35,7 +33,7 @@ function CartPage() {
 
   const handleDeleteSelected = () => {
     deleteCartMutation.mutate(
-      { cart_ids: selectedIds },
+      { data: { cart_ids: selectedIds } },
       {
         onSuccess() {
           dispatch({ type: "DELETE_SELECTED" });

@@ -1,12 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { BlogCategoryTypes } from "@/types/blog";
-import { QUERY_KEYS } from "@/utils/constans";
 
-export const useGetBlogCategories = () =>
-  useQuery<BlogCategoryTypes[]>({
-    queryKey: [QUERY_KEYS.BLOG_CATEGORIES],
-    queryFn: () => api.get("/blogs/categories"),
+export const getBlogCategories = (): Promise<BlogCategoryTypes[]> => {
+  return api.get("/blogs/categories");
+};
+
+export const getBlogCategoriesQueryOptions = () => {
+  return queryOptions({
+    queryKey: ["blog-categories"],
+    queryFn: () => getBlogCategories(),
     staleTime: Infinity,
   });
+};
 
+export const useGetBlogCategories = () => {
+  return useQuery({
+    ...getBlogCategoriesQueryOptions(),
+  });
+};

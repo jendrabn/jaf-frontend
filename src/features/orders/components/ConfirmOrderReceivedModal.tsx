@@ -19,18 +19,21 @@ const ConfirmOrderReceivedModal = (props: ConfirmOrderReceivedModalProps) => {
   const handleConfirm = () => {
     if (!orderId) return;
 
-    mutate(orderId, {
-      onSuccess() {
-        toast.success("Pesanan berhasil dikonfirmasi.");
+    mutate(
+      { orderId },
+      {
+        onSuccess() {
+          toast.success("Pesanan berhasil dikonfirmasi.");
 
-        onClose?.();
+          onClose?.();
 
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDERS] });
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.ORDER, orderId],
-        });
-      },
-    });
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDERS] });
+          queryClient.invalidateQueries({
+            queryKey: [QUERY_KEYS.ORDER, orderId],
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -63,4 +66,3 @@ const ConfirmOrderReceivedModal = (props: ConfirmOrderReceivedModalProps) => {
 };
 
 export default ConfirmOrderReceivedModal;
-

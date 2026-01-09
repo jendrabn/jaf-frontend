@@ -17,8 +17,8 @@ import { useGetProductBrands } from "@/features/products/api";
 import { Link } from "react-router";
 import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
-import FlashSaleSlider from "@/features/flash-sale/components/FlashSaleSlider";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
+import FlashSaleSlider from "@/features/flash-sale/components/FlashSaleSlider";
 
 function HomePage() {
   const { data: landing, isLoading } = useGetLanding();

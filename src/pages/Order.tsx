@@ -10,7 +10,6 @@ import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrder
 import { Alert, Button, Form, Offcanvas } from "react-bootstrap";
 import NoData from "@/components/ui/no-data";
 
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 const StatusSelect = ({
@@ -55,8 +54,8 @@ const SortSelect = ({
 };
 
 const OrderPage = () => {
-  const { setFilter, clearFilters, queryString } = useFilters();
-  const { data: orders, isLoading } = useGetOrders(queryString);
+  const { setFilter, clearFilters, params } = useFilters();
+  const { data: orders, isLoading } = useGetOrders(params as any);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
   const [showConfirmOrderReceivedModal, setShowConfirmOrderReceivedModal] =
     useState(false);

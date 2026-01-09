@@ -2,13 +2,11 @@ import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router";
 import type { RegisterReqTypes } from "@/types/auth";
-import { useRegister } from "@/features/auth/api";
+import { useRegister, type RegisterInput } from "@/features/auth/api";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
-
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 function RegisterPage() {
@@ -19,13 +17,16 @@ function RegisterPage() {
   const { register, handleSubmit } = useForm<RegisterReqTypes>();
 
   const onSubmit: SubmitHandler<RegisterReqTypes> = (data) => {
-    mutate(data, {
-      onSuccess() {
-        toast.success("Registrasi berhasil, silahkan login.");
+    mutate(
+      { data: data as RegisterInput },
+      {
+        onSuccess() {
+          toast.success("Registrasi berhasil, silahkan login.");
 
-        navigate("/auth/login", { replace: true });
-      },
-    });
+          navigate("/auth/login", { replace: true });
+        },
+      }
+    );
   };
 
   return (

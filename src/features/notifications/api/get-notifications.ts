@@ -1,22 +1,34 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  getNotifications,
+  useQuery,
+  useMutation,
+  useQueryClient,
+  queryOptions,
+} from "@tanstack/react-query";
+import {
+  getNotifications as apiGetNotifications,
   markNotificationAsRead,
   markAllNotificationsAsRead,
-  getUnreadCount,
+  getUnreadCount as apiGetUnreadCount,
 } from "./index";
 import { toast } from "react-toastify";
-import type { NotificationListResponse } from "@/types/notification";
 
-export const useGetNotifications = (page = 1) => {
-  return useQuery<NotificationListResponse>({
+// Query Options and Hooks
+export const getNotificationsQueryOptions = (page: number = 1) => {
+  return queryOptions({
     queryKey: ["notifications", page],
-    queryFn: () => getNotifications(page),
+    queryFn: () => apiGetNotifications(page),
     staleTime: 1000 * 60, // 1 minute
     refetchInterval: 1000 * 60, // Auto refresh every 1 minute
   });
 };
 
+export const useGetNotifications = (page: number = 1) => {
+  return useQuery({
+    ...getNotificationsQueryOptions(page),
+  });
+};
+
+// Mutation hooks with proper typing
 export const useMarkNotificationAsRead = () => {
   const queryClient = useQueryClient();
 
@@ -57,11 +69,11 @@ export const useMarkAllNotificationsAsRead = () => {
   });
 };
 
-export const useGetUnreadCount = () => {
-  return useQuery<number>({
+export const getUnreadCountQueryOptions = () => {
+  return queryOptions({
     queryKey: ["unread-count"],
     queryFn: async () => {
-      const response = await getUnreadCount();
+      const response = await apiGetUnreadCount();
       if (typeof response === "number") {
         return response;
       }
@@ -81,3 +93,8 @@ export const useGetUnreadCount = () => {
   });
 };
 
+export const useGetUnreadCount = () => {
+  return useQuery({
+    ...getUnreadCountQueryOptions(),
+  });
+};

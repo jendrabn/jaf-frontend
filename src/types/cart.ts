@@ -18,4 +18,3 @@ export interface deleteReqTypes {
 export interface updateReqTypes {
   quantity?: number;
 }
-

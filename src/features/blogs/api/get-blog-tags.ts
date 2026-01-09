@@ -1,12 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { BlogTagTypes } from "@/types/blog";
-import { QUERY_KEYS } from "@/utils/constans";
 
-export const useGetBlogTags = () =>
-  useQuery<BlogTagTypes[]>({
-    queryKey: [QUERY_KEYS.BLOG_TAGS],
-    queryFn: () => api.get("/blogs/tags"),
+export const getBlogTags = (): Promise<BlogTagTypes[]> => {
+  return api.get("/blogs/tags");
+};
+
+export const getBlogTagsQueryOptions = () => {
+  return queryOptions({
+    queryKey: ["blog-tags"],
+    queryFn: () => getBlogTags(),
     staleTime: Infinity,
   });
+};
 
+export const useGetBlogTags = () => {
+  return useQuery({
+    ...getBlogTagsQueryOptions(),
+  });
+};

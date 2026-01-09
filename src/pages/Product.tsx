@@ -42,10 +42,9 @@ const FILTER_OPTIONS: { label: string; value: string }[] = [
 ];
 
 const ProductPage = () => {
-  const { params, queryString, setFilter, clearFilters } =
-    useFilters<ProductParamsTypes>();
+  const { setFilter, clearFilters, params } = useFilters<ProductParamsTypes>();
 
-  const { data: products, isLoading } = useGetProducts(queryString);
+  const { data: products, isLoading } = useGetProducts(params);
 
   const [showFilters, setShowFilters] = useState(false);
 

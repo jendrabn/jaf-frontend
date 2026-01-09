@@ -7,8 +7,6 @@ import { Button, Form } from "react-bootstrap";
 import WishlistItem from "@/features/wishlist/components/WishlistItem";
 import { useDeleteWishlist } from "@/features/wishlist/api";
 import NoData from "@/components/ui/no-data";
-
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 const WishlistPage = () => {
@@ -22,7 +20,7 @@ const WishlistPage = () => {
 
   const handleDeleteSelected = () => {
     deleteWishlistMutation.mutate(
-      { wishlist_ids: selectedIds },
+      { data: { wishlist_ids: selectedIds } },
       {
         onSuccess: () => {
           dispatch({ type: "DELETE_SELECTED" });

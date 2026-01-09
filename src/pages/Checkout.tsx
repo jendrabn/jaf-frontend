@@ -18,9 +18,7 @@ import {
 } from "@/contexts/CheckoutContext";
 import { type OrderReqTypes } from "@/types/order";
 import { useCartDispatch } from "@/contexts/CartContext";
-
 import { QUERY_KEYS, PAYMENT_METHOD_GATEWAY } from "@/utils/constans";
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 function CheckoutPage() {
@@ -168,31 +166,34 @@ function CheckoutPage() {
 
     const payload = buildOrderPayload();
 
-    createMutation.mutate(payload, {
-      onSuccess: async (data) => {
-        toast.success("Pesanan berhasil dibuat.");
+    createMutation.mutate(
+      { data: payload },
+      {
+        onSuccess: async (data) => {
+          toast.success("Pesanan berhasil dibuat.");
 
-        // Reset state keranjang & checkout
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CARTS] });
-        cartDispatch({ type: "SET_SELECTED_IDS", payload: [] });
-        dispatch({ type: "RESET" });
+          // Reset state keranjang & checkout
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.CARTS] });
+          cartDispatch({ type: "SET_SELECTED_IDS", payload: [] });
+          dispatch({ type: "RESET" });
 
-        // Jika Payment Gateway (Midtrans), alihkan ke halaman detail pesanan
-        if (data?.payment_method === PAYMENT_METHOD_GATEWAY) {
+          // Jika Payment Gateway (Midtrans), alihkan ke halaman detail pesanan
+          if (data?.payment_method === PAYMENT_METHOD_GATEWAY) {
+            navigate(`/account/orders/${data.id}`, {
+              replace: true,
+              state: { new_order_created: true },
+            });
+            return;
+          }
+
+          // Default: navigasi ke detail pesanan (bank/ewallet atau selain gateway)
           navigate(`/account/orders/${data.id}`, {
             replace: true,
             state: { new_order_created: true },
           });
-          return;
-        }
-
-        // Default: navigasi ke detail pesanan (bank/ewallet atau selain gateway)
-        navigate(`/account/orders/${data.id}`, {
-          replace: true,
-          state: { new_order_created: true },
-        });
-      },
-    });
+        },
+      }
+    );
   }, [
     validateOrder,
     buildOrderPayload,

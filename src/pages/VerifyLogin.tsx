@@ -4,7 +4,6 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 
 import { useLocation, useNavigate } from "react-router";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
-import { env } from "@/config/env";
 import { useVerifyLoginOtp } from "@/features/auth/api/verify-login-otp";
 import { useResendLoginOtp } from "@/features/auth/api/resend-login-otp";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
@@ -113,7 +112,7 @@ const VerifyLoginPage = () => {
     if (!email) return;
 
     mutate(
-      { email, code: otp },
+      { data: { email, code: otp } },
       {
         onSuccess: (resp) => {
           const token = (resp as { auth_token?: string }).auth_token;
@@ -172,9 +171,9 @@ const VerifyLoginPage = () => {
                   value={digits[i]}
                   onChange={handleChange(i)}
                   onKeyDown={handleKeyDown(i)}
-                  ref={(el: HTMLInputElement | null) =>
-                    (inputsRef.current[i] = el)
-                  }
+                  ref={(el: HTMLInputElement | null) => {
+                    inputsRef.current[i] = el;
+                  }}
                   autoFocus={i === 0}
                 />
               ))}
@@ -203,7 +202,7 @@ const VerifyLoginPage = () => {
                   resetResendError();
                   if (!email) return;
                   resend(
-                    { email },
+                    { data: { email } },
                     {
                       onSuccess: ({ otp_expires_at, otp_sent_to }) => {
                         // Laravel API handles rate limit and cooldown. No client-side timer here.

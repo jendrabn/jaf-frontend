@@ -51,7 +51,7 @@ const WishlistItem = (props: WishlistItemProps) => {
 
   const handleDelete = () => {
     deleteWishlistMutation.mutate(
-      { wishlist_ids: [id] },
+      { data: { wishlist_ids: [id] } },
       {
         onSuccess: () => {
           dispatch({
@@ -65,7 +65,7 @@ const WishlistItem = (props: WishlistItemProps) => {
 
   const handleMoveToCart = () => {
     createCartMutation.mutate(
-      { product_id: product.id, quantity: 1 },
+      { data: { product_id: product.id, quantity: 1 } },
       {
         onSuccess: () => {
           toast.success("Berhasil ditambahkan ke keranjang.");
@@ -206,4 +206,3 @@ const WishlistItem = (props: WishlistItemProps) => {
 };
 
 export default WishlistItem;
-

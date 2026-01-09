@@ -6,10 +6,8 @@ import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
-
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
-import "@/features/flash-sale/index.scss";
+import { env } from "@/config/env";
 
 const formatTime = (dateString: string) => {
   const d = new Date(dateString);

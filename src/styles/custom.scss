@@ -1017,3 +1017,120 @@ footer {
   }
 }
 // End Product Image Slider
+
+.flash-sale-page {
+  .flash-sale-hero {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 166, 0, 0.1),
+      rgba(99, 102, 241, 0.08)
+    );
+    border: 1px solid rgba(99, 102, 241, 0.15);
+  }
+
+  .flash-sale-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .flash-sale-tab {
+    border: 1px solid var(--bs-border-color, #e5e7eb);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+    min-width: 160px;
+    text-align: left;
+    transition: all 0.2s ease;
+
+    .tab-label {
+      display: block;
+      font-weight: 600;
+    }
+
+    .tab-subtitle {
+      color: var(--bs-secondary-color);
+    }
+
+    &.active {
+      border-color: var(--bs-primary);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  .flash-sale-countdown-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .flash-sale-countdown-running {
+    background-color: #ef4444;
+  }
+
+  .flash-sale-countdown-scheduled {
+    background-color: #2563eb;
+  }
+}
+
+.countdown-blocks {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+
+  .countdown-block {
+    background-color: #0f172a;
+    color: #fff;
+    border-radius: 6px;
+    padding: 6px 8px;
+    min-width: 42px;
+    text-align: center;
+    line-height: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .countdown-value {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .countdown-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+
+  &.countdown-sm {
+    gap: 2px;
+    .countdown-block {
+      padding: 4px 6px;
+      min-width: 36px;
+    }
+    .countdown-value {
+      font-size: 0.8rem;
+    }
+  }
+
+  &.countdown-lg {
+    .countdown-block {
+      padding: 8px 12px;
+      min-width: 52px;
+    }
+    .countdown-value {
+      font-size: 1.1rem;
+    }
+  }
+}

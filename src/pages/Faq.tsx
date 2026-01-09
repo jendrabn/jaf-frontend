@@ -1,7 +1,6 @@
 import data from "@/data/faq.json";
 import Accordion from "react-bootstrap/Accordion";
 import Layout from "@/components/layouts/Layout";
-
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import { generateFAQSchema } from "@/utils/seo-schemas";

@@ -1,13 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { CityTypes } from "@/types/region";
-import { QUERY_KEYS } from "@/utils/constans";
+import type { DistrictTypes } from "@/types/region";
 
-export const useGetDistricts = (cityId?: number | null) =>
-  useQuery<CityTypes[]>({
-    queryKey: [QUERY_KEYS.DISTRICTS, cityId],
-    queryFn: () => api.get(`/region/districts/${cityId}`),
+export const getDistricts = ({
+  cityId,
+}: {
+  cityId: number;
+}): Promise<DistrictTypes[]> => {
+  return api.get(`/region/districts/${cityId}`);
+};
+
+export const getDistrictsQueryOptions = (cityId: number) => {
+  return queryOptions({
+    queryKey: ["districts", cityId],
+    queryFn: () => getDistricts({ cityId }),
     staleTime: Infinity,
     enabled: !!cityId,
   });
+};
 
+export const useGetDistricts = (cityId?: number | null) => {
+  return useQuery({
+    ...getDistrictsQueryOptions(cityId || 0),
+  });
+};

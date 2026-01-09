@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, type PropsWithChildren, useEffect } from "react";
 import type { UserTypes } from "@/types/user";
-import { useGetUser } from "@/features/user";
+import { useGetUser } from "@/features/user/api";
 import { getAuthToken } from "@/utils/functions";
 import { useLocation } from "react-router";
 import { initializeFcmToken } from "@/utils/fcm";
@@ -107,4 +107,3 @@ export const useAuthDispatch = () => {
 
   return context;
 };
-

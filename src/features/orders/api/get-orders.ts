@@ -1,12 +1,43 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { OrderTypes } from "@/types/order";
 import type { PageTypes } from "@/types";
-import { QUERY_KEYS } from "@/utils/constans";
 
-export const useGetOrders = (queryString?: string) =>
-  useQuery<{ data: OrderTypes[]; page: PageTypes }>({
-    queryKey: [QUERY_KEYS.ORDERS, queryString],
-    queryFn: () => api.get(`/orders${queryString ? `?${queryString}` : ""}`),
+export type GetOrdersParams = {
+  page?: number;
+  status?:
+    | "pending_payment"
+    | "pending"
+    | "processing"
+    | "on_delivery"
+    | "completed"
+    | "cancelled";
+  sort_by?: "newest" | "oldest";
+};
+
+export type GetOrdersResponse = {
+  data: OrderTypes[];
+  page: PageTypes;
+};
+
+export const getOrders = ({
+  params,
+}: { params?: GetOrdersParams } = {}): Promise<GetOrdersResponse> => {
+  const queryString = new URLSearchParams(
+    params as Record<string, string>
+  ).toString();
+  return api.get(`/orders${queryString ? `?${queryString}` : ""}`);
+};
+
+export const getOrdersQueryOptions = (params?: GetOrdersParams) => {
+  return queryOptions({
+    queryKey: params ? ["orders", params] : ["orders"],
+    queryFn: () => getOrders({ params }),
   });
+};
 
+export const useGetOrders = (params?: GetOrdersParams) => {
+  return useQuery({
+    ...getOrdersQueryOptions(params),
+  });
+};

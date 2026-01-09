@@ -47,18 +47,21 @@ const AddRatingModal = (props: AddRatingModalProps) => {
   };
 
   const handleSubmit = () => {
-    mutate(ratings, {
-      onSuccess() {
-        toast.success("Terimakasih telah memberikan penilaian.");
+    mutate(
+      { data: { ratings } },
+      {
+        onSuccess() {
+          toast.success("Terimakasih telah memberikan penilaian.");
 
-        onClose();
+          onClose();
 
-        queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDERS] });
-        queryClient.invalidateQueries({
-          queryKey: [QUERY_KEYS.ORDERS, order.id],
-        });
-      },
-    });
+          queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.ORDERS] });
+          queryClient.invalidateQueries({
+            queryKey: [QUERY_KEYS.ORDERS, order.id],
+          });
+        },
+      }
+    );
   };
 
   const getRatingLabel = (rating: number) => {
@@ -156,4 +159,3 @@ const AddRatingModal = (props: AddRatingModalProps) => {
 };
 
 export default AddRatingModal;
-

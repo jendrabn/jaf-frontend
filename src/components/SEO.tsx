@@ -101,13 +101,13 @@ export default function SEO({
 
       {/* Product-specific OG tags */}
       {ogType === "product" && productPrice && (
-        <>
-          <meta
-            property="product:price:amount"
-            content={productPrice.toString()}
-          />
-          <meta property="product:price:currency" content={productCurrency} />
-        </>
+        <meta
+          property="product:price:amount"
+          content={productPrice.toString()}
+        />
+      )}
+      {ogType === "product" && productPrice && (
+        <meta property="product:price:currency" content={productCurrency} />
       )}
       {ogType === "product" && productAvailability && (
         <meta property="product:availability" content={productAvailability} />

@@ -39,6 +39,7 @@ const createEnv = () => {
     // Others
     GOOGLE_CLIENT_ID: z.string().optional(),
     FIREBASE_VAPID_KEY: z.string().optional(),
+    MIDTRANS_ENV: z.string().optional(),
   });
 
   const envVars = {
@@ -92,4 +93,3 @@ ${Object.entries(parsedEnv.error.flatten().fieldErrors)
 };
 
 export const env = createEnv();
-

@@ -1,12 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { ProductCategoryTypes } from "@/types/product";
-import { QUERY_KEYS } from "@/utils/constans";
 
-export const useGetProductCategories = () =>
-  useQuery<ProductCategoryTypes[]>({
-    queryKey: [QUERY_KEYS.PRODUCT_CATEGORIES],
-    queryFn: () => api.get("/categories"),
+export const getProductCategories = (): Promise<ProductCategoryTypes[]> => {
+  return api.get("/categories");
+};
+
+export const getProductCategoriesQueryOptions = () => {
+  return queryOptions({
+    queryKey: ["product-categories"],
+    queryFn: () => getProductCategories(),
     staleTime: Infinity,
   });
+};
 
+export const useGetProductCategories = () => {
+  return useQuery(getProductCategoriesQueryOptions());
+};

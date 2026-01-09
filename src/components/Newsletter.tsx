@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import useSubscribeNewsletter from "@/features/newsletter/api/subscribe-newsletter";
+import { useSubscribeNewsletter } from "@/features/newsletter/api/subscribe-newsletter";
 import type { NewsletterRequest } from "@/types/newsletter";
 import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 
@@ -16,13 +16,16 @@ const Newsletter = () => {
   const subscribeMutation = useSubscribeNewsletter();
 
   const onSubmit = (data: NewsletterRequest) => {
-    subscribeMutation.mutate(data, {
-      onSuccess: () => {
-        setIsSubscribed(true);
-        reset();
-        setTimeout(() => setIsSubscribed(false), 5000);
-      },
-    });
+    subscribeMutation.mutate(
+      { data },
+      {
+        onSuccess: () => {
+          setIsSubscribed(true);
+          reset();
+          setTimeout(() => setIsSubscribed(false), 5000);
+        },
+      }
+    );
   };
 
   return (
@@ -96,4 +99,3 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
-

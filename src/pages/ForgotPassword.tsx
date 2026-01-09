@@ -1,12 +1,13 @@
 import { Button, Form } from "react-bootstrap";
 import AuthLayout from "@/components/layouts/AuthLayout";
-import { useForgotPassword } from "@/features/auth/api";
+import {
+  useForgotPassword,
+  type ForgotPasswordInput,
+} from "@/features/auth/api";
 import type { ForgotPasswordReqTypes } from "@/types/auth";
 import { toast } from "react-toastify";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
-
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 function ForgotPasswordPage() {
@@ -19,13 +20,16 @@ function ForgotPasswordPage() {
   } = useForm<ForgotPasswordReqTypes>();
 
   const onSubmit: SubmitHandler<ForgotPasswordReqTypes> = (data) => {
-    mutate(data, {
-      onSuccess() {
-        toast.success("Link reset password berhasil dikirim ke email anda.");
+    mutate(
+      { data: data as ForgotPasswordInput },
+      {
+        onSuccess() {
+          toast.success("Link reset password berhasil dikirim ke email anda.");
 
-        resetForm();
-      },
-    });
+          resetForm();
+        },
+      }
+    );
   };
 
   return (

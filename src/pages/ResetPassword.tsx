@@ -2,13 +2,11 @@ import { useNavigate, useSearchParams } from "react-router";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import type { ResetPasswordReqTypes } from "@/types/auth";
 import { Button, Form, FormControl } from "react-bootstrap";
-import { useResetPassword } from "@/features/auth/api";
+import { useResetPassword, type ResetPasswordInput } from "@/features/auth/api";
 import { toast } from "react-toastify";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
-
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 function ResetPasswordPage() {
@@ -28,13 +26,16 @@ function ResetPasswordPage() {
   });
 
   const onSubmit: SubmitHandler<ResetPasswordReqTypes> = (data) => {
-    mutate(data, {
-      onSuccess() {
-        toast.success("Reset password berhasil, silahkan login.");
+    mutate(
+      { data: data as ResetPasswordInput },
+      {
+        onSuccess() {
+          toast.success("Reset password berhasil, silahkan login.");
 
-        navigate("/auth/login", { replace: true });
-      },
-    });
+          navigate("/auth/login", { replace: true });
+        },
+      }
+    );
   };
 
   return (

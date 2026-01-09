@@ -1,13 +1,11 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import AccountLayout from "@/components/layouts/AccountLayout";
 import type { PasswordReqTypes } from "@/types/user";
-import { useUpdatePassword } from "@/features/user";
+import { useUpdatePassword } from "@/features/user/api";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
-
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 
 const ChangePassword = () => {
@@ -19,13 +17,22 @@ const ChangePassword = () => {
   const { mutate, isPending, error, reset } = useUpdatePassword();
 
   const onSubmit: SubmitHandler<PasswordReqTypes> = (data) => {
-    mutate(data, {
-      onSuccess() {
-        resetForm();
-
-        toast.success("Password updated successfully.");
+    mutate(
+      {
+        data: {
+          current_password: data.current_password,
+          new_password: data.password,
+          new_password_confirmation: data.password_confirmation,
+        },
       },
-    });
+      {
+        onSuccess() {
+          resetForm();
+
+          toast.success("Password updated successfully.");
+        },
+      }
+    );
   };
 
   return (

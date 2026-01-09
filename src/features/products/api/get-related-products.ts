@@ -1,12 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { ProductItemTypes } from "@/types/product";
-import { QUERY_KEYS } from "@/utils/constans";
 
-export const useGetRelatedProducts = (productId?: string) =>
-  useQuery<ProductItemTypes[]>({
-    queryKey: [QUERY_KEYS.RELATED_PRODUCTS, productId],
-    queryFn: () => api.get(`/products/${productId}/similars`),
+export const getRelatedProducts = ({
+  productId,
+}: {
+  productId: string;
+}): Promise<ProductItemTypes[]> => {
+  return api.get(`/products/${productId}/similars`);
+};
+
+export const getRelatedProductsQueryOptions = (productId: string) => {
+  return queryOptions({
+    queryKey: ["related-products", productId],
+    queryFn: () => getRelatedProducts({ productId }),
     enabled: !!productId,
   });
+};
 
+export const useGetRelatedProducts = (productId?: string) => {
+  return useQuery(getRelatedProductsQueryOptions(productId || ""));
+};

@@ -30,10 +30,9 @@ const SORT_OPTIONS: { label: string; value: string }[] = [
 ];
 
 const BlogPage = () => {
-  const { params, setFilter, queryString, clearFilters } =
-    useFilters<BlogParamsTypes>();
+  const { params, setFilter, clearFilters } = useFilters<BlogParamsTypes>();
   const [searchTerm, setSearchTerm] = useState<string>(params.search || "");
-  const { data: blogs, isLoading } = useGetBlogs(queryString);
+  const { data: blogs, isLoading } = useGetBlogs(params);
   const [showFilter, setShowFilter] = useState(false);
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {

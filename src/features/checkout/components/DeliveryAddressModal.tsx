@@ -65,8 +65,7 @@ function DeliveryAddressModal({
 
   const shippingCostMutation = useGetShippingCosts();
 
-  const { data: provinces, isLoading: isLoadingProvinces } =
-    useGetProvinces();
+  const { data: provinces, isLoading: isLoadingProvinces } = useGetProvinces();
   const { data: cities, isLoading: isLoadingCities } = useGetCities(
     data.province?.id
   );
@@ -234,8 +233,10 @@ function DeliveryAddressModal({
 
     shippingCostMutation.mutate(
       {
-        destination: data.city?.id || 0,
-        weight: checkout?.total_weight || 0,
+        data: {
+          destination: data.city?.id || 0,
+          weight: checkout?.total_weight || 0,
+        },
       },
       {
         onSuccess(data) {
@@ -382,4 +383,3 @@ function DeliveryAddressModal({
 }
 
 export default DeliveryAddressModal;
-

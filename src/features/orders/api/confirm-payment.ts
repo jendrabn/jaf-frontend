@@ -1,15 +1,51 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { ConfirmPaymentReqTypes } from "@/types/order";
+import type { MutationConfig } from "@/lib/react-query";
+import type { NoContentTypes } from "@/types";
 
-export const useConfirmPayment = () =>
-  useMutation({
-    mutationFn: ({
-      orderId,
-      data,
-    }: {
-      orderId: number;
-      data: ConfirmPaymentReqTypes;
-    }) => api.post(`/orders/${orderId}/confirm_payment`, data),
+export type ConfirmPaymentInput = {
+  orderId: number;
+  data: {
+    name?: string;
+    account_name?: string;
+    account_number?: string;
+    account_username?: string;
+    phone?: string;
+  };
+};
+
+export type ConfirmPaymentResponse = NoContentTypes;
+
+export const confirmPayment = ({
+  orderId,
+  data,
+}: ConfirmPaymentInput): Promise<ConfirmPaymentResponse> => {
+  return api.post(`/orders/${orderId}/confirm_payment`, data);
+};
+
+type UseConfirmPaymentOptions = {
+  mutationConfig?: MutationConfig<typeof confirmPayment>;
+};
+
+export const useConfirmPayment = ({
+  mutationConfig,
+}: UseConfirmPaymentOptions = {}) => {
+  const queryClient = useQueryClient();
+  const { onSuccess, ...restConfig } = mutationConfig || {};
+
+  return useMutation({
+    onSuccess: (...args) => {
+      const variables = args[1];
+      // Invalidate related queries
+      queryClient.invalidateQueries({
+        queryKey: ["orders"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["order", variables.orderId], // Invalidate specific order query
+      });
+      onSuccess?.(...args);
+    },
+    ...restConfig,
+    mutationFn: confirmPayment,
   });
-
+};

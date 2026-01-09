@@ -43,8 +43,10 @@ export default function ProductDetailPage() {
 
     cartMutation.mutate(
       {
-        product_id: product.id,
-        quantity,
+        data: {
+          product_id: product.id,
+          quantity,
+        },
       },
       {
         onSuccess() {
@@ -60,7 +62,7 @@ export default function ProductDetailPage() {
     if (!product?.id) return;
 
     createWishlistMutation.mutate(
-      { product_id: product.id },
+      { data: { product_id: product.id } },
       {
         onSuccess() {
           toast.success("Berhasil ditambahkan ke wishlist.");
@@ -97,7 +99,7 @@ export default function ProductDetailPage() {
               keywords={`${product.name}, ${product.brand?.name}, parfum ${product.category?.name}`}
               canonical={`${env.APP_URL}/products/${product.slug}`}
               ogType="product"
-              ogImage={product.images[0]?.url}
+              ogImage={product.images[0]}
               ogImageAlt={product.name}
               productPrice={product.price}
               productCurrency="IDR"
@@ -109,7 +111,7 @@ export default function ProductDetailPage() {
                 generateProductSchema({
                   name: product.name,
                   description: product.description,
-                  image: product.images[0]?.url || "",
+                  image: product.images[0] || "",
                   price: product.price,
                   currency: "IDR",
                   availability: product.stock > 0 ? "in stock" : "out of stock",

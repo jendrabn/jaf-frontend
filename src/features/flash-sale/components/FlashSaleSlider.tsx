@@ -105,4 +105,3 @@ const FlashSaleSlider = ({ products }: FlashSaleSliderProps) => {
 };
 
 export default FlashSaleSlider;
-

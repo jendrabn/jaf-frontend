@@ -38,7 +38,7 @@ function CartItem({ cart }: CartItemProps) {
 
   const handleDelete = () => {
     deleteCartMutation.mutate(
-      { cart_ids: [id] },
+      { data: { cart_ids: [id] } },
       {
         onSuccess() {
           dispatch({ type: "DELETE", payload: id });
@@ -226,4 +226,3 @@ function CartItem({ cart }: CartItemProps) {
 }
 
 export default CartItem;
-

@@ -3,7 +3,6 @@ import { useGetBlog } from "@/features/blogs/api";
 import Layout from "@/components/layouts/Layout";
 import NotFoundPage from "@/pages/NotFound";
 import Loading from "@/components/ui/loading";
-
 import { Badge, Breadcrumb, Button, Image } from "react-bootstrap";
 import { useState } from "react";
 import { env } from "@/config/env";

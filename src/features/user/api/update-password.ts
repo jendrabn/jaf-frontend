@@ -3,28 +3,27 @@ import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
 import type { NoContentTypes } from "@/types";
 
-export type CreateCartInput = {
-  product_id: number;
-  quantity: number;
-};
+export type UpdatePasswordResponse = NoContentTypes;
 
-export type CreateCartResponse = NoContentTypes;
-
-export const createCart = ({
+export const updatePassword = ({
   data,
 }: {
-  data: CreateCartInput;
-}): Promise<CreateCartResponse> => {
-  return api.post("/carts", data);
+  data: {
+    current_password: string;
+    new_password: string;
+    new_password_confirmation: string;
+  };
+}): Promise<UpdatePasswordResponse> => {
+  return api.put("/user/change_password", data);
 };
 
-type UseCreateCartOptions = {
-  mutationConfig?: MutationConfig<typeof createCart>;
+type UseUpdatePasswordOptions = {
+  mutationConfig?: MutationConfig<typeof updatePassword>;
 };
 
-export const useCreateCart = ({
+export const useUpdatePassword = ({
   mutationConfig,
-}: UseCreateCartOptions = {}) => {
+}: UseUpdatePasswordOptions = {}) => {
   const queryClient = useQueryClient();
   const { onSuccess, ...restConfig } = mutationConfig || {};
 
@@ -32,11 +31,11 @@ export const useCreateCart = ({
     onSuccess: (...args) => {
       // Invalidate related queries
       queryClient.invalidateQueries({
-        queryKey: ["carts"],
+        queryKey: ["user"],
       });
       onSuccess?.(...args);
     },
     ...restConfig,
-    mutationFn: createCart,
+    mutationFn: updatePassword,
   });
 };

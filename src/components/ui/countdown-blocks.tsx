@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import "./countdown-blocks.scss";
 
 export interface CountdownBlocksProps {
   targetDate?: string | Date | null;
@@ -106,4 +105,3 @@ const CountdownBlocks = ({
 };
 
 export default CountdownBlocks;
-

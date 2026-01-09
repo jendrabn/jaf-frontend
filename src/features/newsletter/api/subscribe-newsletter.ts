@@ -1,24 +1,34 @@
 import { useMutation } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import { toast } from "react-toastify";
-import type { NewsletterRequest, NewsletterResponse } from "@/types/newsletter";
+import type { NewsletterResponse } from "@/types/newsletter";
 
-const useSubscribeNewsletter = () =>
-  useMutation<NewsletterResponse, Error, NewsletterRequest>({
-    mutationFn: (data: NewsletterRequest) =>
-      api.post("/newsletter/subscribe", data),
-    onSuccess: (data) => {
-      toast.success(data.message);
-    },
-    onError: (error: unknown) => {
-      const errorMessage =
-        (error as { response?: { data?: { message?: string } } })?.response
-          ?.data?.message ||
-        (error as Error).message ||
-        "Failed to subscribe to newsletter";
-      toast.error(errorMessage);
-    },
-  });
+export const subscribeNewsletter = ({
+  data,
+}: {
+  data: { email: string };
+}): Promise<NewsletterResponse> => {
+  return api.post("/newsletter/subscribe", data);
+};
 
-export default useSubscribeNewsletter;
+type UseSubscribeNewsletterOptions = {
+  // No specific config needed for this hook
+};
 
+export const useSubscribeNewsletter =
+  ({}: UseSubscribeNewsletterOptions = {}) => {
+    return useMutation({
+      mutationFn: subscribeNewsletter,
+      onSuccess: (data) => {
+        toast.success(data.message);
+      },
+      onError: (error: unknown) => {
+        const errorMessage =
+          (error as { response?: { data?: { message?: string } } })?.response
+            ?.data?.message ||
+          (error as Error).message ||
+          "Failed to subscribe to newsletter";
+        toast.error(errorMessage);
+      },
+    });
+  };
