@@ -20,3 +20,4 @@ export interface SubDistrictTypes {
   name: string;
   zip_code: string;
 }
+

@@ -1,14 +1,14 @@
 import Layout from "@/components/layouts/Layout";
-import ProductItem from "@/components/parts/ProductItem";
-import Loading from "@/components/ui/Loading";
-import NoData from "@/components/ui/NoData";
-import CountdownBlocks from "@/components/ui/CountdownBlocks";
-import { useFetchFlashSales } from "@/hooks/api/flash-sale";
+import ProductItem from "@/features/products/components/ProductItem";
+import Loading from "@/components/ui/loading";
+import NoData from "@/components/ui/no-data";
+import CountdownBlocks from "@/components/ui/countdown-blocks";
+import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
-import "@/components/pages/FlashSale/index.scss";
+import "@/features/flash-sale/index.scss";
 
 const formatTime = (dateString: string) => {
   const d = new Date(dateString);
@@ -52,7 +52,7 @@ const formatTabLabel = (sale: FlashSaleScheduleTypes) => {
 };
 
 const FlashSalePage = () => {
-  const { data, isLoading } = useFetchFlashSales();
+  const { data, isLoading } = useGetFlashSales();
   const flashSales = data || [];
   const [activeId, setActiveId] = useState<number | null>(null);
 
@@ -186,3 +186,4 @@ const FlashSalePage = () => {
 };
 
 export default FlashSalePage;
+

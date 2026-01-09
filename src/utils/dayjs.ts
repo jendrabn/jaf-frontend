@@ -6,3 +6,4 @@ dayjs.extend(relativeTime);
 dayjs.locale("id");
 
 export default dayjs;
+

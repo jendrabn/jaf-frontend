@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router";
 import Layout from "@/components/layouts/Layout";
-import { useCreateOrder } from "@/hooks/api/order";
+import { useCreateOrder } from "@/features/orders/api";
 import { useCallback, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import { formatCurrency, toNumber } from "@/utils/functions";
 import { toast } from "react-toastify";
-import DeliveryAddressModal from "@/components/pages/Checkout/DeliveryAddressModal";
-import DeliveryAddress from "@/components/pages/Checkout/DeliveryAddress";
-import ProductOrderedList from "@/components/pages/Checkout/ProductOrderedList";
-import PaymentMethod from "@/components/pages/Checkout/PaymentMethod";
-import ApplyCouponForm from "@/components/pages/Checkout/ApplyCouponForm";
+import DeliveryAddressModal from "@/features/checkout/components/DeliveryAddressModal";
+import DeliveryAddress from "@/features/checkout/components/DeliveryAddress";
+import ProductOrderedList from "@/features/checkout/components/ProductOrderedList";
+import PaymentMethod from "@/features/checkout/components/PaymentMethod";
+import ApplyCouponForm from "@/features/checkout/components/ApplyCouponForm";
 import { useQueryClient } from "@tanstack/react-query";
 import {
   useCheckoutDispatch,
@@ -316,3 +316,4 @@ function CheckoutPage() {
   );
 }
 export default CheckoutPage;
+

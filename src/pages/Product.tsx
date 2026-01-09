@@ -1,14 +1,14 @@
-import { useFetchProducts } from "@/hooks/api/product";
+import { useGetProducts } from "@/features/products/api";
 import type { ProductItemTypes, ProductParamsTypes } from "@/types/product";
-import ProductItem from "@/components/parts/ProductItem";
-import ProductFilters from "@/components/pages/Product/ProductFilters";
-import Loading from "@/components/ui/Loading";
-import Pagination from "@/components/ui/Pagination";
-import useFilters from "@/hooks/useFilters";
+import ProductItem from "@/features/products/components/ProductItem";
+import ProductFilters from "@/features/products/components/ProductFilters";
+import Loading from "@/components/ui/loading";
+import Pagination from "@/components/ui/pagination";
+import useFilters from "@/hooks/use-filters";
 import Layout from "@/components/layouts/Layout";
 import { Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { useState } from "react";
-import NoData from "@/components/ui/NoData";
+import NoData from "@/components/ui/no-data";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
 
@@ -43,7 +43,7 @@ const ProductPage = () => {
   const { params, queryString, setFilter, clearFilters } =
     useFilters<ProductParamsTypes>();
 
-  const { data: products, isLoading } = useFetchProducts(queryString);
+  const { data: products, isLoading } = useGetProducts(queryString);
 
   const [showFilters, setShowFilters] = useState(false);
 
@@ -183,3 +183,4 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
+

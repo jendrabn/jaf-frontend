@@ -1,12 +1,12 @@
 import Layout from "@/components/layouts/Layout";
 import { useNavigate } from "react-router";
-import { useCheckoutState } from "@/hooks/api/order";
+import { useCheckoutState } from "@/features/orders/api";
 import { formatCurrency } from "@/utils/format";
 import { Button, Form } from "react-bootstrap";
-import { useDeleteCart } from "@/hooks/api/cart";
-import CartItem from "@/components/parts/CartItem";
+import { useDeleteCart } from "@/features/carts/api";
+import CartItem from "@/features/carts/components/CartItem";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
-import NoData from "@/components/ui/NoData";
+import NoData from "@/components/ui/no-data";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
 
@@ -185,3 +185,4 @@ function CartPage() {
 }
 
 export default CartPage;
+

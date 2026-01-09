@@ -2,14 +2,14 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { toast, ToastContainer } from "react-toastify";
-import ProtectedRoute from "@/components/parts/ProtectedRoute";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AxiosError } from "axios";
 import { AuthProvider } from "@/contexts/AuthContext.tsx";
 import { CartProvider } from "@/contexts/CartContext.tsx";
 import { WishlistProvider } from "@/contexts/WishlistContext.tsx";
 import { CheckoutProvider } from "@/contexts/CheckoutContext.tsx";
-import Loading from "@/components/ui/Loading";
+import Loading from "@/components/ui/loading";
 import "bootstrap";
 import "@/styles/style.scss";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -283,3 +283,4 @@ function App() {
 }
 
 export default App;
+

@@ -2,9 +2,9 @@ import { Navigate } from "react-router";
 import { useAuthState } from "@/contexts/AuthContext";
 import { useLocation } from "react-router";
 import { type PropsWithChildren } from "react";
-import Loading from "@/components/ui/Loading";
-import Navbar from "../parts/Navbar";
-import Footer from "../parts/Footer";
+import Loading from "@/components/ui/loading";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 import { Card } from "react-bootstrap";
 
 function AuthLayout({
@@ -48,3 +48,4 @@ function AuthLayout({
 }
 
 export default AuthLayout;
+

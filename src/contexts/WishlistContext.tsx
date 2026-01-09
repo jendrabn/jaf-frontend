@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useEffect, useReducer } from "react";
 import type { WishlistTypes } from "@/types/wishlist";
-import { useFetchWishlist } from "@/hooks/api/wishlist";
+import { useGetWishlist } from "@/features/wishlist/api";
 
 // Action type
 type WishlistAction =
@@ -80,7 +80,7 @@ export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(reducers, initialState);
-  const { data: wishlists } = useFetchWishlist();
+  const { data: wishlists } = useGetWishlist();
 
   useEffect(() => {
     if (wishlists) {
@@ -115,3 +115,4 @@ export const useWishlistDispatch = () => {
   }
   return context;
 };
+

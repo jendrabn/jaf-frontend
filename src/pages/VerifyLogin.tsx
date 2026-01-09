@@ -3,10 +3,10 @@ import { Button, Form } from "react-bootstrap";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router";
-import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
+import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { env } from "@/config/env";
-import { useVerifyLoginOtp } from "@/hooks/api/auth/useVerifyLoginOtp";
-import { useResendLoginOtp } from "@/hooks/api/auth/useResendLoginOtp";
+import { useVerifyLoginOtp } from "@/features/auth/api/verify-login-otp";
+import { useResendLoginOtp } from "@/features/auth/api/resend-login-otp";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useEffect, useRef, useState } from "react";
 
@@ -247,3 +247,4 @@ const VerifyLoginPage = () => {
 };
 
 export default VerifyLoginPage;
+

@@ -1,18 +1,18 @@
 import { Link, useParams } from "react-router";
-import { useFetchBlog } from "@/hooks/api/blog";
+import { useGetBlog } from "@/features/blogs/api";
 import Layout from "@/components/layouts/Layout";
 import NotFoundPage from "@/pages/NotFound";
-import Loading from "@/components/ui/Loading";
+import Loading from "@/components/ui/loading";
 import { Helmet } from "react-helmet-async";
 import { Badge, Breadcrumb, Button, Image } from "react-bootstrap";
 import { useState } from "react";
 import { env } from "@/config/env";
-import ShareModal from "@/components/parts/ShareModal";
+import ShareModal from "@/components/ShareModal";
 import dayjs from "@/utils/dayjs";
 
 function BlogDetailPage() {
   const { slug } = useParams();
-  const { data: blog, isLoading } = useFetchBlog(slug);
+  const { data: blog, isLoading } = useGetBlog(slug);
   const [showShareModal, setShowShareModal] = useState(false);
 
   if (!isLoading && !blog) return <NotFoundPage />;
@@ -182,3 +182,4 @@ function BlogDetailPage() {
 }
 
 export default BlogDetailPage;
+

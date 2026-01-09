@@ -12,3 +12,4 @@ export interface WishlistReqTypes {
 export interface DeleteWishlistReqTypes {
   wishlist_ids: Array<number>;
 }
+

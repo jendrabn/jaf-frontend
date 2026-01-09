@@ -35,3 +35,4 @@ export interface ResetPasswordReqTypes {
   password?: string;
   password_confirmation?: string;
 }
+

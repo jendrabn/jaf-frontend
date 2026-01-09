@@ -186,3 +186,4 @@ export interface RatingReqTypes {
   comment: string;
   is_anonymous: boolean;
 }
+

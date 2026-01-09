@@ -1,9 +1,9 @@
 import { useState } from "react";
-import OurServices from "@/components/parts/OurServices";
+import OurServices from "@/components/OurServices";
 import googleReviews from "@/data/google-reviews.json";
 import Layout from "@/components/layouts/Layout";
 import { Helmet } from "react-helmet-async";
-import StarRating from "@/components/ui/StarRating";
+import StarRating from "@/components/ui/star-rating";
 import { env } from "@/config/env";
 
 const AboutPage = () => {
@@ -205,3 +205,4 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+

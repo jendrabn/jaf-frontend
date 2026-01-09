@@ -1,21 +1,21 @@
 import { useParams } from "react-router";
 import AccountLayout from "@/components/layouts/AccountLayout";
-import { useFetchOrder } from "@/hooks/api/order";
+import { useGetOrder } from "@/features/orders/api";
 import NotFoundPage from "@/pages/NotFound";
-import Loading from "@/components/ui/Loading";
+import Loading from "@/components/ui/loading";
 import { Alert, Button } from "react-bootstrap";
 import {
   ORDER_STATUS_COLORS,
   ORDER_STATUSES,
   PAYMENT_METHOD_GATEWAY,
 } from "@/utils/constans";
-import ProductImage from "@/components/parts/ProductImage";
+import ProductImage from "@/features/products/components/ProductImage";
 import { useState, useEffect, useRef, useCallback } from "react";
-import ConfirmPaymentModal from "@/components/parts/Order/ConfirmPaymentModal";
-import ConfirmOrderReceivedModal from "@/components/parts/Order/ConfirmOrderReceivedModal";
+import ConfirmPaymentModal from "@/features/orders/components/ConfirmPaymentModal";
+import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrderReceivedModal";
 import { useLocation, useNavigate } from "react-router";
 import { Helmet } from "react-helmet-async";
-import AddRatingModal from "@/components/parts/Order/AddRatingModal";
+import AddRatingModal from "@/features/orders/components/AddRatingModal";
 import { formatCurrency } from "@/utils/format";
 import { env } from "@/config/env";
 import { loadSnapScript, payWithSnap } from "@/lib/midtrans";
@@ -23,13 +23,13 @@ import { toast } from "react-toastify";
 import type { PaymentInfoTypes } from "@/types/order";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/utils/constans";
-import PayNowButton from "@/components/parts/Order/PayNowButton";
-import TrackingModal from "@/components/parts/Order/TrackingModal";
+import PayNowButton from "@/features/orders/components/PayNowButton";
+import TrackingModal from "@/features/orders/components/TrackingModal";
 import dayjs from "@/utils/dayjs";
 
 const OrderDetailPage = () => {
   const { id } = useParams();
-  const { data: order, isLoading, refetch } = useFetchOrder(Number(id));
+  const { data: order, isLoading, refetch } = useGetOrder(Number(id));
   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -596,3 +596,4 @@ const OrderDetailPage = () => {
 };
 
 export default OrderDetailPage;
+

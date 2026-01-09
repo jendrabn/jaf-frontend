@@ -21,3 +21,4 @@ export interface PaymentGatewayTypes {
   client_key: string;
   fee: number; // flat fee in currency unit
 }
+

@@ -98,3 +98,4 @@ export interface ProductDetailTypes extends ProductFlashSaleMeta {
   ratings: RatingTypes[];
   sku: string;
 }
+

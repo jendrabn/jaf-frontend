@@ -60,3 +60,4 @@ export const toNumber = (value: unknown, fallback = 0): number => {
 export function words(value: string, words: number, end: string = "...") {
   return value.split(" ").slice(0, words).join(" ") + end;
 }
+

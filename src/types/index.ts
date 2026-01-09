@@ -16,3 +16,4 @@ export interface PageTypes {
 export interface NoContentTypes {
   data: true;
 }
+

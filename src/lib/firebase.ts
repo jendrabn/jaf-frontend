@@ -85,3 +85,4 @@ export const subscribeToForegroundMessages = async (
 };
 
 export default app;
+

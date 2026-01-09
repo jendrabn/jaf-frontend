@@ -1,29 +1,29 @@
-import { useFetchLanding } from "@/hooks/api/landing";
-import ProductItem from "@/components/parts/ProductItem";
-import BlogItem from "@/components/parts/BlogItem";
+import { useGetLanding } from "@/features/landing/api";
+import ProductItem from "@/features/products/components/ProductItem";
+import BlogItem from "@/features/blogs/components/BlogItem";
 import type { ProductItemTypes } from "@/types/product";
-import Loading from "@/components/ui/Loading";
-import OurServices from "@/components/parts/OurServices";
-import OurMarketplace from "@/components/parts/OurMarketplace";
-import Newsletter from "@/components/parts/Newsletter";
+import Loading from "@/components/ui/loading";
+import OurServices from "@/components/OurServices";
+import OurMarketplace from "@/components/OurMarketplace";
+import Newsletter from "@/components/Newsletter";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
-import BannerSlider from "@/components/pages/Home/BannerSlider";
-import Footer from "@/components/parts/Footer";
-import Navbar from "@/components/parts/Navbar";
-import BrandSlider from "@/components/parts/BrandSlider";
-import { useFetchProductBrands } from "@/hooks/api/product";
+import BannerSlider from "@/features/landing/components/BannerSlider";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import BrandSlider from "@/features/landing/components/BrandSlider";
+import { useGetProductBrands } from "@/features/products/api";
 import { Link } from "react-router";
-import { useFetchFlashSales } from "@/hooks/api/flash-sale";
+import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
-import FlashSaleSlider from "@/components/parts/FlashSaleSlider";
-import CountdownBlocks from "@/components/ui/CountdownBlocks";
+import FlashSaleSlider from "@/features/flash-sale/components/FlashSaleSlider";
+import CountdownBlocks from "@/components/ui/countdown-blocks";
 
 function HomePage() {
-  const { data: landing, isLoading } = useFetchLanding();
-  const { data: brands, isLoading: isLoadingBrands } = useFetchProductBrands();
+  const { data: landing, isLoading } = useGetLanding();
+  const { data: brands, isLoading: isLoadingBrands } = useGetProductBrands();
   const { data: flashSales, isLoading: isLoadingFlashSales } =
-    useFetchFlashSales();
+    useGetFlashSales();
 
   const getRunningFlashSale = (flashSales?: FlashSaleScheduleTypes[]) =>
     flashSales?.find((sale) => sale.status === "running");
@@ -101,8 +101,8 @@ function HomePage() {
 
             {isLoadingFlashSales && <Loading className="py-4" />}
 
-            {flashSales && flashSales.length > 0 && (
-              <FlashSaleSlider products={runningFlashSale?.products || []} />
+            {runningFlashSale && (
+              <FlashSaleSlider products={runningFlashSale.products || []} />
             )}
           </div>
         </section>
@@ -276,3 +276,4 @@ function HomePage() {
 }
 
 export default HomePage;
+

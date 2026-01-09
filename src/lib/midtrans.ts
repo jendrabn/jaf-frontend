@@ -64,3 +64,4 @@ export function payWithSnap(token: string, callbacks?: SnapCallbacks) {
   }
   window.snap.pay(token, callbacks);
 }
+

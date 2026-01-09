@@ -19,3 +19,4 @@ export interface FlashSaleScheduleTypes {
   is_active: boolean;
   products: FlashSaleItemTypes[];
 }
+

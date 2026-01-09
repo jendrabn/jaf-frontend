@@ -1,14 +1,14 @@
 import AccountLayout from "@/components/layouts/AccountLayout";
-import { useFetchOrders } from "@/hooks/api/order";
-import Pagination from "@/components/ui/Pagination";
-import useFilters from "@/hooks/useFilters";
+import { useGetOrders } from "@/features/orders/api";
+import Pagination from "@/components/ui/pagination";
+import useFilters from "@/hooks/use-filters";
 import { type ChangeEvent, useState } from "react";
-import OrderItem from "@/components/parts/Order/OrderItem";
-import Loading from "@/components/ui/Loading";
+import OrderItem from "@/features/orders/components/OrderItem";
+import Loading from "@/components/ui/loading";
 import { ORDER_STATUSES } from "@/utils/constans";
-import ConfirmOrderReceivedModal from "@/components/parts/Order/ConfirmOrderReceivedModal";
+import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrderReceivedModal";
 import { Alert, Button, Form, Offcanvas } from "react-bootstrap";
-import NoData from "@/components/ui/NoData";
+import NoData from "@/components/ui/no-data";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
 
@@ -55,7 +55,7 @@ const SortSelect = ({
 
 const OrderPage = () => {
   const { setFilter, clearFilters, queryString } = useFilters();
-  const { data: orders, isLoading } = useFetchOrders(queryString);
+  const { data: orders, isLoading } = useGetOrders(queryString);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
   const [showConfirmOrderReceivedModal, setShowConfirmOrderReceivedModal] =
     useState(false);
@@ -216,3 +216,4 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
+

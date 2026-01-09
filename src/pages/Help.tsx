@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/layouts/Layout";
-import CustomerServiceContact from "@/components/parts/CustomerServiceContact";
+import CustomerServiceContact from "@/components/CustomerServiceContact";
 import { env } from "@/config/env";
 
 const HelpPage = () => {
@@ -74,3 +74,4 @@ const HelpPage = () => {
 };
 
 export default HelpPage;
+

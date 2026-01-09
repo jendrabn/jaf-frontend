@@ -22,3 +22,4 @@ export interface PasswordReqTypes {
   password: string;
   password_confirmation: string;
 }
+

@@ -1,23 +1,23 @@
 import { Breadcrumb, Button, Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router";
 import { getGenderLabel, formatCurrency } from "@/utils/functions";
-import ProductItem from "@/components/parts/ProductItem";
+import ProductItem from "@/features/products/components/ProductItem";
 import { useState } from "react";
-import { useCreateCart } from "@/hooks/api/cart";
+import { useCreateCart } from "@/features/carts/api";
 import Layout from "@/components/layouts/Layout";
 import NotFoundPage from "@/pages/NotFound";
-import { useFetchProduct, useFetchRelatedProducts } from "@/hooks/api/product";
-import { useCreateWishlist } from "@/hooks/api/wishlist";
-import Loading from "@/components/ui/Loading";
-import QuantityInput from "@/components/ui/QuantityInput";
+import { useGetProduct, useGetRelatedProducts } from "@/features/products/api";
+import { useCreateWishlist } from "@/features/wishlist/api";
+import Loading from "@/components/ui/loading";
+import QuantityInput from "@/components/ui/quantity-input";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import StarRating from "@/components/ui/StarRating";
+import StarRating from "@/components/ui/star-rating";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
-import ProductImageSlider from "@/components/pages/ProductDetail/ProductImageSlider";
-import ShareModal from "@/components/parts/ShareModal";
-import CountdownBlocks from "@/components/ui/CountdownBlocks";
+import ProductImageSlider from "@/features/products/components/ProductImageSlider";
+import ShareModal from "@/components/ShareModal";
+import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { getProductPricingInfo } from "@/utils/pricing";
 
 export default function ProductDetailPage() {
@@ -28,8 +28,8 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState<number>(1);
   const queryClient = useQueryClient();
 
-  const { data: product, isLoading } = useFetchProduct(slug);
-  const { data: relatedProducts } = useFetchRelatedProducts(slug);
+  const { data: product, isLoading } = useGetProduct(slug);
+  const { data: relatedProducts } = useGetRelatedProducts(slug);
 
   const cartMutation = useCreateCart();
   const createWishlistMutation = useCreateWishlist();
@@ -386,3 +386,4 @@ export default function ProductDetailPage() {
     </Layout>
   );
 }
+

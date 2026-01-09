@@ -1,5 +1,5 @@
 import { requestFcmToken } from "@/lib/firebase";
-import { updateFcmToken } from "@/hooks/api/notification";
+import { updateFcmToken } from "@/features/notifications/api";
 
 // Fungsi untuk menginisialisasi dan menyinkronkan token FCM
 export const initializeFcmToken = async (
@@ -86,3 +86,4 @@ export const refreshFcmToken = async (): Promise<string | null> => {
     return null;
   }
 };
+

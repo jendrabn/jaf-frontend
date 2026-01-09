@@ -118,3 +118,4 @@ export interface AddressTypes {
   zip_code?: string;
   address?: string;
 }
+

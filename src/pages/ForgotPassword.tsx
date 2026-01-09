@@ -1,9 +1,9 @@
 import { Button, Form } from "react-bootstrap";
 import AuthLayout from "@/components/layouts/AuthLayout";
-import { useForgotPassword } from "@/hooks/api/auth";
+import { useForgotPassword } from "@/features/auth/api";
 import type { ForgotPasswordReqTypes } from "@/types/auth";
 import { toast } from "react-toastify";
-import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
+import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
@@ -54,3 +54,4 @@ function ForgotPasswordPage() {
 }
 
 export default ForgotPasswordPage;
+

@@ -24,3 +24,4 @@ export type MutationConfig<
   Error,
   Parameters<MutationFnType>[0]
 >;
+

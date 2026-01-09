@@ -1,16 +1,16 @@
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router";
 import AuthLayout from "@/components/layouts/AuthLayout";
-import { useLogin } from "@/hooks/api/auth";
+import { useLogin } from "@/features/auth/api";
 import type { LoginReqTypes } from "@/types/auth";
-import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
+import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useLocation } from "react-router";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
-import PasswordInput from "@/components/ui/PasswordInput";
+import PasswordInput from "@/components/ui/password-input";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
-import GoogleLoginButton from "@/components/parts/GoogleLoginButton";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -110,3 +110,4 @@ function LoginPage() {
 }
 
 export default LoginPage;
+

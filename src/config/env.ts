@@ -71,6 +71,8 @@ const createEnv = () => {
 
     GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID,
     FIREBASE_VAPID_KEY: import.meta.env.VITE_FIREBASE_VAPID_KEY,
+
+    MIDTRANS_ENV: import.meta.env.VITE_MIDTRANS_ENV,
   };
 
   const parsedEnv = EnvSchema.safeParse(envVars);
@@ -90,3 +92,4 @@ ${Object.entries(parsedEnv.error.flatten().fieldErrors)
 };
 
 export const env = createEnv();
+

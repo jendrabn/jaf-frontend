@@ -32,3 +32,4 @@ export interface UnreadCountResponse {
   data?: number;
   count?: number;
 }
+

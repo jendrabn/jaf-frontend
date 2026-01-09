@@ -1,15 +1,15 @@
-import { useFetchBlogs } from "@/hooks/api/blog";
+import { useGetBlogs } from "@/features/blogs/api";
 import type { BlogParamsTypes } from "@/types/blog";
-import BlogItem from "@/components/parts/BlogItem";
-import Loading from "@/components/ui/Loading";
-import Pagination from "@/components/ui/Pagination";
+import BlogItem from "@/features/blogs/components/BlogItem";
+import Loading from "@/components/ui/loading";
+import Pagination from "@/components/ui/pagination";
 import Layout from "@/components/layouts/Layout";
-import BlogFilters from "@/components/pages/Blog/BlogFilters";
-import BlogHeader from "@/components/pages/Blog/BlogHeader";
-import useFilters from "@/hooks/useFilters";
+import BlogFilters from "@/features/blogs/components/BlogFilters";
+import BlogHeader from "@/features/blogs/components/BlogHeader";
+import useFilters from "@/hooks/use-filters";
 import { type ChangeEvent, type FormEvent, useState } from "react";
 import { Button, Form, InputGroup, Offcanvas, Dropdown } from "react-bootstrap";
-import NoData from "@/components/ui/NoData";
+import NoData from "@/components/ui/no-data";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
 
@@ -32,7 +32,7 @@ const BlogPage = () => {
   const { params, setFilter, queryString, clearFilters } =
     useFilters<BlogParamsTypes>();
   const [searchTerm, setSearchTerm] = useState<string>(params.search || "");
-  const { data: blogs, isLoading } = useFetchBlogs(queryString);
+  const { data: blogs, isLoading } = useGetBlogs(queryString);
   const [showFilter, setShowFilter] = useState(false);
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -190,3 +190,4 @@ const BlogPage = () => {
 };
 
 export default BlogPage;
+

@@ -16,3 +16,4 @@ export interface NewsletterResponse {
 export interface NewsletterRequest {
   email: string;
 }
+

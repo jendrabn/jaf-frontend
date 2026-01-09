@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import AccountLayout from "@/components/layouts/AccountLayout";
-import NotificationItem from "@/components/parts/NotificationItem";
+import NotificationItem from "@/features/notifications/components/NotificationItem";
 import {
-  useFetchNotifications,
+  useGetNotifications,
   useMarkNotificationAsRead,
   useMarkAllNotificationsAsRead,
-} from "@/hooks/api/notification/useFetchNotifications";
+} from "@/features/notifications/api/get-notifications";
 import { Button, Badge, Spinner, Alert, Pagination } from "react-bootstrap";
-import Loading from "@/components/ui/Loading";
+import Loading from "@/components/ui/loading";
 import { initializeFcmToken, refreshFcmToken } from "@/utils/fcm";
 
 const NotificationsPage = () => {
@@ -31,7 +31,7 @@ const NotificationsPage = () => {
     isLoading,
     error,
     refetch,
-  } = useFetchNotifications(currentPage);
+  } = useGetNotifications(currentPage);
   const markAsReadMutation = useMarkNotificationAsRead();
   const markAllAsReadMutation = useMarkAllNotificationsAsRead();
   const notifications = notificationsData?.data ?? [];
@@ -300,3 +300,4 @@ const NotificationsPage = () => {
 };
 
 export default NotificationsPage;
+

@@ -1,9 +1,9 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import AccountLayout from "@/components/layouts/AccountLayout";
 import type { PasswordReqTypes } from "@/types/user";
-import { useUpdatePassword } from "@/hooks/api/user";
-import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
-import PasswordInput from "@/components/ui/PasswordInput";
+import { useUpdatePassword } from "@/features/user";
+import ErrorValidationAlert from "@/components/ui/error-validation-alert";
+import PasswordInput from "@/components/ui/password-input";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -87,3 +87,4 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
+

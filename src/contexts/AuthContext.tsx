@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, type PropsWithChildren, useEffect } from "react";
 import type { UserTypes } from "@/types/user";
-import { useFetchUser } from "@/hooks/api/user";
+import { useGetUser } from "@/features/user";
 import { getAuthToken } from "@/utils/functions";
 import { useLocation } from "react-router";
 import { initializeFcmToken } from "@/utils/fcm";
@@ -53,7 +53,7 @@ const AuthDispatchContext = createContext<
 
 // Provider
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const { data: user, isLoading } = useFetchUser();
+  const { data: user, isLoading } = useGetUser();
 
   const [state, dispatch] = React.useReducer(authReducer, initialState);
 
@@ -107,3 +107,4 @@ export const useAuthDispatch = () => {
 
   return context;
 };
+

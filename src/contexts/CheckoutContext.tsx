@@ -135,3 +135,4 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
     </CheckoutStateContext.Provider>
   );
 };
+

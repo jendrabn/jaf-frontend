@@ -1,6 +1,6 @@
 import { type PropsWithChildren, useEffect } from "react";
-import Navbar from "@/components/parts/Navbar";
-import Footer from "@/components/parts/Footer";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { Card, Nav } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router";
 
@@ -94,3 +94,4 @@ const AccountLayout = ({ children, title }: AuthLayoutProps) => {
 };
 
 export default AccountLayout;
+

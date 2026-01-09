@@ -4,9 +4,9 @@ import {
   useWishlistState,
 } from "@/contexts/WishlistContext";
 import { Button, Form } from "react-bootstrap";
-import WishlistItem from "@/components/parts/WishlistItem";
-import { useDeleteWishlist } from "@/hooks/api/wishlist";
-import NoData from "@/components/ui/NoData";
+import WishlistItem from "@/features/wishlist/components/WishlistItem";
+import { useDeleteWishlist } from "@/features/wishlist/api";
+import NoData from "@/components/ui/no-data";
 import { Helmet } from "react-helmet-async";
 import { env } from "@/config/env";
 
@@ -116,3 +116,4 @@ const WishlistPage = () => {
 };
 
 export default WishlistPage;
+

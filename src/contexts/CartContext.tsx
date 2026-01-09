@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-import { useFetchCarts } from "@/hooks/api/cart";
+import { useGetCarts } from "@/features/carts/api";
 import { type CartItemTypes } from "@/types/cart";
 import { getSelectedCartIds, setSelectedCartIds } from "@/utils/functions";
 import { useLocation } from "react-router";
@@ -107,7 +107,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-  const { data: carts } = useFetchCarts();
+  const { data: carts } = useGetCarts();
   const location = useLocation();
 
   // Fetch carts from API and set state
@@ -140,8 +140,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         .filter((cart) => state.selectedIds.includes(cart.id))
         .reduce(
           (total, cart) =>
-            total +
-            getProductFinalPrice(cart.product) * cart.quantity,
+            total + getProductFinalPrice(cart.product) * cart.quantity,
           0
         ),
     [state.carts, state.selectedIds]
@@ -185,3 +184,4 @@ export function useCartDispatch(): React.Dispatch<CartAction> {
   }
   return context;
 }
+

@@ -2,10 +2,10 @@ import { Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router";
 import type { RegisterReqTypes } from "@/types/auth";
-import { useRegister } from "@/hooks/api/auth";
+import { useRegister } from "@/features/auth/api";
 import AuthLayout from "@/components/layouts/AuthLayout";
-import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
-import PasswordInput from "@/components/ui/PasswordInput";
+import ErrorValidationAlert from "@/components/ui/error-validation-alert";
+import PasswordInput from "@/components/ui/password-input";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
@@ -73,3 +73,4 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+

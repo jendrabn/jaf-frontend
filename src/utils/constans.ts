@@ -50,3 +50,4 @@ export const QUERY_KEYS = {
   DISTRICTS: "districts",
   SUBDISTRICTS: "subdistricts",
 };
+

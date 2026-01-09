@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Form, Alert } from "react-bootstrap";
 import Layout from "@/components/layouts/Layout";
-import CustomerServiceContact from "@/components/parts/CustomerServiceContact";
+import CustomerServiceContact from "@/components/CustomerServiceContact";
 import { env } from "@/config/env";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
@@ -212,3 +212,4 @@ function ContactPage() {
 }
 
 export default ContactPage;
+
