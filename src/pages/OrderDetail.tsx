@@ -14,7 +14,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import ConfirmPaymentModal from "@/features/orders/components/ConfirmPaymentModal";
 import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrderReceivedModal";
 import { useLocation, useNavigate } from "react-router";
-import { Helmet } from "react-helmet-async";
+
 import AddRatingModal from "@/features/orders/components/AddRatingModal";
 import { formatCurrency } from "@/utils/format";
 import { env } from "@/config/env";
@@ -26,6 +26,7 @@ import { QUERY_KEYS } from "@/utils/constans";
 import PayNowButton from "@/features/orders/components/PayNowButton";
 import TrackingModal from "@/features/orders/components/TrackingModal";
 import dayjs from "@/utils/dayjs";
+import SEO from "@/components/SEO";
 
 const OrderDetailPage = () => {
   const { id } = useParams();
@@ -157,9 +158,12 @@ const OrderDetailPage = () => {
 
   return (
     <AccountLayout title="Detail Pesanan">
-      <Helmet>
-        <title>Detail Pesanan | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Detail Pesanan"
+        description="Detail pesanan Anda"
+        noIndex={true}
+        noFollow={true}
+      />
       {/* <OrderSuccessModal /> */}
 
       {order && (
@@ -596,4 +600,3 @@ const OrderDetailPage = () => {
 };
 
 export default OrderDetailPage;
-

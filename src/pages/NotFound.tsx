@@ -1,18 +1,18 @@
 import { env } from "@/config/env";
 import { Card } from "react-bootstrap";
-import { Helmet } from "react-helmet-async";
+
 import { Link } from "react-router";
+import SEO from "@/components/SEO";
 
 const NotFoundPage = () => {
   return (
     <>
-      <Helmet>
-        <title>Halaman Tidak Ditemukan | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Halaman yang Anda cari tidak tersedia."
-        />
-      </Helmet>
+      <SEO
+        title="404 - Halaman Tidak Ditemukan"
+        description="Maaf, halaman yang Anda cari tidak ditemukan."
+        noIndex={true}
+        noFollow={false}
+      />
 
       <a
         href="#main-content"
@@ -64,4 +64,3 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
-

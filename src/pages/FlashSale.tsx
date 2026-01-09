@@ -6,8 +6,9 @@ import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 import "@/features/flash-sale/index.scss";
 
 const formatTime = (dateString: string) => {
@@ -87,9 +88,13 @@ const FlashSalePage = () => {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Flash Sale | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Flash Sale"
+        description="Nikmati harga spesial untuk pilihan parfum dan home care favorit, stok terbatas dan hanya tersedia pada jam tertentu."
+        keywords="flash sale, diskon parfum, promo parfum, harga murah, parfum diskon"
+        canonical={`${env.APP_URL}/flash-sale`}
+        ogType="website"
+      />
 
       <div className="container flash-sale-page">
         <div className="flash-sale-hero mb-4">
@@ -186,4 +191,3 @@ const FlashSalePage = () => {
 };
 
 export default FlashSalePage;
-

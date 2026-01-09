@@ -6,9 +6,10 @@ import { useResetPassword } from "@/features/auth/api";
 import { toast } from "react-toastify";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
-import { Helmet } from "react-helmet-async";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
@@ -38,9 +39,12 @@ function ResetPasswordPage() {
 
   return (
     <AuthLayout title="Reset Password">
-      <Helmet>
-        <title>Reset Password | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Reset Password"
+        description="Reset password akun Anda"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ErrorValidationAlert error={error} onClose={reset} />
 
@@ -80,4 +84,3 @@ function ResetPasswordPage() {
 }
 
 export default ResetPasswordPage;
-

@@ -13,12 +13,14 @@ import QuantityInput from "@/components/ui/quantity-input";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import StarRating from "@/components/ui/star-rating";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
 import ProductImageSlider from "@/features/products/components/ProductImageSlider";
 import ShareModal from "@/components/ShareModal";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { getProductPricingInfo } from "@/utils/pricing";
+import SEO from "@/components/SEO";
+import { generateProductSchema } from "@/utils/seo-schemas";
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
@@ -88,11 +90,38 @@ export default function ProductDetailPage() {
 
       {!isLoading && product && (
         <>
-          <Helmet>
-            <title>
-              {product.name} | {env.APP_NAME}
-            </title>
-          </Helmet>
+          {product && (
+            <SEO
+              title={product.name}
+              description={product.description.substring(0, 160)}
+              keywords={`${product.name}, ${product.brand?.name}, parfum ${product.category?.name}`}
+              canonical={`${env.APP_URL}/products/${product.slug}`}
+              ogType="product"
+              ogImage={product.images[0]?.url}
+              ogImageAlt={product.name}
+              productPrice={product.price}
+              productCurrency="IDR"
+              productAvailability={
+                product.stock > 0 ? "in stock" : "out of stock"
+              }
+              productBrand={product.brand?.name}
+              structuredData={[
+                generateProductSchema({
+                  name: product.name,
+                  description: product.description,
+                  image: product.images[0]?.url || "",
+                  price: product.price,
+                  currency: "IDR",
+                  availability: product.stock > 0 ? "in stock" : "out of stock",
+                  brand: product.brand?.name,
+                  sku: product.sku,
+                  rating: product.rating_avg,
+                  reviewCount: product.ratings.length,
+                  url: `${env.APP_URL}/products/${product.slug}`,
+                }),
+              ]}
+            />
+          )}
 
           <div className="container">
             {/* Breadcrumb */}
@@ -386,4 +415,3 @@ export default function ProductDetailPage() {
     </Layout>
   );
 }
-

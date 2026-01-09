@@ -6,9 +6,10 @@ import { useRegister } from "@/features/auth/api";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
-import { Helmet } from "react-helmet-async";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -29,9 +30,12 @@ function RegisterPage() {
 
   return (
     <AuthLayout title="Daftar">
-      <Helmet>
-        <title>Daftar | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Register"
+        description="Daftar akun baru di JAF Parfum's"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ErrorValidationAlert error={error} onClose={reset} />
 
@@ -73,4 +77,3 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
-

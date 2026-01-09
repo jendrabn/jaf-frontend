@@ -9,8 +9,10 @@ import Layout from "@/components/layouts/Layout";
 import { Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import NoData from "@/components/ui/no-data";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
+import { generateItemListSchema } from "@/utils/seo-schemas";
 
 const FILTER_OPTIONS: { label: string; value: string }[] = [
   {
@@ -59,13 +61,29 @@ const ProductPage = () => {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Produk | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Temukan parfum berkualitas dengan harga terjangkau. Jelajahi koleksi parfum kami yang lengkap dan nikmati penawaran menarik."
+      {products && (
+        <SEO
+          title="Produk"
+          description="Temukan parfum berkualitas dengan harga terjangkau. Jelajahi koleksi parfum kami yang lengkap dan nikmati penawaran menarik."
+          keywords="parfum murah, parfum original, jual parfum, toko parfum online"
+          canonical={`${env.APP_URL}/products`}
+          ogType="website"
+          structuredData={
+            products.data
+              ? [
+                  generateItemListSchema(
+                    products.data.slice(0, 10).map((p) => ({
+                      name: p.name,
+                      url: `${env.APP_URL}/products/${p.slug}`,
+                      image: p.image,
+                      price: p.price,
+                    }))
+                  ),
+                ]
+              : undefined
+          }
         />
-      </Helmet>
+      )}
 
       <div className="container">
         <div className="row g-5">
@@ -183,4 +201,3 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
-

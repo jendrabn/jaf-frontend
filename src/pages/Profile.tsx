@@ -8,8 +8,9 @@ import { toast } from "react-toastify";
 import { type ChangeEvent, useRef } from "react";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const ProfilePage = () => {
   const { user } = useAuthState();
@@ -87,13 +88,12 @@ const ProfilePage = () => {
 
   return (
     <AccountLayout title="Profil">
-      <Helmet>
-        <title>Profil | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Kelola informasi profil akun Anda di sini."
-        />
-      </Helmet>
+      <SEO
+        title="Profil Saya"
+        description="Kelola informasi profil akun Anda di sini."
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ErrorValidationAlert error={error} onClose={reset} />
 
@@ -213,4 +213,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-

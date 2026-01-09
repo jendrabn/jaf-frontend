@@ -16,7 +16,6 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { env } from "@/config/env";
 import { subscribeToForegroundMessages } from "@/lib/firebase";
-import { HelmetProvider } from "react-helmet-async";
 
 const HomePage = lazy(() => import("@/pages/Home"));
 const ProductDetailPage = lazy(() => import("@/pages/ProductDetail"));
@@ -178,109 +177,103 @@ function App() {
 
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={true} />
-        <HelmetProvider>
-          <BrowserRouter>
-            <AuthProvider>
-              <CartProvider>
-                <WishlistProvider>
-                  <CheckoutProvider>
-                    <Suspense fallback={<Loading className="min-dvh-100" />}>
-                      <ThemeProvider>
-                        <GoogleOAuthProvider
-                          clientId={env.GOOGLE_CLIENT_ID || ""}
-                        >
-                          <Routes>
-                            <Route path="*" element={<NotFoundPage />} />
-                            <Route index element={<HomePage />} />
-                            <Route
-                              path="flash-sale"
-                              element={<FlashSalePage />}
-                            />
-                            <Route path="products" element={<ProductPage />} />
-                            <Route
-                              path="products/:slug"
-                              element={<ProductDetailPage />}
-                            />
-                            <Route path="blog" element={<BlogPage />} />
-                            <Route
-                              path="blog/:slug"
-                              element={<BlogDetailPage />}
-                            />
-                            <Route path="contact" element={<ContactPage />} />
-                            <Route path="about" element={<AboutPage />} />
-                            <Route path="faq" element={<FaqPage />} />
-                            <Route path="help" element={<HelpPage />} />
+        <BrowserRouter>
+          <AuthProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <CheckoutProvider>
+                  <Suspense fallback={<Loading className="min-dvh-100" />}>
+                    <ThemeProvider>
+                      <GoogleOAuthProvider
+                        clientId={env.GOOGLE_CLIENT_ID || ""}
+                      >
+                        <Routes>
+                          <Route path="*" element={<NotFoundPage />} />
+                          <Route index element={<HomePage />} />
+                          <Route
+                            path="flash-sale"
+                            element={<FlashSalePage />}
+                          />
+                          <Route path="products" element={<ProductPage />} />
+                          <Route
+                            path="products/:slug"
+                            element={<ProductDetailPage />}
+                          />
+                          <Route path="blog" element={<BlogPage />} />
+                          <Route
+                            path="blog/:slug"
+                            element={<BlogDetailPage />}
+                          />
+                          <Route path="contact" element={<ContactPage />} />
+                          <Route path="about" element={<AboutPage />} />
+                          <Route path="faq" element={<FaqPage />} />
+                          <Route path="help" element={<HelpPage />} />
 
-                            {/* Protected Routes */}
-                            <Route element={<ProtectedRoute />}>
-                              <Route path="cart" element={<CartPage />} />
-                              <Route
-                                path="checkout"
-                                element={<CheckoutPage />}
-                              />
-                              <Route
-                                path="account/profile"
-                                element={<ProfilePage />}
-                              />
-                              <Route
-                                path="account/orders"
-                                element={<OrderPage />}
-                              />
-                              <Route
-                                path="account/orders/:id"
-                                element={<OrderDetailPage />}
-                              />
-                              <Route
-                                path="account/wishlist"
-                                element={<WishlistPage />}
-                              />
-                              <Route
-                                path="account/address"
-                                element={<AddressPage />}
-                              />
-                              <Route
-                                path="account/change-password"
-                                element={<ChangePassword />}
-                              />
-                              <Route
-                                path="account/notifications"
-                                element={<NotificationsPage />}
-                              />
-                            </Route>
+                          {/* Protected Routes */}
+                          <Route element={<ProtectedRoute />}>
+                            <Route path="cart" element={<CartPage />} />
+                            <Route path="checkout" element={<CheckoutPage />} />
+                            <Route
+                              path="account/profile"
+                              element={<ProfilePage />}
+                            />
+                            <Route
+                              path="account/orders"
+                              element={<OrderPage />}
+                            />
+                            <Route
+                              path="account/orders/:id"
+                              element={<OrderDetailPage />}
+                            />
+                            <Route
+                              path="account/wishlist"
+                              element={<WishlistPage />}
+                            />
+                            <Route
+                              path="account/address"
+                              element={<AddressPage />}
+                            />
+                            <Route
+                              path="account/change-password"
+                              element={<ChangePassword />}
+                            />
+                            <Route
+                              path="account/notifications"
+                              element={<NotificationsPage />}
+                            />
+                          </Route>
 
-                            {/* Auth */}
-                            <Route path="auth/login" element={<LoginPage />} />
-                            <Route
-                              path="auth/verify-login"
-                              element={<VerifyLoginPage />}
-                            />
-                            <Route
-                              path="auth/register"
-                              element={<RegisterPage />}
-                            />
-                            <Route
-                              path="auth/reset-password"
-                              element={<ResetPasswordPage />}
-                            />
-                            <Route
-                              path="auth/forgot-password"
-                              element={<ForgotPasswordPage />}
-                            />
-                            {/* Auth */}
-                          </Routes>
-                        </GoogleOAuthProvider>
-                      </ThemeProvider>
-                    </Suspense>
-                  </CheckoutProvider>
-                </WishlistProvider>
-              </CartProvider>
-            </AuthProvider>
-          </BrowserRouter>
-        </HelmetProvider>
+                          {/* Auth */}
+                          <Route path="auth/login" element={<LoginPage />} />
+                          <Route
+                            path="auth/verify-login"
+                            element={<VerifyLoginPage />}
+                          />
+                          <Route
+                            path="auth/register"
+                            element={<RegisterPage />}
+                          />
+                          <Route
+                            path="auth/reset-password"
+                            element={<ResetPasswordPage />}
+                          />
+                          <Route
+                            path="auth/forgot-password"
+                            element={<ForgotPasswordPage />}
+                          />
+                          {/* Auth */}
+                        </Routes>
+                      </GoogleOAuthProvider>
+                    </ThemeProvider>
+                  </Suspense>
+                </CheckoutProvider>
+              </WishlistProvider>
+            </CartProvider>
+          </AuthProvider>
+        </BrowserRouter>
       </QueryClientProvider>
     </>
   );
 }
 
 export default App;
-

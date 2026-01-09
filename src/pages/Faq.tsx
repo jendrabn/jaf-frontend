@@ -1,16 +1,28 @@
 import data from "@/data/faq.json";
 import Accordion from "react-bootstrap/Accordion";
 import Layout from "@/components/layouts/Layout";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
+import { generateFAQSchema } from "@/utils/seo-schemas";
 
 function FaqPage() {
+  const faqSchema = generateFAQSchema(
+    data.map((item) => ({
+      question: item.question,
+      answer: item.answer,
+    }))
+  );
+
   return (
     <Layout>
-      <Helmet>
-        <meta name="description" content="Frequently Asked Questions" />
-        <title>Pertanyaan Umum | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Pertanyaan Umum"
+        description="Temukan jawaban untuk pertanyaan umum seputar JAF Parfum's, pengiriman, pembayaran, dan layanan kami."
+        keywords="FAQ, pertanyaan umum, bantuan, customer service"
+        canonical={`${env.APP_URL}/faq`}
+        structuredData={[faqSchema]}
+      />
 
       <div className="container">
         <h1 className="mb-5 fw-bold text-center">FAQ</h1>
@@ -29,4 +41,3 @@ function FaqPage() {
 }
 
 export default FaqPage;
-

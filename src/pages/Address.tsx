@@ -1,17 +1,15 @@
-import { Helmet } from "react-helmet-async";
 import AccountLayout from "@/components/layouts/AccountLayout";
-import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const AddressPage = () => {
   return (
     <AccountLayout title="Alamat">
-      <Helmet>
-        <title>Alamat | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Kelola dan perbarui alamat pengiriman Anda untuk pengalaman belanja yang lebih mudah."
-        />
-      </Helmet>
+      <SEO
+        title="Alamat Saya"
+        description="Kelola dan perbarui alamat pengiriman Anda untuk pengalaman belanja yang lebih mudah."
+        noIndex={true}
+        noFollow={true}
+      />
 
       {/* coming soon feature with icon*/}
       <div className="text-center py-5">
@@ -30,4 +28,3 @@ const AddressPage = () => {
 };
 
 export default AddressPage;
-

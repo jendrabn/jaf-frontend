@@ -88,9 +88,12 @@
     />
     <meta name="twitter:image:alt" content="JAF Parfum's - Koleksi Parfum" />
 
-    <!-- Google Fonts -->
+    <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
@@ -101,6 +104,63 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="geo.region" content="ID-JI" />
+    <meta name="geo.placename" content="Jember" />
+    <meta name="geo.position" content="-8.181029;113.710762" />
+    <meta name="ICBM" content="-8.181029, 113.710762" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "JAF Parfum's",
+        "alternateName": "Jember Art Fragrance",
+        "url": "https://www.jaf.co.id/",
+        "logo": "https://www.jaf.co.id/images/logo-light.png",
+        "description": "Toko parfum online terlengkap dan terpercaya di Indonesia sejak 2009",
+        "foundingDate": "2009-07-20",
+        "founder": {
+          "@type": "Person",
+          "name": "Muhammad Jawad"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "ID",
+          "addressRegion": "Jawa Timur",
+          "addressLocality": "Jember"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Customer Service",
+          "availableLanguage": ["Indonesian"]
+        },
+        "sameAs": [
+          "https://www.facebook.com/jafparfums",
+          "https://www.instagram.com/jafparfums",
+          "https://twitter.com/jafparfums"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "JAF Parfum's",
+        "url": "https://www.jaf.co.id/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://www.jaf.co.id/products?search={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

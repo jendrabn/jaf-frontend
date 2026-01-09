@@ -18,9 +18,10 @@ import {
 } from "@/contexts/CheckoutContext";
 import { type OrderReqTypes } from "@/types/order";
 import { useCartDispatch } from "@/contexts/CartContext";
-import { Helmet } from "react-helmet-async";
+
 import { QUERY_KEYS, PAYMENT_METHOD_GATEWAY } from "@/utils/constans";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 function CheckoutPage() {
   const queryClient = useQueryClient();
@@ -204,9 +205,12 @@ function CheckoutPage() {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Checkout & Pembayaran | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Checkout & Pembayaran"
+        description="Proses checkout dan pembayaran pesanan Anda"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <DeliveryAddressModal
         show={showAddressModal}
@@ -316,4 +320,3 @@ function CheckoutPage() {
   );
 }
 export default CheckoutPage;
-

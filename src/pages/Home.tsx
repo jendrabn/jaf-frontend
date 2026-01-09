@@ -6,8 +6,9 @@ import Loading from "@/components/ui/loading";
 import OurServices from "@/components/OurServices";
 import OurMarketplace from "@/components/OurMarketplace";
 import Newsletter from "@/components/Newsletter";
-import { Helmet } from "react-helmet-async";
+import SEO from "@/components/SEO";
 import { env } from "@/config/env";
+import { websiteSchema } from "@/utils/seo-schemas";
 import BannerSlider from "@/features/landing/components/BannerSlider";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -32,11 +33,30 @@ function HomePage() {
 
   return (
     <>
-      <Helmet>
-        <title>
-          {env.APP_NAME} | Situs Belanja Parfum Online Terlengkap & Terpercaya
-        </title>
-      </Helmet>
+      <SEO
+        title="Home"
+        description="Belanja parfum original dengan pilihan aroma eksklusif, promo harian, dan layanan pengiriman cepat hanya di JAF Parfum's."
+        keywords="toko parfum, parfum original, parfum pria, parfum wanita, diskon parfum, jual parfum online, parfum murah, parfum branded"
+        canonical={`${env.APP_URL}/`}
+        ogType="website"
+        ogImage={`${env.APP_URL}/images/og-cover.png`}
+        ogImageAlt="JAF Parfum's - Koleksi Parfum Terlengkap"
+        structuredData={[
+          websiteSchema,
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${env.APP_URL}/#webpage`,
+            url: `${env.APP_URL}/`,
+            name: "Home | JAF Parfum's",
+            description:
+              "Belanja parfum original dengan pilihan aroma eksklusif, promo harian, dan layanan pengiriman cepat hanya di JAF Parfum's.",
+            isPartOf: {
+              "@id": `${env.APP_URL}/#website`,
+            },
+          },
+        ]}
+      />
 
       <Navbar />
 
@@ -276,4 +296,3 @@ function HomePage() {
 }
 
 export default HomePage;
-

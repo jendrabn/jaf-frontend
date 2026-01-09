@@ -2,9 +2,10 @@ import { useState } from "react";
 import OurServices from "@/components/OurServices";
 import googleReviews from "@/data/google-reviews.json";
 import Layout from "@/components/layouts/Layout";
-import { Helmet } from "react-helmet-async";
+
 import StarRating from "@/components/ui/star-rating";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const AboutPage = () => {
   const [activeReview, setActiveReview] = useState(0);
@@ -21,13 +22,13 @@ const AboutPage = () => {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Tentang Kami | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Pelajari lebih lanjut tentang JAF Parfum's, layanan kami, dan komitmen kami terhadap kualitas dan kepuasan pelanggan."
-        />
-      </Helmet>
+      <SEO
+        title="Tentang Kami"
+        description="Pelajari lebih lanjut tentang JAF Parfum's, layanan kami, dan komitmen kami terhadap kualitas dan kepuasan pelanggan. Sejak 2009, JAF Parfum's menyediakan parfum berkualitas dengan harga terjangkau."
+        keywords="tentang jaf parfum, sejarah jaf, jember art fragrance, parfum jember, toko parfum jember"
+        canonical={`${env.APP_URL}/about`}
+        ogType="website"
+      />
 
       <div className="container">
         <h1 className="mb-4 fw-bold text-center">Tentang JAF Parfum's</h1>
@@ -205,4 +206,3 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
-

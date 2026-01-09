@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { Form, Alert } from "react-bootstrap";
 import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/CustomerServiceContact";
@@ -8,6 +7,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import type { AxiosError } from "axios";
 import { api } from "@/lib/api-client";
+import SEO from "@/components/SEO";
+import { localBusinessSchema } from "@/utils/seo-schemas";
 
 function ContactPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -77,13 +78,13 @@ function ContactPage() {
 
   return (
     <Layout>
-      <Helmet>
-        <meta
-          name="description"
-          content="Hubungi JAF Parfum's untuk pertanyaan, bantuan, atau kerjasama. Kami siap membantu Anda!"
-        />
-        <title>Kontak Kami | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Kontak Kami"
+        description="Hubungi JAF Parfum's untuk pertanyaan, bantuan, atau kerjasama. Kami siap membantu Anda!"
+        keywords="kontak, customer service, hubungi kami, alamat toko"
+        canonical={`${env.APP_URL}/contact`}
+        structuredData={[localBusinessSchema]}
+      />
 
       <div className="container">
         <h1 className="mb-5 fw-bold text-center">Hubungi Kami</h1>
@@ -212,4 +213,3 @@ function ContactPage() {
 }
 
 export default ContactPage;
-

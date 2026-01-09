@@ -9,8 +9,9 @@ import { ORDER_STATUSES } from "@/utils/constans";
 import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrderReceivedModal";
 import { Alert, Button, Form, Offcanvas } from "react-bootstrap";
 import NoData from "@/components/ui/no-data";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const StatusSelect = ({
   onChange,
@@ -91,9 +92,12 @@ const OrderPage = () => {
 
   return (
     <AccountLayout title="Pesanan">
-      <Helmet>
-        <title>Pesanan | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Pesanan Saya"
+        description="Kelola pesanan Anda"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ConfirmOrderReceivedModal
         orderId={selectedOrderId}
@@ -216,4 +220,3 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
-

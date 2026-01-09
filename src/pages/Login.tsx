@@ -7,10 +7,11 @@ import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useLocation } from "react-router";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import PasswordInput from "@/components/ui/password-input";
-import { Helmet } from "react-helmet-async";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
+import SEO from "@/components/SEO";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -66,9 +67,12 @@ function LoginPage() {
 
   return (
     <AuthLayout title="Log in">
-      <Helmet>
-        <title>Log in | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Login"
+        description="Login ke akun JAF Parfum's Anda"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ErrorValidationAlert error={error} onClose={reset} />
 
@@ -110,4 +114,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

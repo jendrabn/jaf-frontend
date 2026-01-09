@@ -1,15 +1,18 @@
-import { Helmet } from "react-helmet-async";
 import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/CustomerServiceContact";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const HelpPage = () => {
   return (
     <Layout>
-      <Helmet>
-        <meta name="description" content="Pusat Bantuan JAF Parfums" />
-        <title>Pusat Bantuan | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Pusat Bantuan"
+        description="Pusat bantuan JAF Parfum's. Temukan panduan penggunaan, pelacakan pengiriman, pengembalian & penukaran, dan bantuan lainnya."
+        keywords="bantuan, panduan penggunaan, pelacakan pengiriman, pengembalian, penukaran, customer service"
+        canonical={`${env.APP_URL}/help`}
+        ogType="website"
+      />
 
       <div className="container">
         <h1 className="mb-5 fw-bold text-center">Pusat Bantuan</h1>
@@ -74,4 +77,3 @@ const HelpPage = () => {
 };
 
 export default HelpPage;
-

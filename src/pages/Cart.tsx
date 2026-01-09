@@ -7,8 +7,9 @@ import { useDeleteCart } from "@/features/carts/api";
 import CartItem from "@/features/carts/components/CartItem";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import NoData from "@/components/ui/no-data";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 function CartPage() {
   const navigate = useNavigate();
@@ -45,9 +46,12 @@ function CartPage() {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Keranjang Belanja | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Keranjang Belanja"
+        description="Keranjang belanja Anda"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <div className="container">
         <h2 className="section-title">Keranjang Belanja</h2>
@@ -185,4 +189,3 @@ function CartPage() {
 }
 
 export default CartPage;
-

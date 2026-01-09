@@ -7,8 +7,9 @@ import { Button, Form } from "react-bootstrap";
 import WishlistItem from "@/features/wishlist/components/WishlistItem";
 import { useDeleteWishlist } from "@/features/wishlist/api";
 import NoData from "@/components/ui/no-data";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const WishlistPage = () => {
   const deleteWishlistMutation = useDeleteWishlist();
@@ -32,13 +33,12 @@ const WishlistPage = () => {
 
   return (
     <AccountLayout title="Wishlist">
-      <Helmet>
-        <title>Daftar Keinginan | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Lihat dan kelola daftar keinginan produk favorit Anda di sini."
-        />
-      </Helmet>
+      <SEO
+        title="Wishlist Saya"
+        description="Lihat dan kelola daftar keinginan produk favorit Anda di sini."
+        noIndex={true}
+        noFollow={true}
+      />
 
       {wishlists && wishlists?.length === 0 && (
         <NoData
@@ -116,4 +116,3 @@ const WishlistPage = () => {
 };
 
 export default WishlistPage;
-

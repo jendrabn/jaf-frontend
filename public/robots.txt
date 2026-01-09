@@ -1,0 +1,30 @@
+# robots.txt for JAF Parfum's
+
+User-agent: *
+Allow: /
+
+# Disallow private/account pages
+Disallow: /account/
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-login
+Disallow: /cart
+Disallow: /checkout
+
+# Disallow admin pages (if any)
+Disallow: /admin/
+
+# Allow public pages
+Allow: /
+Allow: /products
+Allow: /blog
+Allow: /about
+Allow: /contact
+Allow: /faq
+Allow: /help
+Allow: /flash-sale
+
+# Sitemap location
+Sitemap: https://www.jaf.co.id/sitemap.xml

@@ -3,12 +3,14 @@ import { useGetBlog } from "@/features/blogs/api";
 import Layout from "@/components/layouts/Layout";
 import NotFoundPage from "@/pages/NotFound";
 import Loading from "@/components/ui/loading";
-import { Helmet } from "react-helmet-async";
+
 import { Badge, Breadcrumb, Button, Image } from "react-bootstrap";
 import { useState } from "react";
 import { env } from "@/config/env";
 import ShareModal from "@/components/ShareModal";
 import dayjs from "@/utils/dayjs";
+import SEO from "@/components/SEO";
+import { generateArticleSchema } from "@/utils/seo-schemas";
 
 function BlogDetailPage() {
   const { slug } = useParams();
@@ -17,18 +19,37 @@ function BlogDetailPage() {
 
   if (!isLoading && !blog) return <NotFoundPage />;
 
+  const articleSchema = blog
+    ? generateArticleSchema({
+        title: blog.title,
+        description: blog.title.substring(0, 160),
+        image: blog.featured_image,
+        author: blog.author,
+        publishedTime: blog.created_at,
+        modifiedTime: blog.updated_at,
+        url: `${env.APP_URL}/blog/${blog.slug}`,
+      })
+    : null;
+
   return (
     <Layout>
       {isLoading && <Loading className="py-5" />}
 
       {blog && (
         <>
-          <Helmet>
-            <title>
-              {blog.title} | {env.APP_NAME}
-            </title>
-            <meta name="description" content={blog.title} />
-          </Helmet>
+          <SEO
+            title={blog.title}
+            description={blog.title.substring(0, 160)}
+            keywords={blog.tags.map((t: any) => t.name).join(", ") || undefined}
+            canonical={`${env.APP_URL}/blog/${blog.slug}`}
+            ogType="article"
+            ogImage={blog.featured_image}
+            ogImageAlt={blog.title}
+            author={blog.author}
+            publishedTime={blog.created_at}
+            modifiedTime={blog.updated_at}
+            structuredData={articleSchema ? [articleSchema] : undefined}
+          />
 
           <div className="container">
             <div className="row justify-content-center">
@@ -182,4 +203,3 @@ function BlogDetailPage() {
 }
 
 export default BlogDetailPage;
-

@@ -4,10 +4,11 @@ import type { PasswordReqTypes } from "@/types/user";
 import { useUpdatePassword } from "@/features/user";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
-import { Helmet } from "react-helmet-async";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const ChangePassword = () => {
   const {
@@ -29,13 +30,12 @@ const ChangePassword = () => {
 
   return (
     <AccountLayout title="Ubah Password">
-      <Helmet>
-        <title>Ubah Password | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Kelola dan ubah password akun Anda untuk keamanan yang lebih baik."
-        />
-      </Helmet>
+      <SEO
+        title="Ubah Password"
+        description="Kelola dan ubah password akun Anda untuk keamanan yang lebih baik."
+        noIndex={true}
+        noFollow={true}
+      />
 
       <div className="row">
         <div className="col-lg-9">
@@ -87,4 +87,3 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
-

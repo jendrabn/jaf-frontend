@@ -10,8 +10,9 @@ import useFilters from "@/hooks/use-filters";
 import { type ChangeEvent, type FormEvent, useState } from "react";
 import { Button, Form, InputGroup, Offcanvas, Dropdown } from "react-bootstrap";
 import NoData from "@/components/ui/no-data";
-import { Helmet } from "react-helmet-async";
+
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 const SORT_OPTIONS: { label: string; value: string }[] = [
   {
@@ -53,13 +54,13 @@ const BlogPage = () => {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Blog | {env.APP_NAME}</title>
-        <meta
-          name="description"
-          content="Temukan artikel menarik seputar dunia parfum di blog kami. Baca tips, ulasan, dan berita terbaru tentang parfum."
-        />
-      </Helmet>
+      <SEO
+        title="Blog"
+        description="Temukan artikel menarik seputar dunia parfum di blog kami. Baca tips, ulasan, dan berita terbaru tentang parfum."
+        keywords="blog parfum, tips parfum, ulasan parfum, berita parfum, aroma parfum, jenis parfum"
+        canonical={`${env.APP_URL}/blog`}
+        ogType="website"
+      />
 
       <div className="container">
         <div className="row justify-content-center">
@@ -190,4 +191,3 @@ const BlogPage = () => {
 };
 
 export default BlogPage;
-

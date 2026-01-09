@@ -1,7 +1,7 @@
 import AuthLayout from "@/components/layouts/AuthLayout";
 import { Button, Form } from "react-bootstrap";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Helmet } from "react-helmet-async";
+
 import { useLocation, useNavigate } from "react-router";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { env } from "@/config/env";
@@ -9,6 +9,7 @@ import { useVerifyLoginOtp } from "@/features/auth/api/verify-login-otp";
 import { useResendLoginOtp } from "@/features/auth/api/resend-login-otp";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useEffect, useRef, useState } from "react";
+import SEO from "@/components/SEO";
 
 type FormFields = {
   otp: string;
@@ -137,9 +138,12 @@ const VerifyLoginPage = () => {
 
   return (
     <AuthLayout title="Verifikasi Login">
-      <Helmet>
-        <title>Verifikasi Login | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Verifikasi Login"
+        description="Verifikasi login akun Anda"
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ErrorValidationAlert error={error as Error} onClose={resetError} />
 
@@ -247,4 +251,3 @@ const VerifyLoginPage = () => {
 };
 
 export default VerifyLoginPage;
-

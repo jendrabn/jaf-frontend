@@ -24,5 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 .env
-/scripts
-/instructions
+docs

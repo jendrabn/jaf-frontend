@@ -4,9 +4,10 @@ import { useForgotPassword } from "@/features/auth/api";
 import type { ForgotPasswordReqTypes } from "@/types/auth";
 import { toast } from "react-toastify";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
-import { Helmet } from "react-helmet-async";
+
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { env } from "@/config/env";
+import SEO from "@/components/SEO";
 
 function ForgotPasswordPage() {
   const { mutate, isPending, error, reset } = useForgotPassword();
@@ -29,9 +30,12 @@ function ForgotPasswordPage() {
 
   return (
     <AuthLayout title="Lupa Password">
-      <Helmet>
-        <title>Lupa Password | {env.APP_NAME}</title>
-      </Helmet>
+      <SEO
+        title="Lupa Password"
+        description="Lupa password akun Anda? Dapatkan link reset password melalui email."
+        noIndex={true}
+        noFollow={true}
+      />
 
       <ErrorValidationAlert error={error} onClose={reset} />
 
@@ -54,4 +58,3 @@ function ForgotPasswordPage() {
 }
 
 export default ForgotPasswordPage;
-

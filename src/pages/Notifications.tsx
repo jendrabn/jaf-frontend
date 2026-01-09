@@ -9,6 +9,7 @@ import {
 import { Button, Badge, Spinner, Alert, Pagination } from "react-bootstrap";
 import Loading from "@/components/ui/loading";
 import { initializeFcmToken, refreshFcmToken } from "@/utils/fcm";
+import SEO from "@/components/SEO";
 
 const NotificationsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -164,6 +165,12 @@ const NotificationsPage = () => {
 
   return (
     <AccountLayout title="Notifikasi">
+      <SEO
+        title="Notifikasi Saya"
+        description="Kelola notifikasi akun Anda"
+        noIndex={true}
+        noFollow={true}
+      />
       <div className="mb-4">
         {pushPermission === "unsupported" ? (
           <Alert variant="warning">
