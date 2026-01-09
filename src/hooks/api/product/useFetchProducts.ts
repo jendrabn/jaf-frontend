@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import type { ProductItemTypes } from "@/types/product";
 import type { PageTypes } from "@/types";
 import { QUERY_KEYS } from "@/utils/constans";
@@ -7,6 +7,5 @@ import { QUERY_KEYS } from "@/utils/constans";
 export const useFetchProducts = (queryString?: string) =>
   useQuery<{ data: ProductItemTypes[]; page: PageTypes }>({
     queryKey: [QUERY_KEYS.PRODUCTS, queryString],
-    queryFn: () =>
-      fetchApi().get(`/products${queryString ? `?${queryString}` : ""}`),
+    queryFn: () => api.get(`/products${queryString ? `?${queryString}` : ""}`),
   });

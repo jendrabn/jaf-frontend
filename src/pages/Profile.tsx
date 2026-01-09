@@ -9,7 +9,7 @@ import { type ChangeEvent, useRef } from "react";
 import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const ProfilePage = () => {
   const { user } = useAuthState();

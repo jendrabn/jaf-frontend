@@ -9,7 +9,7 @@ import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import PasswordInput from "@/components/ui/PasswordInput";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import GoogleLoginButton from "@/components/parts/GoogleLoginButton";
 
 function LoginPage() {

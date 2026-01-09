@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useUpdateCart = () =>
   useMutation({
     mutationFn: ({ id, data }: { id: number; data: unknown }) =>
-      fetchApi().put(`/carts/${id}`, data),
+      api.put(`/carts/${id}`, data),
   });

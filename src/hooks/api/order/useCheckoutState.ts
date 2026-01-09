@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import type { CheckoutReqTypes } from "@/types/checkout";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useCheckoutState = () =>
   useMutation({
-    mutationFn: (data: CheckoutReqTypes) => fetchApi().post("/checkout", data),
+    mutationFn: (data: CheckoutReqTypes) => api.post("/checkout", data),
   });

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 function ForgotPasswordPage() {
   const { mutate, isPending, error, reset } = useForgotPassword();

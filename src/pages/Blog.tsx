@@ -11,7 +11,7 @@ import { type ChangeEvent, type FormEvent, useState } from "react";
 import { Button, Form, InputGroup, Offcanvas, Dropdown } from "react-bootstrap";
 import NoData from "@/components/ui/NoData";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const SORT_OPTIONS: { label: string; value: string }[] = [
   {

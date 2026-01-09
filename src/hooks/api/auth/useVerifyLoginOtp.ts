@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import type { LoginTypes } from "@/types/auth";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export type VerifyLoginOtpReq = {
   email: string;
@@ -9,5 +9,5 @@ export type VerifyLoginOtpReq = {
 
 export const useVerifyLoginOtp = () =>
   useMutation<LoginTypes, Error, VerifyLoginOtpReq>({
-    mutationFn: (data) => fetchApi().post("/auth/verify_login_otp", data),
+    mutationFn: (data) => api.post("/auth/verify_login_otp", data),
   });

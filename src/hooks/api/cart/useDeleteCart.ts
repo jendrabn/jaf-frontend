@@ -1,8 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useDeleteCart = () =>
   useMutation({
-    mutationFn: (data: unknown) =>
-      fetchApi().post("/carts?_method=DELETE", data),
+    mutationFn: (data: unknown) => api.post("/carts?_method=DELETE", data),
   });

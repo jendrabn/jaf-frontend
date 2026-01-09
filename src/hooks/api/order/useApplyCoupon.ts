@@ -3,9 +3,9 @@ import type {
   ApplyCouponReqTypes,
   ApplyCouponResTypes,
 } from "@/types/checkout";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useApplyCoupon = () =>
   useMutation<ApplyCouponResTypes, Error, ApplyCouponReqTypes>({
-    mutationFn: (data) => fetchApi().post("/apply_coupon", data),
+    mutationFn: (data) => api.post("/apply_coupon", data),
   });

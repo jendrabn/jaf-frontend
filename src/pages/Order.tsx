@@ -10,7 +10,7 @@ import ConfirmOrderReceivedModal from "@/components/parts/Order/ConfirmOrderRece
 import { Alert, Button, Form, Offcanvas } from "react-bootstrap";
 import NoData from "@/components/ui/NoData";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const StatusSelect = ({
   onChange,

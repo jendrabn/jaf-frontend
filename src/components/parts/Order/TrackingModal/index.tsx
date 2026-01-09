@@ -1,7 +1,7 @@
 import { Modal, Button, Alert, Card } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import Loading from "@/components/ui/Loading";
 import { QUERY_KEYS } from "@/utils/constans";
 import type { AxiosError } from "axios";
@@ -78,7 +78,7 @@ const TrackingModal = ({ orderId, show, onClose }: TrackingModalProps) => {
     AxiosError<{ message?: string }>
   >({
     queryKey: [QUERY_KEYS.ORDER, orderId, "waybill"],
-    queryFn: async () => fetchApi().get(`/orders/${orderId}/waybill`),
+    queryFn: async () => api.get(`/orders/${orderId}/waybill`),
     enabled: show && !!orderId,
     retry: 1,
   });

@@ -1,4 +1,4 @@
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import { Card } from "react-bootstrap";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";

@@ -8,7 +8,7 @@ import WishlistItem from "@/components/parts/WishlistItem";
 import { useDeleteWishlist } from "@/hooks/api/wishlist";
 import NoData from "@/components/ui/NoData";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const WishlistPage = () => {
   const deleteWishlistMutation = useDeleteWishlist();

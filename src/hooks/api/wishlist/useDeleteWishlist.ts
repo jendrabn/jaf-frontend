@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import type { DeleteWishlistReqTypes } from "@/types/wishlist";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useDeleteWishlist = () =>
   useMutation({
     mutationFn: (data: DeleteWishlistReqTypes) =>
-      fetchApi().post("/wishlist?_method=DELETE", data),
+      api.post("/wishlist?_method=DELETE", data),
   });

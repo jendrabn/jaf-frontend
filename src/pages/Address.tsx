@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import AccountLayout from "@/components/layouts/AccountLayout";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const AddressPage = () => {
   return (

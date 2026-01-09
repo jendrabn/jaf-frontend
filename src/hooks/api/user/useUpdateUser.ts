@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useUpdateUser = () =>
   useMutation({
-    mutationFn: (data: FormData) => fetchApi().post("/user?_method=PUT", data),
+    mutationFn: (data: FormData) => api.post("/user?_method=PUT", data),
   });

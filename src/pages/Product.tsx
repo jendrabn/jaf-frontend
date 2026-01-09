@@ -10,7 +10,7 @@ import { Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import NoData from "@/components/ui/NoData";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const FILTER_OPTIONS: { label: string; value: string }[] = [
   {

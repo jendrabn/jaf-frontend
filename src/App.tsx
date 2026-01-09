@@ -14,8 +14,8 @@ import "bootstrap";
 import "@/styles/style.scss";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { env } from "./utils/config";
-import { subscribeToForegroundMessages } from "./lib/firebase";
+import { env } from "@/config/env";
+import { subscribeToForegroundMessages } from "@/lib/firebase";
 import { HelmetProvider } from "react-helmet-async";
 
 const HomePage = lazy(() => import("@/pages/Home"));
@@ -186,7 +186,9 @@ function App() {
                   <CheckoutProvider>
                     <Suspense fallback={<Loading className="min-dvh-100" />}>
                       <ThemeProvider>
-                        <GoogleOAuthProvider clientId={env.GOOGLE_CLIENT_ID}>
+                        <GoogleOAuthProvider
+                          clientId={env.GOOGLE_CLIENT_ID || ""}
+                        >
                           <Routes>
                             <Route path="*" element={<NotFoundPage />} />
                             <Route index element={<HomePage />} />

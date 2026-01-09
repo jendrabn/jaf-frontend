@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import type { OrderDetailTypes } from "@/types/order";
 import { QUERY_KEYS } from "@/utils/constans";
 import { getAuthToken } from "@/utils/functions";
@@ -7,6 +7,6 @@ import { getAuthToken } from "@/utils/functions";
 export const useFetchOrder = (orderId?: number) =>
   useQuery<OrderDetailTypes>({
     queryKey: [QUERY_KEYS.ORDER, orderId],
-    queryFn: () => fetchApi().get(`/orders/${orderId}`),
+    queryFn: () => api.get(`/orders/${orderId}`),
     enabled: !!getAuthToken() && !!orderId,
   });

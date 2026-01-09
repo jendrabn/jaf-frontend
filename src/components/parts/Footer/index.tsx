@@ -1,4 +1,4 @@
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import { Link } from "react-router";
 
 const Footer = () => {

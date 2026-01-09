@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export type ResendLoginOtpReq = {
   email: string;
@@ -13,5 +13,5 @@ export type ResendLoginOtpResp = {
 
 export const useResendLoginOtp = () =>
   useMutation<ResendLoginOtpResp, Error, ResendLoginOtpReq>({
-    mutationFn: (data) => fetchApi().post("/auth/resend_login_otp", data),
+    mutationFn: (data) => api.post("/auth/resend_login_otp", data),
   });

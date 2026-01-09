@@ -1,12 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import { toast } from "react-toastify";
 import type { NewsletterRequest, NewsletterResponse } from "@/types/newsletter";
 
 const useSubscribeNewsletter = () =>
   useMutation<NewsletterResponse, Error, NewsletterRequest>({
     mutationFn: (data: NewsletterRequest) =>
-      fetchApi().post("/newsletter/subscribe", data),
+      api.post("/newsletter/subscribe", data),
     onSuccess: (data) => {
       toast.success(data.message);
     },

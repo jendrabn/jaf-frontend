@@ -13,7 +13,7 @@ import { removeAuthToken } from "@/utils/functions";
 import ThemeToggle from "@/components/parts/ThemeToggle";
 import Logo from "@/components/parts/Logo";
 import { Image } from "react-bootstrap";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuthState();

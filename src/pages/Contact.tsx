@@ -2,12 +2,12 @@ import { Helmet } from "react-helmet-async";
 import { Form, Alert } from "react-bootstrap";
 import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/parts/CustomerServiceContact";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
 import { useForm } from "react-hook-form";
 import type { AxiosError } from "axios";
+import { api } from "@/lib/api-client";
 
 function ContactPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -47,7 +47,7 @@ function ContactPage() {
     AxiosError<ApiError>,
     ContactPayload
   >({
-    mutationFn: (payload) => fetchApi().post("/contact", payload),
+    mutationFn: (payload) => api.post("/contact", payload),
     onSuccess: (res) => {
       const msg = res?.message || "Terima kasih, pesan Anda sudah kami terima.";
       setSuccessMessage(msg);

@@ -1,3 +1,4 @@
+import { api } from "@/lib/api-client";
 import {
   type ChangeEvent,
   type FormEvent,
@@ -6,7 +7,6 @@ import {
   useRef,
 } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
-import fetchApi from "@/utils/api";
 
 interface SearchBarProps {
   className?: string;
@@ -54,7 +54,7 @@ const SearchBar = ({ className }: SearchBarProps) => {
     setLoading(true);
     const timer = setTimeout(async () => {
       try {
-        const resp = await fetchApi().get("/products/suggestions", {
+        const resp = await api.get("/products/suggestions", {
           params: { q, size: DEFAULT_SIZE },
         });
 

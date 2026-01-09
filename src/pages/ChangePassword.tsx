@@ -7,7 +7,7 @@ import PasswordInput from "@/components/ui/PasswordInput";
 import { Helmet } from "react-helmet-async";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const ChangePassword = () => {
   const {

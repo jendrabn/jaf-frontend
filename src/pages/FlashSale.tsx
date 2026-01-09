@@ -7,7 +7,7 @@ import { useFetchFlashSales } from "@/hooks/api/flash-sale";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import "@/components/pages/FlashSale/index.scss";
 
 const formatTime = (dateString: string) => {

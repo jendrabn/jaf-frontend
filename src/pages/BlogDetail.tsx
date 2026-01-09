@@ -6,7 +6,7 @@ import Loading from "@/components/ui/Loading";
 import { Helmet } from "react-helmet-async";
 import { Badge, Breadcrumb, Button, Image } from "react-bootstrap";
 import { useState } from "react";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import ShareModal from "@/components/parts/ShareModal";
 import dayjs from "@/utils/dayjs";
 

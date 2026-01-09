@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useConfirmOrderReceived = () =>
   useMutation({
     mutationFn: (orderId: number) =>
-      fetchApi().put(`/orders/${orderId}/confirm_order_delivered`),
+      api.put(`/orders/${orderId}/confirm_order_delivered`),
   });

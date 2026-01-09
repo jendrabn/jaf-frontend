@@ -4,7 +4,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { useLocation, useNavigate } from "react-router";
 import ErrorValidationAlert from "@/components/ui/ErrorValidationAlert";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import { useVerifyLoginOtp } from "@/hooks/api/auth/useVerifyLoginOtp";
 import { useResendLoginOtp } from "@/hooks/api/auth/useResendLoginOtp";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";

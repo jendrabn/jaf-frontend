@@ -1,4 +1,4 @@
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 export type MidtransEnv = "sandbox" | "production";
 

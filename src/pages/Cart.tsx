@@ -8,7 +8,7 @@ import CartItem from "@/components/parts/CartItem";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import NoData from "@/components/ui/NoData";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 function CartPage() {
   const navigate = useNavigate();

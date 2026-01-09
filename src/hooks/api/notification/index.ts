@@ -1,4 +1,4 @@
-import fetchApi, { fetchApi2 } from "@/utils/api";
+import { api } from "@/lib/api-client";
 import type {
   NotificationListResponse,
   UnreadCountResponse,
@@ -7,7 +7,7 @@ import type {
 export const fetchNotifications = async (
   page = 1
 ): Promise<NotificationListResponse> => {
-  const response = await fetchApi().get<NotificationListResponse>(
+  const response = await api.get<NotificationListResponse>(
     `/notifications?page=${page}`
   );
 
@@ -15,18 +15,18 @@ export const fetchNotifications = async (
 };
 
 export const markNotificationAsRead = async (id: number) => {
-  return fetchApi().put(`/notifications/${id}/read`);
+  return api.put(`/notifications/${id}/read`);
 };
 
 export const markAllNotificationsAsRead = async () => {
-  return fetchApi().put("/notifications/read-all");
+  return api.put("/notifications/read-all");
 };
 
 export const getUnreadCount = async (): Promise<UnreadCountResponse> => {
-  const response = await fetchApi2("/notifications/unread-count");
+  const response = await api.get("/notifications/unread-count");
   return response as UnreadCountResponse;
 };
 
 export const updateFcmToken = async (token: string | null) => {
-  return fetchApi().put("/user/fcm-token", { fcm_token: token });
+  return api.put("/user/fcm-token", { fcm_token: token });
 };

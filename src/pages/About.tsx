@@ -4,7 +4,7 @@ import googleReviews from "@/data/google-reviews.json";
 import Layout from "@/components/layouts/Layout";
 import { Helmet } from "react-helmet-async";
 import StarRating from "@/components/ui/StarRating";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const AboutPage = () => {
   const [activeReview, setActiveReview] = useState(0);

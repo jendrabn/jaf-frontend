@@ -1,5 +1,5 @@
 import type { LoginTypes } from "@/types/auth";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Button, Image } from "react-bootstrap";
@@ -13,7 +13,7 @@ const GoogleLoginButton = () => {
   const login = useGoogleLogin({
     onError: (error) => console.log("Login Failed:", error),
     onSuccess: (codeResponse) => {
-      fetchApi()
+      api
         .post<LoginTypes, LoginTypes>("/auth/google", {
           token: codeResponse.access_token,
         })

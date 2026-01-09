@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import type { RegisterReqTypes, RegisterTypes } from "@/types/auth";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useRegister = () =>
   useMutation<RegisterTypes, Error, RegisterReqTypes>({
-    mutationFn: (data) => fetchApi().post("/auth/register", data),
+    mutationFn: (data) => api.post("/auth/register", data),
   });

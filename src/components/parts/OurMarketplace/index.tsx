@@ -1,4 +1,4 @@
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import ShopeeLogo from "@/assets/images/marketplace/Shopee.svg";
 import TokopediaLogo from "@/assets/images/marketplace/Tokopedia.svg";
 import LazadaLogo from "@/assets/images/marketplace/Lazada.svg";

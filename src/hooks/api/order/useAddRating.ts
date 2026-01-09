@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import type { RatingReqTypes } from "@/types/order";
 
 export const useAddRating = () =>
   useMutation({
     mutationFn: (data: RatingReqTypes[]) =>
-      fetchApi().post("/orders/ratings", {
+      api.post("/orders/ratings", {
         ratings: data,
       }),
   });

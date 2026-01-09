@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import type { ForgotPasswordReqTypes } from "@/types/auth";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 import type { NoContentTypes } from "@/types";
 
 export const useForgotPassword = () =>
   useMutation<NoContentTypes, Error, ForgotPasswordReqTypes>({
-    mutationFn: (data) => fetchApi().post("/auth/forgot_password", data),
+    mutationFn: (data) => api.post("/auth/forgot_password", data),
   });

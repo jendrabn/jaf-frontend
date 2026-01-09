@@ -17,7 +17,7 @@ import { useLocation, useNavigate } from "react-router";
 import { Helmet } from "react-helmet-async";
 import AddRatingModal from "@/components/parts/Order/AddRatingModal";
 import { formatCurrency } from "@/utils/format";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import { loadSnapScript, payWithSnap } from "@/lib/midtrans";
 import { toast } from "react-toastify";
 import type { PaymentInfoTypes } from "@/types/order";

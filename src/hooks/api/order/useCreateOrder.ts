@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import type { OrderReqTypes, OrderSuccessTypes } from "@/types/order";
-import fetchApi from "@/utils/api";
+import { api } from "@/lib/api-client";
 
 export const useCreateOrder = () =>
   useMutation<OrderSuccessTypes, Error, OrderReqTypes>({
-    mutationFn: (data) => fetchApi().post("/orders", data),
+    mutationFn: (data) => api.post("/orders", data),
   });

@@ -20,7 +20,7 @@ import { type OrderReqTypes } from "@/types/order";
 import { useCartDispatch } from "@/contexts/CartContext";
 import { Helmet } from "react-helmet-async";
 import { QUERY_KEYS, PAYMENT_METHOD_GATEWAY } from "@/utils/constans";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 function CheckoutPage() {
   const queryClient = useQueryClient();

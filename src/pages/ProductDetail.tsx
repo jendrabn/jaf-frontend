@@ -14,7 +14,7 @@ import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import StarRating from "@/components/ui/StarRating";
 import { Helmet } from "react-helmet-async";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import ProductImageSlider from "@/components/pages/ProductDetail/ProductImageSlider";
 import ShareModal from "@/components/parts/ShareModal";
 import CountdownBlocks from "@/components/ui/CountdownBlocks";

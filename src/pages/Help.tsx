@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/parts/CustomerServiceContact";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 
 const HelpPage = () => {
   return (

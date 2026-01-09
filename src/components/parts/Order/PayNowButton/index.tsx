@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { Button } from "react-bootstrap";
 import { loadSnapScript, payWithSnap } from "@/lib/midtrans";
-import { env } from "@/utils/config";
+import { env } from "@/config/env";
 import { toast } from "react-toastify";
 import { useFetchOrder } from "@/hooks/api/order";
 import type { OrderDetailTypes, PaymentInfoTypes } from "@/types/order";
