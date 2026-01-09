@@ -6,6 +6,7 @@ import Loading from "@/components/ui/loading";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { Card } from "react-bootstrap";
+import { paths } from "@/config/paths";
 
 function AuthLayout({
   children,
@@ -19,7 +20,7 @@ function AuthLayout({
   }
 
   if (isAuthenticated) {
-    return <Navigate to={location.state?.from?.pathname || "/"} />;
+    return <Navigate to={location.state?.from?.pathname || paths.landing.root()} />;
   }
 
   return (

@@ -8,6 +8,7 @@ import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 function ResetPasswordPage() {
   const [searchParams] = useSearchParams();
@@ -32,7 +33,7 @@ function ResetPasswordPage() {
         onSuccess() {
           toast.success("Reset password berhasil, silahkan login.");
 
-          navigate("/auth/login", { replace: true });
+          navigate(paths.auth.login.root(), { replace: true });
         },
       }
     );

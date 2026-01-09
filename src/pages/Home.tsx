@@ -19,6 +19,7 @@ import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
 import FlashSaleSlider from "@/features/flash-sale/components/FlashSaleSlider";
+import { paths } from "@/config/paths";
 
 function HomePage() {
   const { data: landing, isLoading } = useGetLanding();
@@ -114,7 +115,7 @@ function HomePage() {
                   Kejar diskon tercepat sebelum waktunya habis!
                 </p>
               </div>
-              <Link to="/flash-sale" className="flash-sale-home-cta">
+              <Link to={paths.flashSale.root()} className="flash-sale-home-cta">
                 Lihat Semua <i className="bi bi-arrow-right ms-1"></i>
               </Link>
             </div>
@@ -139,7 +140,7 @@ function HomePage() {
                 </p>
               </div>
               <Link
-                to="/products"
+                to={paths.products.root()}
                 className="btn btn-link d-none d-md-inline-flex"
               >
                 Jelajahi Produk <i className="bi bi-arrow-right ms-2"></i>
@@ -169,7 +170,7 @@ function HomePage() {
             )}
 
             <div className="text-center mt-4 d-md-none">
-              <Link to="/products" className="btn btn-outline-primary">
+              <Link to={paths.products.root()} className="btn btn-outline-primary">
                 Jelajahi Produk
               </Link>
             </div>
@@ -219,7 +220,7 @@ function HomePage() {
                       Coba langsung koleksi terbaik kami di toko.
                     </p>
                   </div>
-                  <Link to="/contact" className="btn btn-light btn-sm">
+                  <Link to={paths.contact.root()} className="btn btn-light btn-sm">
                     Lihat Lokasi
                   </Link>
                 </div>
@@ -238,7 +239,7 @@ function HomePage() {
                   Tips & inspirasi memilih parfum favorit Anda.
                 </p>
               </div>
-              <Link to="/blog" className="btn btn-link d-none d-md-inline-flex">
+              <Link to={paths.blog.root()} className="btn btn-link d-none d-md-inline-flex">
                 Jelajahi Artikel <i className="bi bi-arrow-right ms-2"></i>
               </Link>
             </div>
@@ -262,7 +263,7 @@ function HomePage() {
             )}
 
             <div className="text-center mt-4 d-md-none">
-              <Link to="/blog" className="btn btn-outline-primary">
+              <Link to={paths.blog.root()} className="btn btn-outline-primary">
                 Baca Semua
               </Link>
             </div>

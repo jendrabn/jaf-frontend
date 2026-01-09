@@ -10,6 +10,7 @@ import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ function LoginPage() {
               sessionStorage.setItem("otpSentTo", otp_sent_to);
             }
 
-            navigate("/auth/verify-login", {
+            navigate(paths.auth.verifyLogin(), {
               replace: true,
               state: { email: data.email, from: location.state?.from },
             });
@@ -95,7 +96,7 @@ function LoginPage() {
           </Form.Group>
 
           <p className="text-end mb-3">
-            <Link to="/auth/forgot-password">Lupa Password?</Link>
+            <Link to={paths.auth.forgotPassword()}>Lupa Password?</Link>
           </p>
 
           <div className="d-grid gap-2 mb-5">
@@ -106,7 +107,7 @@ function LoginPage() {
           </div>
 
           <p className="text-center mb-0">
-            Belum punya akun? <Link to="/auth/register">Daftar</Link>
+            Belum punya akun? <Link to={paths.auth.register()}>Daftar</Link>
           </p>
         </fieldset>
       </Form>

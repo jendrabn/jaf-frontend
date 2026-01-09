@@ -8,6 +8,7 @@ import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function RegisterPage() {
         onSuccess() {
           toast.success("Registrasi berhasil, silahkan login.");
 
-          navigate("/auth/login", { replace: true });
+          navigate(paths.auth.login.root(), { replace: true });
         },
       }
     );
@@ -69,7 +70,7 @@ function RegisterPage() {
           </div>
 
           <p className="mb-0 text-center">
-            Sudah punya akun? <Link to="/auth/login">Login</Link>
+            Sudah punya akun? <Link to={paths.auth.login.root()}>Login</Link>
           </p>
         </fieldset>
       </Form>

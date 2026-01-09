@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { paths } from "@/config/paths";
 
 const CustomerServiceContact = () => {
   return (
@@ -36,7 +37,7 @@ const CustomerServiceContact = () => {
       </ul>
       <div>
         <span className="me-2">Butuh jawaban cepat?</span>
-        <Link to="/faq" className="btn btn-outline-primary btn-sm">
+        <Link to={paths.faq.root()} className="btn btn-outline-primary btn-sm">
           <i className="bi bi-question-circle me-1"></i>
           Lihat FAQ
         </Link>

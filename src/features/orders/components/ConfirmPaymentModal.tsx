@@ -16,6 +16,7 @@ import {
 import type { ConfirmPaymentReqTypes } from "@/types/order";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import PaymentInfo from "@/features/orders/components/PaymentInfo";
+import { paths } from "@/config/paths";
 
 interface ConfirmPaymentModalProps {
   show: boolean;

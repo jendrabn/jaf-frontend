@@ -4,6 +4,7 @@ import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useGoogleLogin } from "@react-oauth/google";
 import { Button, Image } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router";
+import { paths } from "@/config/paths";
 
 const GoogleLoginButton = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const GoogleLoginButton = () => {
 
           setSelectedCartIds([]);
 
-          navigate(location.state?.from || "/", { replace: true });
+          navigate(location.state?.from || paths.landing.root(), { replace: true });
 
           window.location.reload();
         });

@@ -9,6 +9,7 @@ import "swiper/css/pagination";
 
 import { Link } from "react-router";
 import type { BannerTypes } from "@/types/banner";
+import { paths } from "@/config/paths";
 
 type ArrowButtonProps = {
   direction: "prev" | "next";

@@ -1,6 +1,7 @@
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router";
 import { toast } from "react-toastify";
+import { paths } from "@/config/paths";
 
 interface ShareModalProps {
   show: boolean;

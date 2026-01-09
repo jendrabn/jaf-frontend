@@ -27,6 +27,7 @@ import PayNowButton from "@/features/orders/components/PayNowButton";
 import TrackingModal from "@/features/orders/components/TrackingModal";
 import dayjs from "@/utils/dayjs";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 const OrderDetailPage = () => {
   const { id } = useParams();

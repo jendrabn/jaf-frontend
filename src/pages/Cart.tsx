@@ -8,6 +8,7 @@ import CartItem from "@/features/carts/components/CartItem";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import NoData from "@/components/ui/no-data";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 function CartPage() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function CartPage() {
       { data: { cart_ids: selectedIds } },
       {
         onSuccess(data) {
-          navigate("/checkout", { state: { checkout: data }, replace: true });
+          navigate(paths.checkout.root(), { state: { checkout: data }, replace: true });
         },
       }
     );

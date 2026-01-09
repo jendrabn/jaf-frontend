@@ -21,6 +21,7 @@ import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { getProductPricingInfo } from "@/utils/pricing";
 import SEO from "@/components/SEO";
 import { generateProductSchema } from "@/utils/seo-schemas";
+import { paths } from "@/config/paths";
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
@@ -128,10 +129,10 @@ export default function ProductDetailPage() {
           <div className="container">
             {/* Breadcrumb */}
             <Breadcrumb>
-              <Breadcrumb.Item href="/">
+              <Breadcrumb.Item href={paths.landing.root()}>
                 <i className="bi bi-house-door-fill"></i>
               </Breadcrumb.Item>
-              <Breadcrumb.Item href="/products">Produk</Breadcrumb.Item>
+              <Breadcrumb.Item href={paths.products.root()}>Produk</Breadcrumb.Item>
               <Breadcrumb.Item
                 href={`/products?category_id=${product.category.id}`}
               >

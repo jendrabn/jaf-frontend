@@ -3,6 +3,7 @@ import { Badge, Card, Col, Image, Row } from "react-bootstrap";
 import dayjs from "@/utils/dayjs";
 import { Link } from "react-router";
 import { words } from "@/utils/functions";
+import { paths } from "@/config/paths";
 
 type Props = { blog: BlogItemTypes };
 
@@ -12,7 +13,7 @@ const BlogItem = ({ blog }: Props) => (
       <Col xs={3} md={12}>
         <div className="position-relative">
           <Link
-            to={`/blog/${blog.slug}`}
+            to={paths.blog.detail(blog.slug)}
             aria-label={blog.title}
             className="d-block"
           >
@@ -28,7 +29,7 @@ const BlogItem = ({ blog }: Props) => (
 
           {blog.category && (
             <Link
-              to={`/blog?category_id=${blog.category.id}`}
+              to={`${paths.blog.root()}?category_id=${blog.category.id}`}
               className="position-absolute top-0 start-0 m-2 z-1 text-decoration-none d-none d-md-inline-block"
             >
               <Badge bg="primary" className="fw-medium">
@@ -43,7 +44,7 @@ const BlogItem = ({ blog }: Props) => (
         <Card.Body className="py-0 pe-0 px-md-0">
           <Card.Title as="h5" className="line-clamp-2 m-0">
             <Link
-              to={`/blog/${blog.slug}`}
+              to={paths.blog.detail(blog.slug)}
               className="text-decoration-none text-body-emphasis hover-text-primary"
             >
               {blog.title}
@@ -53,7 +54,7 @@ const BlogItem = ({ blog }: Props) => (
           <Card.Text className="d-flex align-items-center gap-2 small mt-2">
             {blog.author ? (
               <Link
-                to={`/blog/author/${encodeURIComponent(blog.author)}`}
+                to={`${paths.blog.root()}/author/${encodeURIComponent(blog.author)}`}
                 className="text-decoration-none text-body-secondary d-inline-flex align-items-center"
               >
                 <Image

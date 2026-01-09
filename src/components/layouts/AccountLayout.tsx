@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card, Nav } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router";
+import { paths } from "@/config/paths";
 
 type AuthLayoutProps = PropsWithChildren & {
   title: string;
@@ -12,12 +13,12 @@ const NavAccount = () => {
   const location = useLocation();
 
   const menus = [
-    { to: "/account/profile", label: "Profil" },
-    { to: "/account/orders", label: "Pesanan" },
-    { to: "/account/wishlist", label: "Wishlist" },
-    { to: "/account/address", label: "Alamat" },
-    { to: "/account/notifications", label: "Notifikasi" },
-    { to: "/account/change-password", label: "Ubah Password" },
+    { to: paths.account.profile(), label: "Profil" },
+    { to: paths.account.orders.root(), label: "Pesanan" },
+    { to: paths.account.wishlist(), label: "Wishlist" },
+    { to: paths.account.address(), label: "Alamat" },
+    { to: paths.account.notifications(), label: "Notifikasi" },
+    { to: paths.account.changePassword(), label: "Ubah Password" },
   ];
 
   return (

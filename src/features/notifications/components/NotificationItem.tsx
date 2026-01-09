@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import type { Notification } from "@/types/notification";
 import { headline } from "@/utils/format";
 import dayjs from "@/utils/dayjs";
+import { paths } from "@/config/paths";
 
 interface NotificationItemProps {
   notification: Notification;

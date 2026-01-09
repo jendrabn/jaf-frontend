@@ -6,6 +6,7 @@ import {
   getProductPricingInfo,
   type FlashSaleStatusOverride,
 } from "@/utils/pricing";
+import { paths } from "@/config/paths";
 
 interface ProductItemProps {
   product: ProductItemTypes;
@@ -76,7 +77,7 @@ const ProductItem = (props: ProductItemProps) => {
         </span>
       )}
 
-      <Link to={`/products/${slug}`} className="text-decoration-none">
+      <Link to={paths.products.detail(slug)} className="text-decoration-none">
         <div className="w-100 ratio ratio-1x1 bg-gray-300 overflow-hidden rounded-3 img-hover-zoom">
           <Image
             src={image}
@@ -91,7 +92,7 @@ const ProductItem = (props: ProductItemProps) => {
         <Card.Title className="fs-6 line-clamp-2" title={name}>
           <Link
             className="text-body-emphasis text-decoration-none hover-text-primary"
-            to={`/products/${slug}`}
+            to={paths.products.detail(slug)}
           >
             {name}
           </Link>

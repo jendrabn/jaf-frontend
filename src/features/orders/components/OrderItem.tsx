@@ -7,6 +7,7 @@ import ProductImage from "@/features/products/components/ProductImage";
 import AddRatingModal from "@/features/orders/components/AddRatingModal";
 import { useState } from "react";
 import dayjs from "@/utils/dayjs";
+import { paths } from "@/config/paths";
 
 interface OrderItemProps {
   order: OrderTypes;
@@ -33,7 +34,7 @@ const OrderItem = (props: OrderItemProps) => {
       <div className="card-body">
         <Link
           className="text-decoration-none text-reset"
-          to={`/account/orders/${id}`}
+          to={paths.account.orders.detail(id.toString())}
         >
           <div className="d-flex justify-content-between align-items-center border-bottom pb-2">
             <div>

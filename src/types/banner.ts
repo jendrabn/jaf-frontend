@@ -4,4 +4,3 @@ export interface BannerTypes {
   image_description: string;
   url: string;
 }
-

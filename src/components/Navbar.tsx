@@ -14,6 +14,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
 import { Image } from "react-bootstrap";
 import { env } from "@/config/env";
+import { paths } from "@/config/paths";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuthState();
@@ -58,16 +59,16 @@ const Navbar = () => {
           <div className="container">
             <div className="d-flex justify-content-between align-items-center small">
               <div>
-                <NavLink className="me-3 text-muted" to="/about">
+                <NavLink className="me-3 text-muted" to={paths.about.root()}>
                   Tentang Kami
                 </NavLink>
-                <NavLink className="me-3 text-muted" to="/contact">
+                <NavLink className="me-3 text-muted" to={paths.contact.root()}>
                   Kontak
                 </NavLink>
-                <NavLink className="me-3 text-muted" to="/help">
+                <NavLink className="me-3 text-muted" to={paths.help.root()}>
                   Bantuan
                 </NavLink>
-                <NavLink className="text-muted" to="/faq">
+                <NavLink className="text-muted" to={paths.faq.root()}>
                   FAQs
                 </NavLink>
               </div>
@@ -84,7 +85,7 @@ const Navbar = () => {
 
         <nav className="navbar navbar-expand-lg border-bottom">
           <div className="container">
-            <NavLink className="navbar-brand d-none d-md-block" to="/">
+            <NavLink className="navbar-brand d-none d-md-block" to={paths.landing.root()}>
               <Logo className="img-fluid" />
             </NavLink>
 
@@ -113,7 +114,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       "nav-link " + (isActive ? "active" : "")
                     }
-                    to="/"
+                    to={paths.landing.root()}
                   >
                     Home
                   </NavLink>
@@ -169,7 +170,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       "nav-link " + (isActive ? "active" : "")
                     }
-                    to="/products"
+                    to={paths.products.root()}
                   >
                     Produk
                   </NavLink>
@@ -179,7 +180,7 @@ const Navbar = () => {
                     className={({ isActive }) =>
                       "nav-link " + (isActive ? "active" : "")
                     }
-                    to="/blog"
+                    to={paths.blog.root()}
                   >
                     Blog
                   </NavLink>
@@ -192,7 +193,7 @@ const Navbar = () => {
                     <li className="nav-item me-2">
                       <NavLink
                         className="nav-link"
-                        to={"/account/notifications"}
+                        to={paths.account.notifications()}
                         title="Notifikasi"
                       >
                         <div className="position-relative d-inline-block">
@@ -208,7 +209,7 @@ const Navbar = () => {
                     <li className="nav-item me-2">
                       <NavLink
                         className="nav-link"
-                        to={"/cart"}
+                        to={paths.cart.root()}
                         title="Keranjang Belanja"
                       >
                         <div className="position-relative d-inline-block">
@@ -243,7 +244,7 @@ const Navbar = () => {
                       >
                         <li>
                           <Link
-                            to={"/account/profile"}
+                            to={paths.account.profile()}
                             className="dropdown-item"
                           >
                             <div className="d-flex align-items-center">
@@ -269,7 +270,7 @@ const Navbar = () => {
                         <li>
                           <Link
                             className="dropdown-item text-muted fs-6 d-flex gap-3"
-                            to="/account/profile"
+                            to={paths.account.profile()}
                           >
                             <i className="bi bi-gear"></i>Pengaturan Akun
                           </Link>
@@ -277,7 +278,7 @@ const Navbar = () => {
                         <li>
                           <Link
                             className="dropdown-item text-muted fs-6 d-flex gap-3"
-                            to="/account/orders"
+                            to={paths.account.orders.root()}
                           >
                             <i className="bi bi-box-seam"></i>Pesanan Saya
                           </Link>
@@ -312,14 +313,14 @@ const Navbar = () => {
                     <li className="nav-item d-flex flex-column flex-lg-row gap-2">
                       <Link
                         className="btn btn-outline-primary px-lg-3 py-lg-1 rounded-pill"
-                        to="/auth/login"
+                        to={paths.auth.login.root()}
                       >
                         Masuk
                       </Link>
 
                       <Link
                         className="btn btn-primary text-white px-lg-3 py-lg-1 rounded-pill"
-                        to="/auth/register"
+                        to={paths.auth.register()}
                       >
                         Daftar
                       </Link>

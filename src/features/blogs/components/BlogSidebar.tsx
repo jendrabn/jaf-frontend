@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { Card, Spinner } from "react-bootstrap";
 import { useGetBlogCategories, useGetBlogTags } from "@/features/blogs/api";
+import { paths } from "@/config/paths";
 
 function BlogSidebar() {
   const { data: categories, isLoading: isLoadingCategories } =
@@ -26,7 +27,7 @@ function BlogSidebar() {
                 }`}
               >
                 <Link
-                  to={`/blog?category_id=${category.id}`}
+                  to={`${paths.blog.root()}?category_id=${category.id}`}
                   className="fw-semibold text-decoration-none link-body-emphasis"
                 >
                   {category.name}
@@ -56,7 +57,7 @@ function BlogSidebar() {
             <div className="d-flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Link
-                  to={`/blog?tag_id=${tag.id}`}
+                  to={`${paths.blog.root()}?tag_id=${tag.id}`}
                   key={`tag-${tag.id}`}
                   className="text-decoration-none"
                 >

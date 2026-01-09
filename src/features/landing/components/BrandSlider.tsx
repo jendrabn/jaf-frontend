@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import type { ProductBrandTypes } from "@/types/product";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router";
+import { paths } from "@/config/paths";
 
 const circleStyle: React.CSSProperties = {
   width: 44,
@@ -104,7 +105,7 @@ const BrandSlider = ({ brands }: { brands: ProductBrandTypes[] }) => {
             className="brand-slide"
           >
             <Link
-              to={`/products?brand_id=${brand.id}`}
+              to={`${paths.products.root()}?brand_id=${brand.id}`}
               className="brand-link d-block"
               aria-label={`Lihat produk brand ${brand.name}`}
               style={{ textDecoration: "none", color: "inherit" }}

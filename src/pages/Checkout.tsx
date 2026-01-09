@@ -20,6 +20,7 @@ import { type OrderReqTypes } from "@/types/order";
 import { useCartDispatch } from "@/contexts/CartContext";
 import { QUERY_KEYS, PAYMENT_METHOD_GATEWAY } from "@/utils/constans";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 function CheckoutPage() {
   const queryClient = useQueryClient();
@@ -179,7 +180,7 @@ function CheckoutPage() {
 
           // Jika Payment Gateway (Midtrans), alihkan ke halaman detail pesanan
           if (data?.payment_method === PAYMENT_METHOD_GATEWAY) {
-            navigate(`/account/orders/${data.id}`, {
+            navigate(paths.account.orders.detail(data.id.toString()), {
               replace: true,
               state: { new_order_created: true },
             });
@@ -187,7 +188,7 @@ function CheckoutPage() {
           }
 
           // Default: navigasi ke detail pesanan (bank/ewallet atau selain gateway)
-          navigate(`/account/orders/${data.id}`, {
+          navigate(paths.account.orders.detail(data.id.toString()), {
             replace: true,
             state: { new_order_created: true },
           });

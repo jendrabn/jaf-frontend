@@ -1,6 +1,7 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 const NotFoundPage = () => {
   return (
@@ -48,7 +49,7 @@ const NotFoundPage = () => {
                     Silakan periksa kembali URL atau kembali ke halaman utama.
                   </Card.Text>
 
-                  <Link to="/" className="btn btn-primary">
+                  <Link to={paths.landing.root()} className="btn btn-primary">
                     <i className="bi bi-arrow-left me-2"></i>Kembali ke Beranda
                   </Link>
                 </Card.Body>

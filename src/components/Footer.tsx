@@ -1,5 +1,6 @@
 import { env } from "@/config/env";
 import { Link } from "react-router";
+import { paths } from "@/config/paths";
 
 const Footer = () => {
   return (
@@ -27,28 +28,28 @@ const Footer = () => {
               <div className="col-md-4 mb-5">
                 <h5 className=" text-uppercase mb-4">Belanja Cepat</h5>
                 <div className="d-flex flex-column justify-content-start">
-                  <Link className=" mb-2" to="/">
+                  <Link className=" mb-2" to={paths.landing.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Beranda
                   </Link>
-                  <Link className=" mb-2" to="/products">
+                  <Link className=" mb-2" to={paths.products.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Produk
                   </Link>
-                  <Link className=" mb-2" to="/blog">
+                  <Link className=" mb-2" to={paths.blog.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Blog
                   </Link>
-                  <Link className=" mb-2" to="/contact">
+                  <Link className=" mb-2" to={paths.contact.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Kontak
                   </Link>
-                  <Link className=" mb-2" to="/about">
+                  <Link className=" mb-2" to={paths.about.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Tentang Kami
                   </Link>
-                  <Link className=" mb-2" to="/faq">
+                  <Link className=" mb-2" to={paths.faq.root()}>
                     <i className="bi bi-chevron-right me-2"></i>FAQ
                   </Link>
-                  <Link className=" mb-2" to="/help">
+                  <Link className=" mb-2" to={paths.help.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Bantuan
                   </Link>
-                  <Link className="" to="/cart">
+                  <Link className="" to={paths.cart.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Keranjang
                   </Link>
                 </div>
@@ -56,25 +57,25 @@ const Footer = () => {
               <div className="col-md-4 mb-5">
                 <h5 className=" text-uppercase mb-4">Akun Saya</h5>
                 <div className="d-flex flex-column justify-content-start">
-                  <Link className=" mb-2" to="/auth/login">
+                  <Link className=" mb-2" to={paths.auth.login.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Masuk
                   </Link>
-                  <Link className=" mb-2" to="/auth/register">
+                  <Link className=" mb-2" to={paths.auth.register()}>
                     <i className="bi bi-chevron-right me-2"></i>Daftar
                   </Link>
-                  <Link className=" mb-2" to="/account/profile">
+                  <Link className=" mb-2" to={paths.account.profile()}>
                     <i className="bi bi-chevron-right me-2"></i>Profil
                   </Link>
-                  <Link className=" mb-2" to="/account/orders">
+                  <Link className=" mb-2" to={paths.account.orders.root()}>
                     <i className="bi bi-chevron-right me-2"></i>Pesanan
                   </Link>
-                  <Link className=" mb-2" to="/account/wishlist">
+                  <Link className=" mb-2" to={paths.account.wishlist()}>
                     <i className="bi bi-chevron-right me-2"></i>Wishlist
                   </Link>
-                  <Link className=" mb-2" to="/account/address">
+                  <Link className=" mb-2" to={paths.account.address()}>
                     <i className="bi bi-chevron-right me-2"></i>Alamat
                   </Link>
-                  <Link className="" to="/account/change-password">
+                  <Link className="" to={paths.account.changePassword()}>
                     <i className="bi bi-chevron-right me-2"></i>Ubah Kata Sandi
                   </Link>
                 </div>

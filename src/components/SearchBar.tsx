@@ -7,6 +7,7 @@ import {
   useRef,
 } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
+import { paths } from "@/config/paths";
 
 interface SearchBarProps {
   className?: string;
@@ -33,7 +34,7 @@ const SearchBar = ({ className }: SearchBarProps) => {
     e.preventDefault();
 
     navigate(
-      `/products${
+      `${paths.products.root()}${
         searchTerm.trim().length > 0
           ? `?search=${encodeURIComponent(searchTerm.trim())}`
           : ""
@@ -165,7 +166,7 @@ const SearchBar = ({ className }: SearchBarProps) => {
               {!loading &&
                 suggestions.length > 0 &&
                 suggestions.map((item) => {
-                  const to = `/products?search=${encodeURIComponent(item)}`;
+                  const to = `${paths.products.root()}?search=${encodeURIComponent(item)}`;
                   return (
                     <Link
                       key={item}

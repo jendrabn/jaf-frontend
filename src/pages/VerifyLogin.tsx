@@ -9,6 +9,7 @@ import { useResendLoginOtp } from "@/features/auth/api/resend-login-otp";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useEffect, useRef, useState } from "react";
 import SEO from "@/components/SEO";
+import { paths } from "@/config/paths";
 
 type FormFields = {
   otp: string;
@@ -29,7 +30,7 @@ const VerifyLoginPage = () => {
   useEffect(() => {
     // If there's no email context, redirect back to login
     if (!email) {
-      navigate("/auth/login", { replace: true });
+      navigate(paths.auth.login.root(), { replace: true });
     }
   }, [email, navigate]);
 

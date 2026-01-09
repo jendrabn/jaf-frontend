@@ -10,6 +10,7 @@ import ShareModal from "@/components/ShareModal";
 import dayjs from "@/utils/dayjs";
 import SEO from "@/components/SEO";
 import { generateArticleSchema } from "@/utils/seo-schemas";
+import { paths } from "@/config/paths";
 
 function BlogDetailPage() {
   const { slug } = useParams();
@@ -54,10 +55,10 @@ function BlogDetailPage() {
             <div className="row justify-content-center">
               <div className="col-12 col-md-10 col-lg-8">
                 <Breadcrumb className="mb-5">
-                  <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
+                  <Breadcrumb.Item linkAs={Link} linkProps={{ to: paths.landing.root() }}>
                     Home
                   </Breadcrumb.Item>
-                  <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/blog" }}>
+                  <Breadcrumb.Item linkAs={Link} linkProps={{ to: paths.blog.root() }}>
                     Blog
                   </Breadcrumb.Item>
                   <Breadcrumb.Item active className="text-truncate">
