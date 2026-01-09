@@ -31,7 +31,6 @@ const WishlistPage = lazy(() => import("@/pages/Wishlist"));
 const ProfilePage = lazy(() => import("@/pages/Profile"));
 const OrderPage = lazy(() => import("@/pages/Order"));
 const ChangePassword = lazy(() => import("@/pages/ChangePassword"));
-const AddressPage = lazy(() => import("@/pages/Address"));
 const BlogPage = lazy(() => import("@/pages/Blog"));
 const BlogDetailPage = lazy(() => import("@/pages/BlogDetail"));
 const CheckoutPage = lazy(() => import("@/pages/Checkout"));
@@ -228,10 +227,6 @@ function App() {
                             <Route
                               path="account/wishlist"
                               element={<WishlistPage />}
-                            />
-                            <Route
-                              path="account/address"
-                              element={<AddressPage />}
                             />
                             <Route
                               path="account/change-password"

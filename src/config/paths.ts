@@ -48,7 +48,6 @@ export const paths = {
       detail: (id: string | number) => `/account/orders/${id}`,
     },
     wishlist: () => `/account/wishlist`,
-    address: () => `/account/address`,
     changePassword: () => `/account/change-password`,
     notifications: () => `/account/notifications`,
   },

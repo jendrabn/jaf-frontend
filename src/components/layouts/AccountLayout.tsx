@@ -16,7 +16,6 @@ const NavAccount = () => {
     { to: paths.account.profile(), label: "Profil" },
     { to: paths.account.orders.root(), label: "Pesanan" },
     { to: paths.account.wishlist(), label: "Wishlist" },
-    { to: paths.account.address(), label: "Alamat" },
     { to: paths.account.notifications(), label: "Notifikasi" },
     { to: paths.account.changePassword(), label: "Ubah Password" },
   ];
@@ -95,4 +94,3 @@ const AccountLayout = ({ children, title }: AuthLayoutProps) => {
 };
 
 export default AccountLayout;
-

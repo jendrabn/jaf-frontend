@@ -72,9 +72,6 @@ const Footer = () => {
                   <Link className=" mb-2" to={paths.account.wishlist()}>
                     <i className="bi bi-chevron-right me-2"></i>Wishlist
                   </Link>
-                  <Link className=" mb-2" to={paths.account.address()}>
-                    <i className="bi bi-chevron-right me-2"></i>Alamat
-                  </Link>
                   <Link className="" to={paths.account.changePassword()}>
                     <i className="bi bi-chevron-right me-2"></i>Ubah Kata Sandi
                   </Link>
@@ -195,4 +192,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
