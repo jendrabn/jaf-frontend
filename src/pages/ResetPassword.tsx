@@ -2,7 +2,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import SEO from "@/components/SEO";
 import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
 
-function ResetPasswordPage() {
+function ResetPassword() {
   return (
     <AuthLayout
       title="Reset Password"
@@ -20,4 +20,4 @@ function ResetPasswordPage() {
   );
 }
 
-export default ResetPasswordPage;
+export default ResetPassword;

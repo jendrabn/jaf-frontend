@@ -3,7 +3,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import SEO from "@/components/SEO";
 import VerifyLoginForm from "@/features/auth/components/VerifyLoginForm";
 
-const VerifyLoginPage = () => {
+const VerifyLogin = () => {
   return (
     <AuthLayout
       title="Verifikasi Login"
@@ -21,4 +21,4 @@ const VerifyLoginPage = () => {
   );
 };
 
-export default VerifyLoginPage;
+export default VerifyLogin;

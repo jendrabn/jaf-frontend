@@ -50,7 +50,7 @@ const formatTabLabel = (sale: FlashSaleScheduleTypes) => {
   return `${time} ${dateLabel}`;
 };
 
-const FlashSalePage = () => {
+const FlashSale = () => {
   const { data, isLoading } = useGetFlashSales();
   const flashSales = data || [];
   const [activeId, setActiveId] = useState<number | null>(null);
@@ -188,4 +188,4 @@ const FlashSalePage = () => {
   );
 };
 
-export default FlashSalePage;
+export default FlashSale;

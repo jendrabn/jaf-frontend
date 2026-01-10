@@ -1,34 +1,47 @@
-import type { CartItemTypes } from "./cart";
-import type {
-  BankTypes,
-  EwalletTypes,
-  PaymentGatewayTypes,
-} from "./payment-method";
-import type {
-  CityTypes,
-  DistrictTypes,
-  ProvinceTypes,
-  SubDistrictTypes,
-} from "./region";
+import type { CartItem } from "./cart";
+import type { Bank, Ewallet, PaymentGateway } from "./payment-method";
 
-export interface CheckoutTypes {
-  shipping_address: AddressTypes;
-  carts: Array<CartItemTypes>;
-  shipping_methods: Array<ShippingCostTypes>;
+export interface Province {
+  id: number;
+  name: string;
+}
+
+export interface City {
+  id: number;
+  name: string;
+  zip_code: string;
+}
+
+export interface District {
+  id: number;
+  name: string;
+  zip_code: string;
+}
+
+export interface SubDistrict {
+  id: number;
+  name: string;
+  zip_code: string;
+}
+
+export interface Checkout {
+  shipping_address: Address;
+  carts: Array<CartItem>;
+  shipping_methods: Array<ShippingCost>;
   payment_methods: {
-    bank: Array<BankTypes>;
-    ewallet: Array<EwalletTypes>;
-    gateway?: PaymentGatewayTypes | null;
+    bank: Array<Bank>;
+    ewallet: Array<Ewallet>;
+    gateway?: PaymentGateway | null;
   };
-  taxes: Array<TaxTypes>;
+  taxes: Array<Tax>;
   total_quantity: number;
   total_weight: number;
   total_price: number;
   total_tax: number;
-  coupon?: CouponTypes | null;
+  coupon?: Coupon | null;
 }
 
-export interface TaxTypes {
+export interface Tax {
   id: number;
   name: string;
   rate: number;
@@ -37,7 +50,7 @@ export interface TaxTypes {
 export type CouponPromoType = "limit" | "period" | "product";
 export type CouponDiscountType = "fixed" | "percentage";
 
-export interface CouponTypes {
+export interface Coupon {
   id: number;
   name: string;
   description: string | null;
@@ -57,30 +70,25 @@ export interface CouponTypes {
   updated_at: string;
 }
 
-export interface ApplyCouponReqTypes {
-  code: string;
-  cart_ids?: Array<number>;
-}
-
-export interface ApplyCouponResTypes {
-  data: CouponTypes;
+export interface ApplyCouponRes {
+  data: Coupon;
   message?: string;
   discount_amount?: number | string | null;
   total_price?: number | string | null;
 }
 
-export interface ShippingAddressTypes {
+export interface ShippingAddress {
   id: number;
   name: string;
   phone: string;
-  province: ProvinceTypes;
-  city: CityTypes;
+  province: Province;
+  city: City;
   district: string;
   postal_code: string;
   address: string;
 }
 
-export interface ShippingCostTypes {
+export interface ShippingCost {
   courier: string;
   courier_name: string;
   service: string;
@@ -89,33 +97,23 @@ export interface ShippingCostTypes {
   etd: string;
 }
 
-export interface ShippingCostReqTypes {
-  destination?: number;
-  weight?: number;
-}
-
-export interface CheckoutReqTypes {
-  cart_ids?: Array<number>;
-}
-
-export interface DeliveryAddressTypes {
+export interface DeliveryAddress {
   name: string;
   phone: string;
-  province: ProvinceTypes;
-  city: CityTypes;
+  province: Province;
+  city: City;
   district: string;
   postal_code: string;
   address: string;
 }
 
-export interface AddressTypes {
+export interface Address {
   name?: string;
   phone?: string;
-  province?: ProvinceTypes;
-  city?: CityTypes;
-  district?: DistrictTypes;
-  subdistrict?: SubDistrictTypes;
+  province?: Province;
+  city?: City;
+  district?: District;
+  subdistrict?: SubDistrict;
   zip_code?: string;
   address?: string;
 }
-

@@ -1,8 +1,8 @@
-import type { ProductItemTypes } from "./product";
+import type { ProductItem } from "./product";
 
-export interface OrderItemTypes {
+export interface OrderItem {
   id: number;
-  product: ProductItemTypes;
+  product: ProductItem;
   name: string;
   price: number;
   price_before_discount?: number | null;
@@ -10,46 +10,24 @@ export interface OrderItemTypes {
   discount_in_percent?: number | null;
   weight: number;
   quantity: number;
-  rating: RatingTypes | null;
+  rating: Rating | null;
 }
 
-export interface OrderTypes {
+export interface Order {
   id: number;
-  items: Array<OrderItemTypes>;
+  items: Array<OrderItem>;
   status: string;
   total_amount: number;
   payment_due_date: string;
   created_at: string;
-  // Tambahan untuk identifikasi metode pembayaran pada list pesanan
   payment?: {
     method: string;
-    info?: PaymentInfoTypes;
+    info?: PaymentInfo;
     status?: string;
   };
 }
 
-export interface OrderReqTypes {
-  cart_ids?: number[];
-  shipping_address: {
-    name?: string;
-    phone?: string;
-    province_id?: number;
-    city_id?: number;
-    district_id?: number;
-    subdistrict_id?: number;
-    zip_code?: string;
-    address?: string;
-  };
-  shipping_courier?: string;
-  shipping_service?: string;
-  payment_method?: string;
-  bank_id?: number;
-  ewallet_id?: number;
-  note?: string;
-  coupon_code?: string;
-}
-
-export interface OrderParamsTypes {
+export interface OrderParams {
   page?: number;
   status?:
     | "pending_payment"
@@ -61,9 +39,9 @@ export interface OrderParamsTypes {
   sort_by?: "newest" | "oldest";
 }
 
-export interface OrderDetailTypes {
+export interface OrderDetail {
   id: number;
-  items: Array<OrderItemTypes>;
+  items: Array<OrderItem>;
   invoice: {
     id: number;
     number: string;
@@ -74,7 +52,7 @@ export interface OrderDetailTypes {
   payment: {
     id: number;
     method: string;
-    info: PaymentInfoTypes;
+    info: PaymentInfo;
     amount: number;
     status: string;
   };
@@ -106,7 +84,6 @@ export interface OrderDetailTypes {
   tax_amount: number;
   tax_name: string;
 
-  // Tambahan untuk biaya payment gateway (opsional)
   gateway_fee?: number;
   gateway_fee_name?: string;
 
@@ -122,8 +99,8 @@ export interface OrderDetailTypes {
   created_at: string;
 }
 
-export interface CheckoutTypes {
-  items: Array<OrderItemTypes>;
+export interface Checkout {
+  items: Array<OrderItem>;
   shipping_address: {
     name: string;
     phone: string;
@@ -137,7 +114,7 @@ export interface CheckoutTypes {
   total_amount: number;
 }
 
-export interface PaymentInfoTypes {
+export interface PaymentInfo {
   name?: string;
   code?: string;
   account_name?: string;
@@ -149,15 +126,7 @@ export interface PaymentInfoTypes {
   redirect_url?: string;
 }
 
-export interface ConfirmPaymentReqTypes {
-  name?: string;
-  account_name?: string;
-  account_number?: string;
-  account_username?: string;
-  phone?: string;
-}
-
-export interface OrderSuccessTypes {
+export interface OrderSuccess {
   id: number;
   total_amount: number;
   payment_method: string;
@@ -171,7 +140,7 @@ export interface OrderSuccessTypes {
   created_at: string;
 }
 
-export interface RatingTypes {
+export interface Rating {
   order_item_id: number;
   rating: number;
   comment: string;
@@ -179,11 +148,3 @@ export interface RatingTypes {
   username: string;
   created_at: string;
 }
-
-export interface RatingReqTypes {
-  order_item_id: number;
-  rating: number;
-  comment: string;
-  is_anonymous: boolean;
-}
-

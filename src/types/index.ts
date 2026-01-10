@@ -1,10 +1,10 @@
-export interface ValidationErrorTypes {
+export interface ValidationError {
   message: string;
   errors?: { [key: string]: string };
   status: number;
 }
 
-export interface PageTypes {
+export interface Page {
   current_page: number;
   from: number;
   last_page: number;
@@ -13,7 +13,7 @@ export interface PageTypes {
   total: number;
 }
 
-export interface NoContentTypes {
+export interface NoContent {
   data: true;
 }
 

@@ -1,40 +1,35 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useReducer } from "react";
-import type {
-  AddressTypes,
-  CheckoutTypes,
-  ShippingCostTypes,
-  CouponTypes,
-} from "@/types/checkout";
-import type { BankTypes, EwalletTypes } from "@/types/payment-method";
+import type { Address, Checkout, ShippingCost, Coupon } from "@/types/checkout";
+import type { Bank, Ewallet } from "@/types/payment-method";
 import { useLocation } from "react-router";
 
 // Action type
 type CheckoutAction =
-  | { type: "SET_CHECKOUT"; payload: CheckoutTypes | null }
-  | { type: "SET_ADDRESS"; payload: AddressTypes | null }
-  | { type: "SET_SHIPPING"; payload: ShippingCostTypes | null }
-  | { type: "SET_SHIPPING_COSTS"; payload: ShippingCostTypes[] | [] }
-  | { type: "SET_COUPON"; payload: CouponTypes | null }
+  | { type: "SET_CHECKOUT"; payload: Checkout | null }
+  | { type: "SET_ADDRESS"; payload: Address | null }
+  | { type: "SET_SHIPPING"; payload: ShippingCost | null }
+  | { type: "SET_SHIPPING_COSTS"; payload: ShippingCost[] | [] }
+  | { type: "SET_COUPON"; payload: Coupon | null }
   | { type: "SET_PAYMENT_METHOD"; payload: string }
-  | { type: "SET_BANK"; payload: BankTypes | null }
-  | { type: "SET_EWALLET"; payload: EwalletTypes | null }
+  | { type: "SET_BANK"; payload: Bank | null }
+  | { type: "SET_EWALLET"; payload: Ewallet | null }
   | { type: "SET_NOTE"; payload: string }
   | { type: "RESET" }
   | { type: "SET_LOADING_SHIPPING_COSTS"; payload: boolean };
 
 // State type
 interface CheckoutState {
-  checkout: CheckoutTypes | null;
-  address: AddressTypes | null;
-  shipping: ShippingCostTypes | null;
-  shippingCosts: ShippingCostTypes[] | [];
+  checkout: Checkout | null;
+  address: Address | null;
+  shipping: ShippingCost | null;
+  shippingCosts: ShippingCost[] | [];
   paymentMethod: string;
-  bank: BankTypes | null;
-  ewallet: EwalletTypes | null;
+  bank: Bank | null;
+  ewallet: Ewallet | null;
   note: string;
   isLoadingShippingCosts: boolean;
-  coupon: CouponTypes | null;
+  coupon: Coupon | null;
 }
 
 // Initial state
@@ -135,4 +130,3 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({
     </CheckoutStateContext.Provider>
   );
 };
-

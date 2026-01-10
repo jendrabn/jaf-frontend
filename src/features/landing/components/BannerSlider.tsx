@@ -8,8 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import { Link } from "react-router";
-import type { BannerTypes } from "@/types/banner";
-import { paths } from "@/config/paths";
+import type { BannerTypes } from "@/types/landing";
 
 type ArrowButtonProps = {
   direction: "prev" | "next";
@@ -34,7 +33,7 @@ function ArrowButton({ direction, onClick }: ArrowButtonProps) {
       type="button"
       aria-label={direction === "prev" ? "Previous" : "Next"}
       onClick={onClick}
-      className={`banner-arrow banner-arrow-${direction}`}
+      className={`banner-arrow banner-arrow-${direction} d-none d-sm-inline-flex`}
       style={{
         position: "absolute",
         top: "50%",
@@ -108,4 +107,3 @@ const BannerSlider = ({ banners }: { banners: BannerTypes[] }) => {
 };
 
 export default BannerSlider;
-

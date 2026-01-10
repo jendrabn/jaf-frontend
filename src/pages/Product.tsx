@@ -41,7 +41,7 @@ const FILTER_OPTIONS: { label: string; value: string }[] = [
   },
 ];
 
-const ProductPage = () => {
+const Product = () => {
   const { setFilter, clearFilters, params } = useFilters<ProductParamsTypes>();
 
   const { data: products, isLoading } = useGetProducts(params);
@@ -199,4 +199,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default Product;

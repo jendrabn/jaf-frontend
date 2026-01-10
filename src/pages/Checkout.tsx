@@ -22,7 +22,7 @@ import { QUERY_KEYS, PAYMENT_METHOD_GATEWAY } from "@/utils/constans";
 import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
 
-function CheckoutPage() {
+function Checkout() {
   const queryClient = useQueryClient();
   const createMutation = useCreateOrder();
   const navigate = useNavigate();
@@ -321,4 +321,4 @@ function CheckoutPage() {
     </Layout>
   );
 }
-export default CheckoutPage;
+export default Checkout;

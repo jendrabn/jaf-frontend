@@ -1,11 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useEffect, useReducer } from "react";
-import type { WishlistTypes } from "@/types/wishlist";
+import type { Wishlist } from "@/types/wishlist";
 import { useGetWishlist } from "@/features/wishlist/api";
 
 // Action type
 type WishlistAction =
-  | { type: "SET_WISHLISTS"; payload: WishlistTypes[] }
+  | { type: "SET_WISHLISTS"; payload: Wishlist[] }
   | { type: "SET_SELECTED_IDS"; payload: number[] }
   | { type: "SELECT"; payload: number }
   | { type: "SELECT_ALL" }
@@ -14,7 +14,7 @@ type WishlistAction =
 
 // State type
 interface WishlistState {
-  wishlists: WishlistTypes[];
+  wishlists: Wishlist[];
   selectedIds: number[];
 }
 

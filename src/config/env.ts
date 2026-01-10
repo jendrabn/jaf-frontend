@@ -43,9 +43,9 @@ const createEnv = () => {
   });
 
   const envVars = {
-    APP_NAME: import.meta.env.VITE_APP_NAME,
-    APP_URL: import.meta.env.VITE_APP_URL,
-    API_URL: import.meta.env.VITE_API_URL,
+    APP_NAME: import.meta.env.VITE_APP_NAME || "JAF Parfum's",
+    APP_URL: import.meta.env.VITE_APP_URL || "https://www.jaf.co.id",
+    API_URL: import.meta.env.VITE_API_URL || "https://api.jaf.co.id",
 
     STORE_ADDRESS: import.meta.env.VITE_STORE_ADDRESS,
     STORE_PHONE: import.meta.env.VITE_STORE_PHONE,

@@ -3,12 +3,16 @@ import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
 import type { NoContentTypes } from "@/types";
 
+export type DeleteWishlistInput = {
+  wishlist_ids: number[];
+};
+
 export type DeleteWishlistResponse = NoContentTypes;
 
 export const deleteWishlist = ({
   data,
 }: {
-  data: { wishlist_ids: number[] };
+  data: DeleteWishlistInput;
 }): Promise<DeleteWishlistResponse> => {
   return api.post("/wishlist?_method=DELETE", data);
 };

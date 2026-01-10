@@ -1,4 +1,4 @@
-import type { LoginTypes } from "@/types/auth";
+import type { Login } from "@/types/auth";
 import { api } from "@/lib/api-client";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -15,7 +15,7 @@ const GoogleLoginButton = () => {
     onError: (error) => console.log("Login Failed:", error),
     onSuccess: (codeResponse) => {
       api
-        .post<LoginTypes, LoginTypes>("/auth/google", {
+        .post<Login, Login>("/auth/google", {
           token: codeResponse.access_token,
         })
         .then((data) => {
@@ -27,7 +27,9 @@ const GoogleLoginButton = () => {
 
           setSelectedCartIds([]);
 
-          navigate(location.state?.from || paths.landing.root(), { replace: true });
+          navigate(location.state?.from || paths.landing.root(), {
+            replace: true,
+          });
 
           window.location.reload();
         });
@@ -51,4 +53,3 @@ const GoogleLoginButton = () => {
 };
 
 export default GoogleLoginButton;
-

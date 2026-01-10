@@ -9,9 +9,9 @@ import type { AxiosError } from "axios";
 import { api } from "@/lib/api-client";
 import SEO from "@/components/SEO";
 import { localBusinessSchema } from "@/utils/seo-schemas";
-import PageHeader from "@/components/ui/page-header";
+import PageHeader from "@/components/layouts/PageHeader";
 
-function ContactPage() {
+function Contact() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -88,9 +88,7 @@ function ContactPage() {
       />
 
       <div className="container">
-        <PageHeader
-          title="Hubungi Kami"
-        />
+        <PageHeader title="Hubungi Kami" />
 
         <div className="row g-5 align-items-stretch">
           <div className="col-lg-6">
@@ -215,4 +213,4 @@ function ContactPage() {
   );
 }
 
-export default ContactPage;
+export default Contact;

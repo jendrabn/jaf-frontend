@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
 
-const NotFoundPage = () => {
+const NotFound = () => {
   return (
     <>
       <SEO
@@ -62,4 +62,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default NotFound;

@@ -1,8 +1,8 @@
 import { Pagination as BootstrapPagination } from "react-bootstrap";
-import type { PageTypes } from "@/types";
+import type { Page } from "@/types";
 import { useEffect, useState } from "react";
 
-type PaginationProps = PageTypes & {
+type PaginationProps = Page & {
   onClick: (page: number) => void;
 };
 

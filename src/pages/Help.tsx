@@ -2,9 +2,9 @@ import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/CustomerServiceContact";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
-import PageHeader from "@/components/ui/page-header";
+import PageHeader from "@/components/layouts/PageHeader";
 
-const HelpPage = () => {
+const Help = () => {
   return (
     <Layout>
       <SEO
@@ -16,9 +16,7 @@ const HelpPage = () => {
       />
 
       <div className="container">
-        <PageHeader
-          title="Pusat Bantuan"
-        />
+        <PageHeader title="Pusat Bantuan" />
 
         <div className="row g-4">
           <div className="col-md-6">
@@ -79,4 +77,4 @@ const HelpPage = () => {
   );
 };
 
-export default HelpPage;
+export default Help;

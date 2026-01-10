@@ -1,8 +1,4 @@
-import {
-  forwardRef,
-  type ButtonHTMLAttributes,
-  type MouseEvent,
-} from "react";
+import { forwardRef, type ButtonHTMLAttributes, type MouseEvent } from "react";
 import { Link, NavLink } from "react-router";
 import SearchBar from "@/components/SearchBar";
 import { useAuthState } from "@/contexts/AuthContext";
@@ -118,7 +114,10 @@ const Navbar = () => {
 
         <nav className="navbar navbar-expand-lg border-bottom">
           <div className="container">
-            <NavLink className="navbar-brand d-flex align-items-center" to={paths.landing.root()}>
+            <NavLink
+              className="navbar-brand d-flex align-items-center d-none d-lg-block"
+              to={paths.landing.root()}
+            >
               <Logo className="img-fluid" />
             </NavLink>
 
@@ -153,7 +152,10 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <Dropdown as="li" className="nav-item">
-                  <Dropdown.Toggle as={NavDropdownToggle} id="nav-dropdown-categories">
+                  <Dropdown.Toggle
+                    as={NavDropdownToggle}
+                    id="nav-dropdown-categories"
+                  >
                     Kategori
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
@@ -169,7 +171,10 @@ const Navbar = () => {
                   </Dropdown.Menu>
                 </Dropdown>
                 <Dropdown as="li" className="nav-item">
-                  <Dropdown.Toggle as={NavDropdownToggle} id="nav-dropdown-brands">
+                  <Dropdown.Toggle
+                    as={NavDropdownToggle}
+                    id="nav-dropdown-brands"
+                  >
                     Brand
                   </Dropdown.Toggle>
                   <Dropdown.Menu>

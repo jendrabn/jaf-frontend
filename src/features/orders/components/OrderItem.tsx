@@ -216,4 +216,3 @@ const OrderItem = (props: OrderItemProps) => {
 };
 
 export default OrderItem;
-

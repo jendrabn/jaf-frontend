@@ -1,9 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { ShippingCostReqTypes, ShippingCostTypes } from "@/types/checkout";
+import type { ShippingCostTypes } from "@/types/checkout";
 
-export type GetShippingCostsInput = ShippingCostReqTypes;
+export type GetShippingCostsInput = {
+  origin?: number;
+  destination?: number;
+  weight?: number;
+  courier?: string;
+};
 
 export const getShippingCosts = ({
   data,

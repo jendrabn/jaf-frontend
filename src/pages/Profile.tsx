@@ -1,6 +1,6 @@
 import { Row, Col, Button, Form, Image } from "react-bootstrap";
 import { useAuthState } from "@/contexts/AuthContext";
-import type { UserTypes } from "@/types/user";
+import type { User } from "@/types/user";
 import AccountLayout from "@/components/layouts/AccountLayout";
 import { useUpdateUser } from "@/features/user/api";
 import { useQueryClient } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useForm } from "react-hook-form";
 import SEO from "@/components/SEO";
 
-const ProfilePage = () => {
+const Profile = () => {
   const { user } = useAuthState();
 
   const queryClient = useQueryClient();
@@ -26,7 +26,7 @@ const ProfilePage = () => {
     reset: resetForm,
     watch,
     setValue,
-  } = useForm<UserTypes>({
+  } = useForm<User>({
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
@@ -38,7 +38,7 @@ const ProfilePage = () => {
 
   const watchedSex = watch("sex");
 
-  const onSubmit = (data: UserTypes) => {
+  const onSubmit = (data: User) => {
     const formData = new FormData();
 
     // Append form data
@@ -213,4 +213,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default Profile;

@@ -11,7 +11,7 @@ import Loading from "@/components/ui/loading";
 import { initializeFcmToken, refreshFcmToken } from "@/utils/fcm";
 import SEO from "@/components/SEO";
 
-const NotificationsPage = () => {
+const Notifications = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pushPermission, setPushPermission] = useState<
     NotificationPermission | "unsupported"
@@ -308,4 +308,4 @@ const NotificationsPage = () => {
   );
 };
 
-export default NotificationsPage;
+export default Notifications;

@@ -1,13 +1,13 @@
-import type { ProductItemTypes } from "./product";
+import type { ProductItem } from "./product";
 
 export type FlashSaleStatus = "running" | "scheduled" | "completed" | string;
 
-export interface FlashSaleItemTypes extends ProductItemTypes {
+export interface FlashSaleItem extends ProductItem {
   flash_price?: number | null;
   flash_price_display?: string | null;
 }
 
-export interface FlashSaleScheduleTypes {
+export interface FlashSaleSchedule {
   id: number;
   name: string;
   description: string;
@@ -17,6 +17,6 @@ export interface FlashSaleScheduleTypes {
   status_label: string;
   status_color: string;
   is_active: boolean;
-  products: FlashSaleItemTypes[];
+  products: FlashSaleItem[];
 }
 

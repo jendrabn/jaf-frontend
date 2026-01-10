@@ -16,17 +16,14 @@ import StarRating from "@/components/ui/star-rating";
 
 import { env } from "@/config/env";
 import ProductImageSlider from "@/features/products/components/ProductImageSlider";
-import ShareModal from "@/components/ShareModal";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { getProductPricingInfo } from "@/utils/pricing";
 import SEO from "@/components/SEO";
 import { generateProductSchema } from "@/utils/seo-schemas";
 import { paths } from "@/config/paths";
 
-export default function ProductDetailPage() {
+export default function ProductDetail() {
   const { slug } = useParams();
-
-  const [showShareModal, setShowShareModal] = useState(false);
 
   const [quantity, setQuantity] = useState<number>(1);
   const queryClient = useQueryClient();
@@ -72,6 +69,19 @@ export default function ProductDetailPage() {
         },
       }
     );
+  };
+
+  const handleShare = async () => {
+    if (!product || !navigator.share) return;
+
+    try {
+      await navigator.share({
+        title: product.name,
+        url: window.location.href,
+      });
+    } catch {
+      // ignore cancel
+    }
   };
 
   const pricingInfo = product ? getProductPricingInfo(product) : null;
@@ -132,7 +142,9 @@ export default function ProductDetailPage() {
               <Breadcrumb.Item href={paths.landing.root()}>
                 <i className="bi bi-house-door-fill"></i>
               </Breadcrumb.Item>
-              <Breadcrumb.Item href={paths.products.root()}>Produk</Breadcrumb.Item>
+              <Breadcrumb.Item href={paths.products.root()}>
+                Produk
+              </Breadcrumb.Item>
               <Breadcrumb.Item
                 href={`/products?category_id=${product.category.id}`}
               >
@@ -178,18 +190,10 @@ export default function ProductDetailPage() {
                     <Button
                       variant="link"
                       className="p-0 link-body-emphasis"
-                      onClick={() => setShowShareModal(true)}
+                      onClick={handleShare}
                     >
                       <i className="bi bi-share"></i>
                     </Button>
-                    <ShareModal
-                      show={showShareModal}
-                      onHide={() => setShowShareModal(false)}
-                      data={{
-                        title: product?.name,
-                        url: window.location.href,
-                      }}
-                    />
                   </div>
                 </div>
 

@@ -30,4 +30,3 @@ function useFilters<T = Record<string, string | number>>() {
 }
 
 export default useFilters;
-

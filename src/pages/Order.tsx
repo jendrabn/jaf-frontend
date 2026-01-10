@@ -53,7 +53,7 @@ const SortSelect = ({
   );
 };
 
-const OrderPage = () => {
+const Order = () => {
   const { setFilter, clearFilters, params } = useFilters();
   const { data: orders, isLoading } = useGetOrders(params as any);
   const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
@@ -218,4 +218,4 @@ const OrderPage = () => {
   );
 };
 
-export default OrderPage;
+export default Order;

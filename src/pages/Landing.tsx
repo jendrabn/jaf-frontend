@@ -21,7 +21,7 @@ import CountdownBlocks from "@/components/ui/countdown-blocks";
 import FlashSaleSlider from "@/features/flash-sale/components/FlashSaleSlider";
 import { paths } from "@/config/paths";
 
-function HomePage() {
+function Landing() {
   const { data: landing, isLoading } = useGetLanding();
   const { data: brands, isLoading: isLoadingBrands } = useGetProductBrands();
   const { data: flashSales, isLoading: isLoadingFlashSales } =
@@ -170,7 +170,10 @@ function HomePage() {
             )}
 
             <div className="text-center mt-4 d-md-none">
-              <Link to={paths.products.root()} className="btn btn-outline-primary">
+              <Link
+                to={paths.products.root()}
+                className="btn btn-outline-primary"
+              >
                 Jelajahi Produk
               </Link>
             </div>
@@ -220,7 +223,10 @@ function HomePage() {
                       Coba langsung koleksi terbaik kami di toko.
                     </p>
                   </div>
-                  <Link to={paths.contact.root()} className="btn btn-light btn-sm">
+                  <Link
+                    to={paths.contact.root()}
+                    className="btn btn-light btn-sm"
+                  >
                     Lihat Lokasi
                   </Link>
                 </div>
@@ -239,7 +245,10 @@ function HomePage() {
                   Tips & inspirasi memilih parfum favorit Anda.
                 </p>
               </div>
-              <Link to={paths.blog.root()} className="btn btn-link d-none d-md-inline-flex">
+              <Link
+                to={paths.blog.root()}
+                className="btn btn-link d-none d-md-inline-flex"
+              >
                 Jelajahi Artikel <i className="bi bi-arrow-right ms-2"></i>
               </Link>
             </div>
@@ -296,4 +305,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Landing;

@@ -9,9 +9,9 @@ import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import NoData from "@/components/ui/no-data";
 import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
-import PageHeader from "@/components/ui/page-header";
+import PageHeader from "@/components/layouts/PageHeader";
 
-function CartPage() {
+function Cart() {
   const navigate = useNavigate();
   const { carts, selectedIds, totalItem, totalPrice } = useCartState();
   const dispatch = useCartDispatch();
@@ -23,7 +23,10 @@ function CartPage() {
       { data: { cart_ids: selectedIds } },
       {
         onSuccess(data) {
-          navigate(paths.checkout.root(), { state: { checkout: data }, replace: true });
+          navigate(paths.checkout.root(), {
+            state: { checkout: data },
+            replace: true,
+          });
         },
       }
     );
@@ -54,10 +57,7 @@ function CartPage() {
       />
 
       <div className="container cart-layout">
-        <PageHeader
-          title="Keranjang Belanja"
-          align="start"
-        />
+        <PageHeader title="Keranjang Belanja" align="start" />
 
         {carts.length === 0 && (
           <NoData
@@ -187,4 +187,4 @@ function CartPage() {
   );
 }
 
-export default CartPage;
+export default Cart;

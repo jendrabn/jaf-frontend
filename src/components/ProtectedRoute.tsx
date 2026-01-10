@@ -8,8 +8,11 @@ function ProtectedRoute() {
 
   if (isLoading) return <Loading className="min-dvh-100" />;
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={paths.auth.login.root()} replace />;
+  return isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to={paths.auth.login.root()} replace />
+  );
 }
 
 export default ProtectedRoute;
-

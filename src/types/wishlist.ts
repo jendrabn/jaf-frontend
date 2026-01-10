@@ -1,15 +1,9 @@
-import type { ProductItemTypes } from "./product";
+import type { ProductItem } from "./product";
 
-export interface WishlistTypes {
+export interface Wishlist {
   id: number;
-  product: ProductItemTypes;
+  product: ProductItem;
 }
 
-export interface WishlistReqTypes {
-  product_id: number;
-}
 
-export interface DeleteWishlistReqTypes {
-  wishlist_ids: Array<number>;
-}
 

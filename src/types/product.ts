@@ -1,20 +1,20 @@
-import type { RatingTypes } from "./order";
+import type { Rating } from "./order";
 
-export interface ProductCategoryTypes {
+export interface ProductCategory {
   id: number;
   name: string;
   slug: string;
   logo: string | null;
 }
 
-export interface ProductBrandTypes {
+export interface ProductBrand {
   id: number;
   name: string;
   slug: string;
   logo: string | null;
 }
 
-export interface ProductParamsTypes {
+export interface ProductParams {
   page?: number;
   search?: string;
   sort_by?: "newest" | "oldest" | "sales" | "expensive" | "cheapest";
@@ -25,7 +25,7 @@ export interface ProductParamsTypes {
   max_price?: number;
 }
 
-export interface ProductDiscountTypes {
+export interface ProductDiscount {
   id: number;
   name: string;
   description: string;
@@ -56,13 +56,13 @@ export interface ProductFlashSaleMeta {
   is_flash_price_masked?: boolean;
 }
 
-export interface ProductItemTypes extends ProductFlashSaleMeta {
+export interface ProductItem extends ProductFlashSaleMeta {
   id: number;
   name: string;
   slug: string;
   image: string;
-  category: ProductCategoryTypes;
-  brand: ProductBrandTypes;
+  category: ProductCategory;
+  brand: ProductBrand;
   sex?: 1 | 2 | 3;
   price: number;
   stock: number;
@@ -70,20 +70,20 @@ export interface ProductItemTypes extends ProductFlashSaleMeta {
   sold_count: number;
   is_wishlist: boolean;
   rating_avg: number;
-  discount?: ProductDiscountTypes | null;
+  discount?: ProductDiscount | null;
   price_after_discount?: number | null;
   is_discounted?: boolean;
   discount_in_percent?: number | null;
 }
 
-export interface ProductDetailTypes extends ProductFlashSaleMeta {
+export interface ProductDetail extends ProductFlashSaleMeta {
   id: number;
   name: string;
   slug: string;
   images: string[];
-  category: ProductCategoryTypes;
+  category: ProductCategory;
   description: string;
-  brand: ProductBrandTypes;
+  brand: ProductBrand;
   sex: number;
   price: number;
   stock: number;
@@ -91,11 +91,11 @@ export interface ProductDetailTypes extends ProductFlashSaleMeta {
   sold_count: number;
   is_wishlist: boolean;
   rating_avg: number;
-  discount?: ProductDiscountTypes | null;
+  discount?: ProductDiscount | null;
   price_after_discount?: number | null;
   is_discounted?: boolean;
   discount_in_percent?: number | null;
-  ratings: RatingTypes[];
+  ratings: Rating[];
   sku: string;
 }
 

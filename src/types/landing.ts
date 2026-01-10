@@ -1,3 +1,10 @@
+export interface Banner {
+  id: number;
+  image: string;
+  image_description: string;
+  url: string;
+}
+
 export interface NewsletterResponse {
   success: boolean;
   message: string;
@@ -11,9 +18,5 @@ export interface NewsletterResponse {
     created_at: string;
     updated_at: string;
   };
-}
-
-export interface NewsletterRequest {
-  email: string;
 }
 

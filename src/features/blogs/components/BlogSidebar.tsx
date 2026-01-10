@@ -84,7 +84,7 @@ function BlogSidebar() {
     useGetBlogPopular();
 
   return (
-    <aside className="blog-sidebar d-flex flex-column gap-4">
+    <aside className="blog-sidebar d-flex flex-column gap-5 gap-md-4">
       <div className="sidebar-section d-flex flex-column gap-3">
         <div className="sidebar-section-title">Artikel Terbaru</div>
 

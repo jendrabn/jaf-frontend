@@ -7,14 +7,14 @@ import React, {
   useMemo,
 } from "react";
 import { useGetCarts } from "@/features/carts/api";
-import { type CartItemTypes } from "@/types/cart";
+import { type CartItem } from "@/types/cart";
 import { getSelectedCartIds, setSelectedCartIds } from "@/utils/functions";
 import { useLocation } from "react-router";
 import { getProductFinalPrice } from "@/utils/pricing";
 
 // Action type
 type CartAction =
-  | { type: "SET_CARTS"; payload: CartItemTypes[] }
+  | { type: "SET_CARTS"; payload: CartItem[] }
   | { type: "SET_SELECTED_IDS"; payload: number[] }
   | { type: "SELECT_ALL" }
   | { type: "SELECT"; payload: number }
@@ -24,7 +24,7 @@ type CartAction =
 
 // State type
 interface CartState {
-  carts: CartItemTypes[];
+  carts: CartItem[];
   selectedIds: number[];
   totalItem?: number;
   totalQuantity?: number;
@@ -184,4 +184,3 @@ export function useCartDispatch(): React.Dispatch<CartAction> {
   }
   return context;
 }
-

@@ -33,7 +33,7 @@ function ArrowButton({ direction, onClick }: ArrowButtonProps) {
     <button
       type="button"
       aria-label={direction === "prev" ? "Previous brand" : "Next brand"}
-      className={`brand-arrow brand-arrow-${direction}`}
+      className={`brand-arrow brand-arrow-${direction} d-none d-sm-inline-flex`}
       onClick={onClick}
       style={{
         position: "absolute",
@@ -133,4 +133,3 @@ const BrandSlider = ({ brands }: { brands: ProductBrandTypes[] }) => {
 };
 
 export default BrandSlider;
-

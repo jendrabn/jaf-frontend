@@ -29,7 +29,7 @@ import dayjs from "@/utils/dayjs";
 import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
 
-const OrderDetailPage = () => {
+const OrderDetail = () => {
   const { id } = useParams();
   const { data: order, isLoading, refetch } = useGetOrder(Number(id));
   const location = useLocation();
@@ -600,4 +600,4 @@ const OrderDetailPage = () => {
   );
 };
 
-export default OrderDetailPage;
+export default OrderDetail;

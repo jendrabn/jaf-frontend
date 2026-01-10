@@ -134,4 +134,3 @@ const ShareModal = ({ show, onHide, data }: ShareModalProps) => {
 };
 
 export default ShareModal;
-

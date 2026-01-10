@@ -9,7 +9,7 @@ import { useDeleteWishlist } from "@/features/wishlist/api";
 import NoData from "@/components/ui/no-data";
 import SEO from "@/components/SEO";
 
-const WishlistPage = () => {
+const Wishlist = () => {
   const deleteWishlistMutation = useDeleteWishlist();
   const { wishlists, selectedIds } = useWishlistState();
   const dispatch = useWishlistDispatch();
@@ -110,4 +110,4 @@ const WishlistPage = () => {
   );
 };
 
-export default WishlistPage;
+export default Wishlist;

@@ -92,7 +92,10 @@ const WishlistItem = (props: WishlistItemProps) => {
           />
         </div>
         <div className="wishlist-row-mobile-image">
-          <Link to={paths.products.detail(product.slug)} className="cart-product-link">
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-link"
+          >
             <ProductImage url={product.image} alt={product.name} />
           </Link>
         </div>
@@ -125,11 +128,7 @@ const WishlistItem = (props: WishlistItemProps) => {
             )}
           </p>
           <div className="d-flex gap-2 align-items-center justify-content-end">
-            <Button
-              variant="outline-danger"
-              size="sm"
-              onClick={handleDelete}
-            >
+            <Button variant="outline-danger" size="sm" onClick={handleDelete}>
               <i className="bi bi-trash"></i>
             </Button>
 
@@ -155,7 +154,10 @@ const WishlistItem = (props: WishlistItemProps) => {
           />
         </div>
         <div className="wishlist-cell wishlist-cell-product">
-          <Link to={paths.products.detail(product.slug)} className="cart-product-link">
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-link"
+          >
             <ProductImage
               width={60}
               url={product.image}

@@ -1,4 +1,4 @@
-export interface UserTypes {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -8,18 +8,5 @@ export interface UserTypes {
   avatar: string;
 }
 
-export interface UserReqTypes {
-  name?: string;
-  email?: string;
-  phone?: string;
-  sex?: 1 | 2;
-  birth_date?: string;
-  avatar?: string | BinaryType;
-}
 
-export interface PasswordReqTypes {
-  current_password: string;
-  password: string;
-  password_confirmation: string;
-}
 

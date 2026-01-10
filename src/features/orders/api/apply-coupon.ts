@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type {
-  ApplyCouponReqTypes,
-  ApplyCouponResTypes,
-} from "@/types/checkout";
+import type { ApplyCouponResTypes } from "@/types/checkout";
 
-export type ApplyCouponInput = ApplyCouponReqTypes;
+export type ApplyCouponInput = {
+  cart_ids?: number[];
+  coupon_code?: string;
+};
 
 export const applyCoupon = ({
   data,

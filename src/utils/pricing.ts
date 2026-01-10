@@ -1,6 +1,6 @@
-import type { ProductDetailTypes, ProductItemTypes } from "@/types/product";
+import type { ProductDetail, ProductItem } from "@/types/product";
 
-export type ProductPricingSource = ProductItemTypes | ProductDetailTypes;
+export type ProductPricingSource = ProductItem | ProductDetail;
 
 export interface ProductPricingInfo {
   currentPrice: number | null;

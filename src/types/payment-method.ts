@@ -1,4 +1,4 @@
-export interface BankTypes {
+export interface Bank {
   id: number;
   name: string;
   code: string;
@@ -7,7 +7,7 @@ export interface BankTypes {
   logo: string;
 }
 
-export interface EwalletTypes {
+export interface Ewallet {
   id: number;
   name: string;
   // code: string;
@@ -16,7 +16,7 @@ export interface EwalletTypes {
   logo: string;
 }
 
-export interface PaymentGatewayTypes {
+export interface PaymentGateway {
   provider: string;
   client_key: string;
   fee: number; // flat fee in currency unit

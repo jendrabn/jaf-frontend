@@ -13,7 +13,7 @@ import BlogSidebar from "@/features/blogs/components/BlogSidebar";
 import TagBadge from "@/components/ui/tag-badge";
 import BlogItem from "@/features/blogs/components/BlogItem";
 
-function BlogDetailPage() {
+function BlogDetail() {
   const { slug } = useParams();
   const { data: blog, isLoading } = useGetBlog(slug);
   const { data: relatedBlogs, isLoading: isLoadingRelated } = useGetBlogRelated(
@@ -58,7 +58,7 @@ function BlogDetailPage() {
           <SEO
             title={blog.title}
             description={blog.title.substring(0, 160)}
-            keywords={blog.tags.map((t: any) => t.name).join(", ") || undefined}
+            keywords={blog.tags.map((t) => t.name).join(", ") || undefined}
             canonical={`${env.APP_URL}/blog/${blog.slug}`}
             ogType="article"
             ogImage={blog.featured_image}
@@ -87,8 +87,8 @@ function BlogDetailPage() {
                 {blog.title}
               </Breadcrumb.Item>
             </Breadcrumb>
-            <div className="row justify-content-center">
-              <div className="col-12 col-md-9 pe-lg-7">
+            <div className="row">
+              <div className="col-12 col-md-8 col-lg-9 pe-lg-5 mb-5 mb-md-0">
                 <article className="blog-detail">
                   <Badge
                     as={"a"}
@@ -222,7 +222,7 @@ function BlogDetailPage() {
                   </section>
                 </article>
               </div>
-              <div className="col-12 col-md-3">
+              <div className="col-12 col-md-4 col-lg-3">
                 <BlogSidebar />
               </div>
             </div>
@@ -233,4 +233,4 @@ function BlogDetailPage() {
   );
 }
 
-export default BlogDetailPage;
+export default BlogDetail;

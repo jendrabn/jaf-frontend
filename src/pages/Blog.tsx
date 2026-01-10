@@ -12,7 +12,7 @@ import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import BlogSidebar from "@/features/blogs/components/BlogSidebar";
 
-const BlogPage = () => {
+const Blog = () => {
   const { params, setFilter } = useFilters<BlogParamsTypes>();
   const { data: blogs, isLoading } = useGetBlogs(params);
 
@@ -39,8 +39,8 @@ const BlogPage = () => {
       <div className="container">
         <BlogHeader />
 
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-9 pe-5">
+        <div className="row">
+          <div className="col-12 col-md-8 col-lg-9 pe-lg-5 mb-5 mb-md-0">
             {/* Loading */}
             {isLoading && <Loading className="py-5" />}
 
@@ -75,7 +75,7 @@ const BlogPage = () => {
               </>
             )}
           </div>
-          <div className="col-12 col-md-3">
+          <div className="col-12 col-md-4 col-lg-3">
             <BlogSidebar />
           </div>
         </div>
@@ -84,4 +84,4 @@ const BlogPage = () => {
   );
 };
 
-export default BlogPage;
+export default Blog;

@@ -264,4 +264,3 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
 };
 
 export default ConfirmPaymentModal;
-

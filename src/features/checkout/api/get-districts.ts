@@ -1,6 +1,6 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { DistrictTypes } from "@/types/region";
+import type { DistrictTypes } from "@/types/checkout";
 
 export const getDistricts = ({
   cityId,

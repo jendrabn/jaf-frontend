@@ -4,9 +4,9 @@ import Layout from "@/components/layouts/Layout";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import { generateFAQSchema } from "@/utils/seo-schemas";
-import PageHeader from "@/components/ui/page-header";
+import PageHeader from "@/components/layouts/PageHeader";
 
-function FaqPage() {
+function Faq() {
   const faqSchema = generateFAQSchema(
     data.map((item) => ({
       question: item.question,
@@ -25,9 +25,7 @@ function FaqPage() {
       />
 
       <div className="container">
-        <PageHeader
-          title="FAQ"
-        />
+        <PageHeader title="FAQ" />
 
         <Accordion defaultActiveKey="0" className="faqs-accordion">
           {data.map((item, index) => (
@@ -42,4 +40,4 @@ function FaqPage() {
   );
 }
 
-export default FaqPage;
+export default Faq;

@@ -2,7 +2,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import SEO from "@/components/SEO";
 import RegisterForm from "@/features/auth/components/RegisterForm";
 
-function RegisterPage() {
+function Register() {
   return (
     <AuthLayout
       title="Daftar"
@@ -20,4 +20,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default Register;

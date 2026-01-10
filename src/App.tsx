@@ -17,30 +17,30 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { env } from "@/config/env";
 import { subscribeToForegroundMessages } from "@/lib/firebase";
 
-const HomePage = lazy(() => import("@/pages/Home"));
-const ProductDetailPage = lazy(() => import("@/pages/ProductDetail"));
-const NotFoundPage = lazy(() => import("@/pages/NotFound"));
-const ProductPage = lazy(() => import("@/pages/Product"));
-const ForgotPasswordPage = lazy(() => import("@/pages/ForgotPassword"));
-const LoginPage = lazy(() => import("@/pages/Login"));
-const RegisterPage = lazy(() => import("@/pages/Register"));
-const ResetPasswordPage = lazy(() => import("@/pages/ResetPassword"));
-const VerifyLoginPage = lazy(() => import("@/pages/VerifyLogin"));
-const CartPage = lazy(() => import("@/pages/Cart"));
-const WishlistPage = lazy(() => import("@/pages/Wishlist"));
-const ProfilePage = lazy(() => import("@/pages/Profile"));
-const OrderPage = lazy(() => import("@/pages/Order"));
+const Landing = lazy(() => import("@/pages/Landing"));
+const ProductDetail = lazy(() => import("@/pages/ProductDetail"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const Product = lazy(() => import("@/pages/Product"));
+const ForgotPassword = lazy(() => import("@/pages/ForgotPassword"));
+const Login = lazy(() => import("@/pages/Login"));
+const Register = lazy(() => import("@/pages/Register"));
+const ResetPassword = lazy(() => import("@/pages/ResetPassword"));
+const VerifyLogin = lazy(() => import("@/pages/VerifyLogin"));
+const Cart = lazy(() => import("@/pages/Cart"));
+const Wishlist = lazy(() => import("@/pages/Wishlist"));
+const Profile = lazy(() => import("@/pages/Profile"));
+const Order = lazy(() => import("@/pages/Order"));
 const ChangePassword = lazy(() => import("@/pages/ChangePassword"));
-const BlogPage = lazy(() => import("@/pages/Blog"));
-const BlogDetailPage = lazy(() => import("@/pages/BlogDetail"));
-const CheckoutPage = lazy(() => import("@/pages/Checkout"));
-const OrderDetailPage = lazy(() => import("@/pages/OrderDetail"));
-const ContactPage = lazy(() => import("@/pages/Contact"));
-const AboutPage = lazy(() => import("@/pages/About"));
-const FaqPage = lazy(() => import("@/pages/Faq"));
-const HelpPage = lazy(() => import("@/pages/Help"));
-const NotificationsPage = lazy(() => import("@/pages/Notifications"));
-const FlashSalePage = lazy(() => import("@/pages/FlashSale"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const BlogDetail = lazy(() => import("@/pages/BlogDetail"));
+const Checkout = lazy(() => import("@/pages/Checkout"));
+const OrderDetail = lazy(() => import("@/pages/OrderDetail"));
+const Contact = lazy(() => import("@/pages/Contact"));
+const About = lazy(() => import("@/pages/About"));
+const Faq = lazy(() => import("@/pages/Faq"));
+const Help = lazy(() => import("@/pages/Help"));
+const Notifications = lazy(() => import("@/pages/Notifications"));
+const FlashSale = lazy(() => import("@/pages/FlashSale"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -187,46 +187,37 @@ function App() {
                         clientId={env.GOOGLE_CLIENT_ID || ""}
                       >
                         <Routes>
-                          <Route path="*" element={<NotFoundPage />} />
-                          <Route index element={<HomePage />} />
-                          <Route
-                            path="flash-sale"
-                            element={<FlashSalePage />}
-                          />
-                          <Route path="products" element={<ProductPage />} />
+                          <Route path="*" element={<NotFound />} />
+                          <Route index element={<Landing />} />
+                          <Route path="flash-sale" element={<FlashSale />} />
+                          <Route path="products" element={<Product />} />
                           <Route
                             path="products/:slug"
-                            element={<ProductDetailPage />}
+                            element={<ProductDetail />}
                           />
-                          <Route path="blog" element={<BlogPage />} />
-                          <Route
-                            path="blog/:slug"
-                            element={<BlogDetailPage />}
-                          />
-                          <Route path="contact" element={<ContactPage />} />
-                          <Route path="about" element={<AboutPage />} />
-                          <Route path="faq" element={<FaqPage />} />
-                          <Route path="help" element={<HelpPage />} />
+                          <Route path="blog" element={<Blog />} />
+                          <Route path="blog/:slug" element={<BlogDetail />} />
+                          <Route path="contact" element={<Contact />} />
+                          <Route path="about" element={<About />} />
+                          <Route path="faq" element={<Faq />} />
+                          <Route path="help" element={<Help />} />
 
                           {/* Protected Routes */}
                           <Route element={<ProtectedRoute />}>
-                            <Route path="cart" element={<CartPage />} />
-                            <Route path="checkout" element={<CheckoutPage />} />
+                            <Route path="cart" element={<Cart />} />
+                            <Route path="checkout" element={<Checkout />} />
                             <Route
                               path="account/profile"
-                              element={<ProfilePage />}
+                              element={<Profile />}
                             />
-                            <Route
-                              path="account/orders"
-                              element={<OrderPage />}
-                            />
+                            <Route path="account/orders" element={<Order />} />
                             <Route
                               path="account/orders/:id"
-                              element={<OrderDetailPage />}
+                              element={<OrderDetail />}
                             />
                             <Route
                               path="account/wishlist"
-                              element={<WishlistPage />}
+                              element={<Wishlist />}
                             />
                             <Route
                               path="account/change-password"
@@ -234,27 +225,24 @@ function App() {
                             />
                             <Route
                               path="account/notifications"
-                              element={<NotificationsPage />}
+                              element={<Notifications />}
                             />
                           </Route>
 
                           {/* Auth */}
-                          <Route path="auth/login" element={<LoginPage />} />
+                          <Route path="auth/login" element={<Login />} />
                           <Route
                             path="auth/verify-login"
-                            element={<VerifyLoginPage />}
+                            element={<VerifyLogin />}
                           />
-                          <Route
-                            path="auth/register"
-                            element={<RegisterPage />}
-                          />
+                          <Route path="auth/register" element={<Register />} />
                           <Route
                             path="auth/reset-password"
-                            element={<ResetPasswordPage />}
+                            element={<ResetPassword />}
                           />
                           <Route
                             path="auth/forgot-password"
-                            element={<ForgotPasswordPage />}
+                            element={<ForgotPassword />}
                           />
                           {/* Auth */}
                         </Routes>

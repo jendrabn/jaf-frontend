@@ -1,7 +1,7 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { ProductItemTypes } from "@/types/product";
-import type { BannerTypes } from "@/types/banner";
+import type { BannerTypes } from "@/types/landing";
 import type { BlogItemTypes } from "@/types/blog";
 import type { QueryConfig } from "@/lib/react-query";
 

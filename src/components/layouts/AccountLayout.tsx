@@ -31,9 +31,7 @@ const NavAccount = () => {
         <Nav.Item key={menu.to} as={"li"}>
           <NavLink
             to={menu.to}
-            className={({ isActive }) =>
-              `nav-link${isActive ? " active" : ""}`
-            }
+            className={({ isActive }) => `nav-link${isActive ? " active" : ""}`}
           >
             <i className="bi bi-chevron-right me-2"></i> {menu.label}
           </NavLink>

@@ -1,20 +1,10 @@
-import type { ProductItemTypes } from "./product";
+import type { ProductItem } from "./product";
 
-export interface CartItemTypes {
+export interface CartItem {
   id: number;
-  product: ProductItemTypes;
+  product: ProductItem;
   quantity: number;
 }
 
-export interface CartReqTypes {
-  product_id?: number;
-  quantity?: number;
-}
 
-export interface deleteReqTypes {
-  cart_ids?: Array<number>;
-}
 
-export interface updateReqTypes {
-  quantity?: number;
-}

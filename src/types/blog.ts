@@ -1,18 +1,18 @@
-export interface BlogCategoryTypes {
+export interface BlogCategory {
   id: number;
   name: string;
   slug: string;
   blogs_count: number;
 }
 
-export interface BlogTagTypes {
+export interface BlogTag {
   id: number;
   name: string;
   slug: string;
   blogs_count: number;
 }
 
-export interface BlogItemTypes {
+export interface BlogItem {
   id: number;
   title: string;
   slug: string;
@@ -21,21 +21,21 @@ export interface BlogItemTypes {
   featured_image: string;
   views_count: number;
   author: string;
-  category: BlogCategoryTypes;
+  category: BlogCategory;
   created_at: string;
 }
 
-export interface BlogSidebarItemTypes {
+export interface BlogSidebarItem {
   id: number;
   title: string;
   slug: string;
   featured_image: string;
   views_count: number;
   author: string;
-  category: BlogCategoryTypes;
+  category: BlogCategory;
 }
 
-export interface BlogDetailTypes {
+export interface BlogDetail {
   updated_at: string | undefined;
   id: number;
   title: string;
@@ -46,12 +46,12 @@ export interface BlogDetailTypes {
   featured_image_description: string;
   views_count: number;
   author: string;
-  category: BlogCategoryTypes;
-  tags: Array<BlogTagTypes>;
+  category: BlogCategory;
+  tags: Array<BlogTag>;
   created_at: string;
 }
 
-export interface BlogParamsTypes {
+export interface BlogParams {
   page?: number;
   search?: string;
   sort_by?: "newest" | "oldest" | "views";

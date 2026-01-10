@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSubscribeNewsletter } from "@/features/newsletter/api/subscribe-newsletter";
+import { useSubscribeNewsletter } from "@/features/landing/api/subscribe-newsletter";
 import type { NewsletterRequest } from "@/types/newsletter";
 import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 
