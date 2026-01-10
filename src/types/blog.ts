@@ -25,6 +25,16 @@ export interface BlogItemTypes {
   created_at: string;
 }
 
+export interface BlogSidebarItemTypes {
+  id: number;
+  title: string;
+  slug: string;
+  featured_image: string;
+  views_count: number;
+  author: string;
+  category: BlogCategoryTypes;
+}
+
 export interface BlogDetailTypes {
   updated_at: string | undefined;
   id: number;

@@ -470,13 +470,6 @@ footer {
 }
 // End Product Image Carousel
 
-.breadcrumb-item + .breadcrumb-item::before {
-  float: left;
-  padding-right: var(--bs-breadcrumb-item-padding-x);
-  color: var(--bs-breadcrumb-divider-color);
-  content: "\276F";
-}
-
 // Newsletter: Styled input group (non-invasive, keeps Bootstrap default colors)
 .newsletter-input-group {
   // pill container with subtle glass effect

@@ -11,6 +11,7 @@ import dayjs from "@/utils/dayjs";
 import SEO from "@/components/SEO";
 import { generateArticleSchema } from "@/utils/seo-schemas";
 import { paths } from "@/config/paths";
+import BlogSidebar from "@/features/blogs/components/BlogSidebar";
 
 function BlogDetailPage() {
   const { slug } = useParams();
@@ -52,20 +53,25 @@ function BlogDetailPage() {
           />
 
           <div className="container">
+            <Breadcrumb className="mb-5">
+              <Breadcrumb.Item
+                linkAs={Link}
+                linkProps={{ to: paths.landing.root() }}
+              >
+                Home
+              </Breadcrumb.Item>
+              <Breadcrumb.Item
+                linkAs={Link}
+                linkProps={{ to: paths.blog.root() }}
+              >
+                Blog
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active className="text-truncate">
+                {blog.title}
+              </Breadcrumb.Item>
+            </Breadcrumb>
             <div className="row justify-content-center">
-              <div className="col-12 col-md-10 col-lg-8">
-                <Breadcrumb className="mb-5">
-                  <Breadcrumb.Item linkAs={Link} linkProps={{ to: paths.landing.root() }}>
-                    Home
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item linkAs={Link} linkProps={{ to: paths.blog.root() }}>
-                    Blog
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item active className="text-truncate">
-                    {blog.title}
-                  </Breadcrumb.Item>
-                </Breadcrumb>
-
+              <div className="col-12 col-md-9 pe-lg-7">
                 <article className="blog-detail">
                   <Badge
                     as={"a"}
@@ -182,6 +188,9 @@ function BlogDetailPage() {
                     ))}
                   </div>
                 </article>
+              </div>
+              <div className="col-12 col-md-3">
+                <BlogSidebar />
               </div>
             </div>
           </div>

@@ -13,6 +13,7 @@ import NoData from "@/components/ui/no-data";
 
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
+import BlogSidebar from "@/features/blogs/components/BlogSidebar";
 
 const SORT_OPTIONS: { label: string; value: string }[] = [
   {
@@ -62,93 +63,93 @@ const BlogPage = () => {
       />
 
       <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-12 col-md-10">
-            <BlogHeader />
-            <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
-              <div className="d-flex gap-2">
-                {/* Sort Dropdown */}
-                <Dropdown>
-                  <Dropdown.Toggle
-                    as={Button}
-                    id="sort-btn"
-                    variant="outline-dark"
-                    className="no-caret"
-                    aria-label="Sort"
-                    title="Urutkan"
-                  >
-                    <i className="bi bi-arrow-down-up" aria-hidden="true" />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    {SORT_OPTIONS.map((option) => (
-                      <Dropdown.Item
-                        key={option.value}
-                        active={params.sort_by === option.value}
-                        onClick={() => {
-                          setFilter("sort_by", option.value);
-                          clearFilters("page");
-                        }}
-                      >
-                        {option.label}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-
-                {/* Filter Button */}
-                <Button
-                  variant="outline-dark"
-                  title="Filter"
-                  onClick={() => setShowFilter(true)}
-                >
-                  <i className="bi bi-funnel"></i>
-                </Button>
-
-                <Offcanvas
-                  show={showFilter}
-                  onHide={() => setShowFilter(false)}
-                  placement="end"
-                >
-                  <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>
-                      <i className="bi bi-funnel-fill"></i> Filter
-                    </Offcanvas.Title>
-                  </Offcanvas.Header>
-                  <Offcanvas.Body>
-                    <BlogFilters />
-                  </Offcanvas.Body>
-                </Offcanvas>
-              </div>
-
-              {/* Search Form */}
-              <form
-                className="blog-search-form w-100"
-                onSubmit={handleSearchSubmit}
+        <BlogHeader />
+        <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
+          <div className="d-flex gap-2">
+            {/* Sort Dropdown */}
+            <Dropdown>
+              <Dropdown.Toggle
+                as={Button}
+                id="sort-btn"
+                variant="outline-dark"
+                className="no-caret"
+                aria-label="Sort"
+                title="Urutkan"
               >
-                <InputGroup>
-                  <Form.Control
-                    type="search"
-                    placeholder="Cari artikel disini..."
-                    value={searchTerm}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                      setSearchTerm(e.target.value)
-                    }
-                    id="blog-search-input"
-                  />
-                  <Button type="submit" variant="outline-secondary">
-                    <i className="bi bi-search"></i>
-                  </Button>
-                </InputGroup>
-              </form>
+                <i className="bi bi-arrow-down-up" aria-hidden="true" />
+              </Dropdown.Toggle>
 
-              {/* Page Count */}
-              <div className="text-secondary-emphasis mb-0 d-none d-lg-block">
-                {blogs?.page?.from || 0} - {blogs?.page?.to || 0} dari{" "}
-                {blogs?.page?.total || 0} artikel
-              </div>
-            </div>
+              <Dropdown.Menu>
+                {SORT_OPTIONS.map((option) => (
+                  <Dropdown.Item
+                    key={option.value}
+                    active={params.sort_by === option.value}
+                    onClick={() => {
+                      setFilter("sort_by", option.value);
+                      clearFilters("page");
+                    }}
+                  >
+                    {option.label}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
 
+            {/* Filter Button */}
+            <Button
+              variant="outline-dark"
+              title="Filter"
+              onClick={() => setShowFilter(true)}
+            >
+              <i className="bi bi-funnel"></i>
+            </Button>
+
+            <Offcanvas
+              show={showFilter}
+              onHide={() => setShowFilter(false)}
+              placement="end"
+            >
+              <Offcanvas.Header closeButton>
+                <Offcanvas.Title>
+                  <i className="bi bi-funnel-fill"></i> Filter
+                </Offcanvas.Title>
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+                <BlogFilters />
+              </Offcanvas.Body>
+            </Offcanvas>
+          </div>
+
+          {/* Search Form */}
+          <form
+            className="blog-search-form w-100"
+            onSubmit={handleSearchSubmit}
+          >
+            <InputGroup>
+              <Form.Control
+                type="search"
+                placeholder="Cari artikel disini..."
+                value={searchTerm}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setSearchTerm(e.target.value)
+                }
+                id="blog-search-input"
+              />
+              <Button type="submit" variant="outline-secondary">
+                <i className="bi bi-search"></i>
+              </Button>
+            </InputGroup>
+          </form>
+
+          {/* Page Count */}
+          <div className="text-secondary-emphasis mb-0 d-none d-lg-block">
+            {blogs?.page?.from || 0} - {blogs?.page?.to || 0} dari{" "}
+            {blogs?.page?.total || 0} artikel
+          </div>
+        </div>
+
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-9 pe-lg-7">
             {/* Loading */}
             {isLoading && <Loading className="py-5" />}
 
@@ -182,6 +183,9 @@ const BlogPage = () => {
                 )}
               </>
             )}
+          </div>
+          <div className="col-12 col-md-3">
+            <BlogSidebar />
           </div>
         </div>
       </div>

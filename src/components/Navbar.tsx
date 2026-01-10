@@ -1,3 +1,8 @@
+import {
+  forwardRef,
+  type ButtonHTMLAttributes,
+  type MouseEvent,
+} from "react";
 import { Link, NavLink } from "react-router";
 import SearchBar from "@/components/SearchBar";
 import { useAuthState } from "@/contexts/AuthContext";
@@ -7,14 +12,42 @@ import {
 } from "@/features/products/api";
 import { useLogout } from "@/features/auth/api";
 import { useGetUnreadCount } from "@/features/notifications/api/get-notifications";
-import type { MouseEvent } from "react";
 import { useCartState } from "@/contexts/CartContext";
 import { removeAuthToken } from "@/utils/functions";
 import ThemeToggle from "@/components/ThemeToggle";
 import Logo from "@/components/Logo";
-import { Image } from "react-bootstrap";
+import { Dropdown, Image } from "react-bootstrap";
 import { env } from "@/config/env";
 import { paths } from "@/config/paths";
+
+type NavDropdownToggleProps = ButtonHTMLAttributes<HTMLButtonElement>;
+
+const NavDropdownToggle = forwardRef<HTMLButtonElement, NavDropdownToggleProps>(
+  ({ children, className, onClick, ...rest }, ref) => {
+    const toggleClassName = ["nav-link dropdown-toggle", className]
+      .filter(Boolean)
+      .join(" ");
+
+    const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+      onClick?.(event);
+    };
+
+    return (
+      <button
+        ref={ref}
+        type="button"
+        className={toggleClassName}
+        onClick={handleClick}
+        {...rest}
+      >
+        {children}
+      </button>
+    );
+  }
+);
+
+NavDropdownToggle.displayName = "NavDropdownToggle";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useAuthState();
@@ -119,52 +152,38 @@ const Navbar = () => {
                     Home
                   </NavLink>
                 </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                <Dropdown as="li" className="nav-item">
+                  <Dropdown.Toggle as={NavDropdownToggle} id="nav-dropdown-categories">
                     Kategori
-                  </a>
-                  <ul className="dropdown-menu">
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
                     {categories?.map((category) => (
-                      <li key={category.id}>
-                        <Link
-                          className="dropdown-item"
-                          to={`/products?category_id=${category.id}`}
-                        >
-                          {category.name}
-                        </Link>
-                      </li>
+                      <Dropdown.Item
+                        as={Link}
+                        key={category.id}
+                        to={`/products?category_id=${category.id}`}
+                      >
+                        {category.name}
+                      </Dropdown.Item>
                     ))}
-                  </ul>
-                </li>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="#"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Dropdown as="li" className="nav-item">
+                  <Dropdown.Toggle as={NavDropdownToggle} id="nav-dropdown-brands">
                     Brand
-                  </a>
-                  <ul className="dropdown-menu">
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
                     {brands?.map((brand) => (
-                      <li key={brand.id}>
-                        <Link
-                          className="dropdown-item"
-                          to={`/products?brand_id=${brand.id}`}
-                        >
-                          {brand.name}
-                        </Link>
-                      </li>
+                      <Dropdown.Item
+                        as={Link}
+                        key={brand.id}
+                        to={`/products?brand_id=${brand.id}`}
+                      >
+                        {brand.name}
+                      </Dropdown.Item>
                     ))}
-                  </ul>
-                </li>
+                  </Dropdown.Menu>
+                </Dropdown>
                 <li className="nav-item">
                   <NavLink
                     className={({ isActive }) =>
@@ -220,13 +239,11 @@ const Navbar = () => {
                         </div>
                       </NavLink>
                     </li>
-                    <li className="nav-item dropdown">
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
+                    <Dropdown as="li" className="nav-item me-2">
+                      <Dropdown.Toggle
+                        as={NavDropdownToggle}
+                        className="p-0 d-flex align-items-center"
+                        id="nav-dropdown-account"
                         title="Akun Saya"
                       >
                         <Image
@@ -236,77 +253,69 @@ const Navbar = () => {
                           roundedCircle
                           className="border border-primary border-2"
                         />
-                      </a>
+                      </Dropdown.Toggle>
 
-                      <ul
-                        className="dropdown-menu dropdown-menu-end p-2"
+                      <Dropdown.Menu
+                        align="end"
+                        className="p-2"
                         style={{ minWidth: 225 }}
                       >
-                        <li>
-                          <Link
-                            to={paths.account.profile()}
-                            className="dropdown-item"
-                          >
-                            <div className="d-flex align-items-center">
-                              <Image
-                                src={user?.avatar}
-                                width={35}
-                                height={35}
-                                roundedCircle
-                                className="border border-2 border-primary"
-                              />
+                        <Dropdown.Item
+                          as={Link}
+                          to={paths.account.profile()}
+                          className="p-0"
+                        >
+                          <div className="d-flex align-items-center">
+                            <Image
+                              src={user?.avatar}
+                              width={35}
+                              height={35}
+                              roundedCircle
+                              className="border border-2 border-primary"
+                            />
 
-                              <span className="ms-2 fw-medium">
-                                {user?.name}
-                              </span>
-                            </div>
-                          </Link>
-                        </li>
+                            <span className="ms-2 fw-medium">{user?.name}</span>
+                          </div>
+                        </Dropdown.Item>
 
-                        <li>
-                          <hr className="dropdown-divider" />
-                        </li>
+                        <Dropdown.Divider />
 
-                        <li>
-                          <Link
-                            className="dropdown-item text-muted fs-6 d-flex gap-3"
-                            to={paths.account.profile()}
-                          >
-                            <i className="bi bi-gear"></i>Pengaturan Akun
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            className="dropdown-item text-muted fs-6 d-flex gap-3"
-                            to={paths.account.orders.root()}
-                          >
-                            <i className="bi bi-box-seam"></i>Pesanan Saya
-                          </Link>
-                        </li>
-                        <li>
-                          <a
-                            href={`https://wa.me/${env.STORE_WHATSAPP}?text=Hai,%20Admin%20JAF,%20Saya%20ingin%20bertanya%20tentang%20sesuatu%20bisakah%20kamu%20membantu?`}
-                            className="dropdown-item text-muted fs-6 d-flex gap-3"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="bi bi-headset"></i>Chat Admin JAF
-                          </a>
-                        </li>
-                        <li>
-                          <hr className="dropdown-divider" />
-                        </li>
-                        <li>
-                          <Link
-                            className="dropdown-item text-muted fs-6 d-flex gap-3"
-                            onClick={handleLogout}
-                            to="/"
-                          >
-                            <i className="bi bi-box-arrow-right"></i>Keluar Akun
-                          </Link>
-                        </li>
-                      </ul>
-                    </li>
+                        <Dropdown.Item
+                          as={Link}
+                          to={paths.account.profile()}
+                          className="text-muted fs-6 d-flex gap-3"
+                        >
+                          <i className="bi bi-gear"></i>Pengaturan Akun
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          as={Link}
+                          to={paths.account.orders.root()}
+                          className="text-muted fs-6 d-flex gap-3"
+                        >
+                          <i className="bi bi-box-seam"></i>Pesanan Saya
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          as="a"
+                          href={`https://wa.me/${env.STORE_WHATSAPP}?text=Hai,%20Admin%20JAF,%20Saya%20ingin%20bertanya%20tentang%20sesuatu%20bisakah%20kamu%20membantu?`}
+                          className="text-muted fs-6 d-flex gap-3"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <i className="bi bi-headset"></i>Chat Admin JAF
+                        </Dropdown.Item>
+
+                        <Dropdown.Divider />
+
+                        <Dropdown.Item
+                          as={Link}
+                          to="/"
+                          className="text-muted fs-6 d-flex gap-3"
+                          onClick={handleLogout}
+                        >
+                          <i className="bi bi-box-arrow-right"></i>Keluar Akun
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </>
                 ) : (
                   <>
