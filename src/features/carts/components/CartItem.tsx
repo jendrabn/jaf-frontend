@@ -1,4 +1,5 @@
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router";
 import type { CartItemTypes } from "@/types/cart";
 import { formatCurrency } from "@/utils/format";
 import ProductImage from "@/features/products/components/ProductImage";
@@ -6,6 +7,7 @@ import QuantityInput from "@/components/ui/quantity-input";
 import { useUpdateCart, useDeleteCart } from "@/features/carts/api";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import { getProductPricingInfo } from "@/utils/pricing";
+import { paths } from "@/config/paths";
 
 interface CartItemProps {
   cart: CartItemTypes;
@@ -64,11 +66,8 @@ function CartItem({ cart }: CartItemProps) {
   return (
     <>
       {/* Desktop */}
-      <div className="d-flex p-2 mb-2 shadow-sm border d-none d-lg-flex">
-        <div
-          style={{ width: "5%" }}
-          className="d-flex justify-content-center align-items-center"
-        >
+      <div className="cart-row d-none d-lg-grid">
+        <div className="cart-cell cart-cell-check">
           <Form.Check
             type="checkbox"
             checked={selectedIds.includes(id)}
@@ -76,16 +75,26 @@ function CartItem({ cart }: CartItemProps) {
           />
         </div>
 
-        <div style={{ width: "40%" }} className="d-flex align-items-center">
-          <ProductImage
-            url={product.image}
-            alt={product.name}
-            className="me-2"
-          />
-          <span>{product.name}</span>
+        <div className="cart-cell cart-cell-product">
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-link"
+          >
+            <ProductImage
+              url={product.image}
+              alt={product.name}
+              className="cart-product-image"
+            />
+          </Link>
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-name cart-product-link"
+          >
+            {product.name}
+          </Link>
         </div>
 
-        <div style={{ width: "15%" }} className="text-center my-auto">
+        <div className="cart-cell cart-cell-price text-center text-body-secondary">
           {showStrikeThrough ? (
             <div className="d-flex flex-column align-items-center">
               <span>{formatCurrency(unitPrice)}</span>
@@ -103,7 +112,7 @@ function CartItem({ cart }: CartItemProps) {
           )}
         </div>
 
-        <div style={{ width: "15%" }} className="text-center my-auto">
+        <div className="cart-cell cart-cell-qty text-center">
           <QuantityInput
             onChange={(quantity) => handleUpdate(quantity)}
             maxValue={product.stock}
@@ -113,7 +122,7 @@ function CartItem({ cart }: CartItemProps) {
           />
         </div>
 
-        <div style={{ width: "15%" }} className="text-center my-auto">
+        <div className="cart-cell cart-cell-total text-center fw-semibold">
           {showStrikeThrough ? (
             <div className="d-flex flex-column align-items-center">
               <span>{formatCurrency(subtotal)}</span>
@@ -131,7 +140,7 @@ function CartItem({ cart }: CartItemProps) {
           )}
         </div>
 
-        <div style={{ width: "10%" }} className="text-center my-auto">
+        <div className="cart-cell cart-cell-action text-center">
           <Button variant="outline-danger" size="sm" onClick={handleDelete}>
             <i className="bi bi-trash"></i>
           </Button>
@@ -139,8 +148,8 @@ function CartItem({ cart }: CartItemProps) {
       </div>
 
       {/* Mobile */}
-      <div className="d-flex p-2 mb-2 shadow-sm border d-lg-none">
-        <div className="d-flex justify-content-center align-items-center me-2">
+      <div className="cart-row-mobile d-lg-none">
+        <div className="cart-row-mobile-check">
           <Form.Check
             type="checkbox"
             checked={selectedIds.includes(id)}
@@ -148,20 +157,28 @@ function CartItem({ cart }: CartItemProps) {
           />
         </div>
 
-        <div className="d-flex align-items-center me-2">
-          <ProductImage
-            url={product.image}
-            alt={product.name}
-            width={60}
-            className="border"
-          />
+        <div className="cart-row-mobile-image">
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-link"
+          >
+            <ProductImage
+              url={product.image}
+              alt={product.name}
+              width={60}
+              className="cart-product-image"
+            />
+          </Link>
         </div>
 
-        <div className="flex-grow-1">
-          <p className="mb-1 line-clamp-2" style={{ fontWeight: 500 }}>
+        <div className="cart-row-mobile-info">
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-name cart-product-link mb-1 line-clamp-2"
+          >
             {product.name}
-          </p>
-          <p className="mb-1 text-gray-700">
+          </Link>
+          <p className="mb-1 text-body-secondary">
             {showStrikeThrough ? (
               <>
                 <span className="text-danger me-2">
@@ -184,8 +201,8 @@ function CartItem({ cart }: CartItemProps) {
               formatCurrency(unitPrice)
             )}
           </p>
-          <div className="d-flex justify-content-between mb-2">
-            <div className="flex-grow-1">
+          <div className="d-flex justify-content-between align-items-center mb-2">
+            <div>
               <QuantityInput
                 onChange={(quantity) => handleUpdate(quantity)}
                 maxValue={product.stock}
@@ -194,13 +211,13 @@ function CartItem({ cart }: CartItemProps) {
                 disabled={updateCartMutation.isPending}
               />
             </div>
-            <div className="text-end">
+            <div>
               <Button variant="outline-danger" size="sm" onClick={handleDelete}>
                 <i className="bi bi-trash"></i>
               </Button>
             </div>
           </div>
-          <p className="mb-0 text-end fw-bold">
+          <p className="mb-0 text-end fw-semibold">
             {showStrikeThrough ? (
               <>
                 <span>{formatCurrency(subtotal)}</span>

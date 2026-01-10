@@ -2,6 +2,7 @@ import Layout from "@/components/layouts/Layout";
 import CustomerServiceContact from "@/components/CustomerServiceContact";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/ui/page-header";
 
 const HelpPage = () => {
   return (
@@ -15,7 +16,9 @@ const HelpPage = () => {
       />
 
       <div className="container">
-        <h1 className="mb-5 fw-bold text-center">Pusat Bantuan</h1>
+        <PageHeader
+          title="Pusat Bantuan"
+        />
 
         <div className="row g-4">
           <div className="col-md-6">

@@ -1,4 +1,5 @@
 import { Button, Form } from "react-bootstrap";
+import { Link } from "react-router";
 import type { WishlistTypes } from "@/types/wishlist";
 import { formatCurrency } from "@/utils/format";
 import ProductImage from "@/features/products/components/ProductImage";
@@ -11,6 +12,7 @@ import { useCreateCart } from "@/features/carts/api";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/utils/constans";
+import { paths } from "@/config/paths";
 
 interface WishlistItemProps {
   item: WishlistTypes;
@@ -81,25 +83,27 @@ const WishlistItem = (props: WishlistItemProps) => {
   return (
     <>
       {/* Mobile Only */}
-      <div className="d-flex p-2 mb-2 border shadow-sm d-lg-none">
-        <div
-          className="d-flex justify-content-center align-items-center me-2"
-          style={{ width: "5%" }}
-        >
+      <div className="wishlist-row-mobile d-lg-none">
+        <div className="wishlist-row-mobile-check">
           <Form.Check
             type="checkbox"
             onChange={handleSelect}
             checked={selectedIds.includes(id)}
           />
         </div>
-        <div className="d-flex justify-content-center align-items-center me-2">
-          <ProductImage url={product.image} alt={product.name} />
+        <div className="wishlist-row-mobile-image">
+          <Link to={paths.products.detail(product.slug)} className="cart-product-link">
+            <ProductImage url={product.image} alt={product.name} />
+          </Link>
         </div>
-        <div className="flex-grow-1">
-          <p style={{ fontWeight: 500 }} className="mb-1">
+        <div className="wishlist-row-mobile-info">
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-name cart-product-link mb-1 line-clamp-2"
+          >
             {product.name}
-          </p>
-          <p className="mb-1 text-gray-700 mb-1">
+          </Link>
+          <p className="mb-1 text-body-secondary">
             {isDiscounted ? (
               <>
                 <span className="text-danger me-2">
@@ -120,11 +124,10 @@ const WishlistItem = (props: WishlistItemProps) => {
               formatCurrency(currentPrice)
             )}
           </p>
-          <div className="d-flex g-2 align-items-center justify-content-end">
+          <div className="d-flex gap-2 align-items-center justify-content-end">
             <Button
               variant="outline-danger"
               size="sm"
-              className="me-2"
               onClick={handleDelete}
             >
               <i className="bi bi-trash"></i>
@@ -143,27 +146,31 @@ const WishlistItem = (props: WishlistItemProps) => {
       {/* End Mobile Only */}
 
       {/* Desktop Only */}
-      <div className="d-flex flex-row align-items-center p-2 mb-2 border shadow-sm d-none d-lg-flex">
-        <div className="text-center" style={{ width: "5%" }}>
+      <div className="wishlist-row d-none d-lg-grid">
+        <div className="wishlist-cell wishlist-cell-check">
           <Form.Check
             type="checkbox"
             onChange={handleSelect}
             checked={selectedIds.includes(id)}
           />
         </div>
-        <div
-          className="d-flex justify-content-start align-items-center"
-          style={{ width: "50%" }}
-        >
-          <ProductImage
-            width={60}
-            url={product.image}
-            alt={product.name}
-            className="me-2"
-          />
-          <span style={{ fontWeight: 500 }}>{product.name}</span>
+        <div className="wishlist-cell wishlist-cell-product">
+          <Link to={paths.products.detail(product.slug)} className="cart-product-link">
+            <ProductImage
+              width={60}
+              url={product.image}
+              alt={product.name}
+              className="cart-product-image"
+            />
+          </Link>
+          <Link
+            to={paths.products.detail(product.slug)}
+            className="cart-product-name cart-product-link"
+          >
+            {product.name}
+          </Link>
         </div>
-        <div className="text-center" style={{ width: "20%" }}>
+        <div className="wishlist-cell wishlist-cell-price text-center text-body-secondary">
           {isDiscounted ? (
             <div className="d-flex flex-column align-items-center">
               <span>{formatCurrency(currentPrice)}</span>
@@ -181,7 +188,7 @@ const WishlistItem = (props: WishlistItemProps) => {
           )}
         </div>
 
-        <div className="text-center" style={{ width: "25%" }}>
+        <div className="wishlist-cell wishlist-cell-action text-center">
           <Button
             variant="outline-danger"
             size="sm"

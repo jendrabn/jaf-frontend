@@ -12,13 +12,13 @@ const ProductImage = (props: ProductImageProps) => {
 
   return (
     <div
-      className={`d-inline-block bg-gray-300 border m-0 ${className}`}
+      className={`product-image-wrapper d-inline-block bg-gray-300 border m-0 ${className}`}
       style={{ width, height: width, aspectRatio: "1/1" }}
     >
       <Image
         src={url}
         alt={alt}
-        className="d-inline-block w-100 h-100 object-fit-fill"
+        className="d-inline-block w-100 h-100 object-fit-cover"
         loading="lazy"
       />
     </div>
@@ -26,4 +26,3 @@ const ProductImage = (props: ProductImageProps) => {
 };
 
 export default ProductImage;
-

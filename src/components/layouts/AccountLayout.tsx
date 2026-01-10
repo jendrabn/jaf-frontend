@@ -1,7 +1,7 @@
 import { type PropsWithChildren, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Card, Nav } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router";
 import { paths } from "@/config/paths";
 
@@ -23,7 +23,7 @@ const NavAccount = () => {
   return (
     <Nav
       defaultActiveKey={location.pathname}
-      className="flex-column"
+      className="account-nav flex-column"
       variant="pills"
       as={"ul"}
     >
@@ -32,9 +32,7 @@ const NavAccount = () => {
           <NavLink
             to={menu.to}
             className={({ isActive }) =>
-              `nav-link link-body-emphasis fw-medium active-text-white ${
-                isActive ? "active" : ""
-              }`
+              `nav-link${isActive ? " active" : ""}`
             }
           >
             <i className="bi bi-chevron-right me-2"></i> {menu.label}
@@ -60,29 +58,26 @@ const AccountLayout = ({ children, title }: AuthLayoutProps) => {
 
       <main
         id="main-content"
-        className="main-content"
+        className="account-layout"
         role="main"
         tabIndex={-1}
       >
         <div className="container">
-          <div className="row">
-            <div className="col-lg-2 mb-3 ">
-              {/* Desktop Only */}
-              <div className="">
+          <div className="row g-4">
+            <div className="col-12 col-lg-3">
+              <div className="account-sidebar">
+                <div className="account-sidebar-title">Menu Akun</div>
                 <NavAccount />
               </div>
-              {/* End Desktop Only */}
             </div>
 
-            <div className="col-lg-10">
-              <Card className="" body border="primary">
-                <Card.Header>
-                  <h5 className="fw-bold" style={{ letterSpacing: 1.125 }}>
-                    {title}
-                  </h5>
-                </Card.Header>
-                <Card.Body>{children}</Card.Body>
-              </Card>
+            <div className="col-12 col-lg-9">
+              <div className="account-content">
+                <div className="account-content-header">
+                  <h1 className="h4 mb-0 text-body-emphasis">{title}</h1>
+                </div>
+                <div className="account-content-body">{children}</div>
+              </div>
             </div>
           </div>
         </div>

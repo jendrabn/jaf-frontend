@@ -9,6 +9,7 @@ import type { AxiosError } from "axios";
 import { api } from "@/lib/api-client";
 import SEO from "@/components/SEO";
 import { localBusinessSchema } from "@/utils/seo-schemas";
+import PageHeader from "@/components/ui/page-header";
 
 function ContactPage() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -87,7 +88,9 @@ function ContactPage() {
       />
 
       <div className="container">
-        <h1 className="mb-5 fw-bold text-center">Hubungi Kami</h1>
+        <PageHeader
+          title="Hubungi Kami"
+        />
 
         <div className="row g-5 align-items-stretch">
           <div className="col-lg-6">

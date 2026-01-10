@@ -9,6 +9,7 @@ import { useCartDispatch, useCartState } from "@/contexts/CartContext";
 import NoData from "@/components/ui/no-data";
 import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
+import PageHeader from "@/components/ui/page-header";
 
 function CartPage() {
   const navigate = useNavigate();
@@ -52,8 +53,11 @@ function CartPage() {
         noFollow={true}
       />
 
-      <div className="container">
-        <h2 className="section-title">Keranjang Belanja</h2>
+      <div className="container cart-layout">
+        <PageHeader
+          title="Keranjang Belanja"
+          align="start"
+        />
 
         {carts.length === 0 && (
           <NoData
@@ -65,11 +69,8 @@ function CartPage() {
         {carts.length > 0 && (
           <>
             {/* Dekstop */}
-            <div className="d-flex px-2 py-3 d-none d-lg-flex fw-bold shadow-sm border mb-3">
-              <div
-                style={{ width: "5%" }}
-                className="d-flex justify-content-center"
-              >
+            <div className="cart-list-head d-none d-lg-grid">
+              <div className="cart-cell cart-cell-check">
                 <Form.Check
                   type="checkbox"
                   checked={
@@ -79,21 +80,15 @@ function CartPage() {
                   onChange={handleSelectAll}
                 />
               </div>
-              <div style={{ width: "40%" }} className="text-start">
-                Produk
-              </div>
-              <div style={{ width: "15%" }} className="text-center">
+              <div className="cart-cell cart-cell-product">Produk</div>
+              <div className="cart-cell cart-cell-price text-center">
                 Harga Satuan
               </div>
-              <div style={{ width: "15%" }} className="text-center">
+              <div className="cart-cell cart-cell-qty text-center">
                 Kuantitas
               </div>
-              <div style={{ width: "15%" }} className="text-center">
-                Total
-              </div>
-              <div style={{ width: "10%" }} className="text-center">
-                Aksi
-              </div>
+              <div className="cart-cell cart-cell-total text-center">Total</div>
+              <div className="cart-cell cart-cell-action text-center">Aksi</div>
             </div>
 
             <div className="d-flex flex-column">
@@ -103,24 +98,27 @@ function CartPage() {
             </div>
 
             {/* Dekstop Only */}
-            <div className="d-flex justify-content-between align-items-center mt-3 d-none d-lg-flex">
-              <Button
-                variant="outline-danger"
-                onClick={handleDeleteSelected}
-                disabled={
-                  selectedIds.length === 0 || deleteCartMutation.isPending
-                }
-              >
-                Hapus
-              </Button>
-
-              <div className="d-flex align-items-center">
-                <p className="mb-0 me-3">
-                  Total ({totalItem} item):{" "}
-                  <span className="fw-bold fs-4">
-                    {formatCurrency(totalPrice as number)}
-                  </span>
-                </p>
+            <div className="cart-summary d-none d-lg-flex">
+              <div className="cart-summary-left">
+                <Button
+                  variant="outline-danger"
+                  onClick={handleDeleteSelected}
+                  disabled={
+                    selectedIds.length === 0 || deleteCartMutation.isPending
+                  }
+                >
+                  Hapus
+                </Button>
+              </div>
+              <div className="cart-summary-right">
+                <div className="cart-summary-total">
+                  <span className="text-body-secondary">Total item</span>
+                  <strong>{totalItem}</strong>
+                </div>
+                <div className="cart-summary-total cart-summary-total-price">
+                  <span className="text-body-secondary">Total harga</span>
+                  <strong>{formatCurrency(totalPrice as number)}</strong>
+                </div>
                 <Button
                   variant="primary"
                   size="lg"
@@ -136,8 +134,8 @@ function CartPage() {
             {/* End Dekstop Only */}
 
             {/* Mobile Only */}
-            <div className="flex-grow-1 mt-1 d-lg-none">
-              <div className="d-flex px-2 py-3 shadow-sm border mb-3 align-items-center justify-content-between mb-1">
+            <div className="cart-mobile d-lg-none">
+              <div className="cart-mobile-bar">
                 <Form.Check
                   type="checkbox"
                   checked={
@@ -160,11 +158,13 @@ function CartPage() {
                 </Button>
               </div>
 
-              <div className="d-flex align-items-center justify-content-between mb-1">
-                <p className="fw-bold">Total ({totalItem} produk)</p>
-                <p className="fw-bold fs-6">
-                  {formatCurrency(totalPrice as number)}
-                </p>
+              <div className="cart-mobile-total">
+                <span>Total item</span>
+                <strong>{totalItem}</strong>
+              </div>
+              <div className="cart-mobile-total cart-mobile-total-price">
+                <span>Total harga</span>
+                <strong>{formatCurrency(totalPrice as number)}</strong>
               </div>
 
               <div className="d-grid">

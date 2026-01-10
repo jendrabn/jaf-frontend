@@ -48,24 +48,21 @@ const WishlistPage = () => {
       {wishlists && wishlists?.length > 0 && (
         <>
           {/* Desktop Only */}
-          <div className="d-flex align-items-center px-2 py-3 mb-2 fw-bold border shadow-sm d-none d-lg-flex">
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{ width: "5%" }}
-            >
+          <div className="wishlist-list-head d-none d-lg-grid">
+            <div className="wishlist-cell wishlist-cell-check">
               <Form.Check
                 type="checkbox"
                 onChange={handleSelectAll}
                 checked={selectedIds.length === wishlists.length}
               />
             </div>
-            <div className="text-center" style={{ width: "50%" }}>
+            <div className="wishlist-cell wishlist-cell-product text-start">
               Produk
             </div>
-            <div className="text-center" style={{ width: "20%" }}>
+            <div className="wishlist-cell wishlist-cell-price text-center">
               Harga
             </div>
-            <div className="text-center" style={{ width: "25%" }}>
+            <div className="wishlist-cell wishlist-cell-action text-center">
               Aksi
             </div>
           </div>
@@ -78,7 +75,7 @@ const WishlistPage = () => {
           </div>
 
           {/* Mobile Only */}
-          <div className="d-flex justify-content-between align-items-center p-2 border shadow-sm d-lg-none">
+          <div className="wishlist-mobile-bar d-lg-none">
             <Form.Check
               type="checkbox"
               onChange={handleSelectAll}
@@ -97,7 +94,7 @@ const WishlistPage = () => {
           {/* End Mobile Only */}
 
           {/* Desktop Only */}
-          <div className="d-flex justify-content-start mt-3 d-none d-lg-flex">
+          <div className="wishlist-actions d-none d-lg-flex">
             <Button
               variant="outline-danger"
               disabled={selectedIds.length === 0}

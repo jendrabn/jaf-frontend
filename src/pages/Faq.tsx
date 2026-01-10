@@ -4,6 +4,7 @@ import Layout from "@/components/layouts/Layout";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import { generateFAQSchema } from "@/utils/seo-schemas";
+import PageHeader from "@/components/ui/page-header";
 
 function FaqPage() {
   const faqSchema = generateFAQSchema(
@@ -24,7 +25,9 @@ function FaqPage() {
       />
 
       <div className="container">
-        <h1 className="mb-5 fw-bold text-center">FAQ</h1>
+        <PageHeader
+          title="FAQ"
+        />
 
         <Accordion defaultActiveKey="0" className="faqs-accordion">
           {data.map((item, index) => (

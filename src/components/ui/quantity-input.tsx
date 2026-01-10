@@ -30,13 +30,13 @@ const QuantityInput = (props: QuantityInputProps) => {
 
   return (
     <div
-      className={`input-group d-inline-flex w-auto ${
-        size ? `input-group-${size}` : ""
+      className={`quantity-input d-inline-flex align-items-center ${
+        size ? `quantity-input-${size}` : ""
       }`}
     >
       <Button
-        variant="outline-secondary"
-        className="rounded-0"
+        variant="light"
+        className="quantity-btn"
         type="button"
         onClick={() => handleChange(quantity - 1)}
         disabled={quantity <= 1 || disabled}
@@ -45,15 +45,15 @@ const QuantityInput = (props: QuantityInputProps) => {
       </Button>
       <input
         type="text"
-        className="form-control text-center rounded-0"
+        className="quantity-field form-control text-center"
         value={quantity}
         style={{ maxWidth: width }}
         onChange={(e) => handleChange(Number(e.target.value))}
         disabled={disabled}
       />
       <Button
-        variant="outline-secondary"
-        className="rounded-0"
+        variant="light"
+        className="quantity-btn"
         type="button"
         onClick={() => handleChange(quantity + 1)}
         disabled={(maxValue && quantity >= maxValue) || disabled}

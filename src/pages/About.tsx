@@ -6,6 +6,7 @@ import Layout from "@/components/layouts/Layout";
 import StarRating from "@/components/ui/star-rating";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
+import PageHeader from "@/components/ui/page-header";
 
 const AboutPage = () => {
   const [activeReview, setActiveReview] = useState(0);
@@ -31,7 +32,9 @@ const AboutPage = () => {
       />
 
       <div className="container">
-        <h1 className="mb-4 fw-bold text-center">Tentang JAF Parfum's</h1>
+        <PageHeader
+          title="Tentang JAF Parfum's"
+        />
 
         <section className="mb-5 text-center">
           <p
