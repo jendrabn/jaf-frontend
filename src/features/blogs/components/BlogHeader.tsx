@@ -1,7 +1,8 @@
-import { Badge, Button } from "react-bootstrap";
+import { Badge, Button, Form, InputGroup } from "react-bootstrap";
 import { useGetBlogCategories, useGetBlogTags } from "@/features/blogs/api";
 import useFilters from "@/hooks/use-filters";
 import type { BlogParamsTypes } from "@/types/blog";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 
 const TagBadge = ({ id, onClear }: { id: number; onClear: () => void }) => {
   const { data: tags } = useGetBlogTags();
@@ -32,28 +33,48 @@ const TagBadge = ({ id, onClear }: { id: number; onClear: () => void }) => {
 const BlogHeader = () => {
   const { params, setFilter, clearFilters } = useFilters<BlogParamsTypes>();
   const { data: categories } = useGetBlogCategories();
+  const [searchTerm, setSearchTerm] = useState<string>(params.search || "");
+  const categoryName = categories?.find(
+    (category) => category.id === Number(params.category_id)
+  )?.name;
+  const headerTitle = categoryName
+    ? `Blog & Artikel ${categoryName}`
+    : "Blog & Artikel";
+
+  const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setFilter("search", searchTerm);
+  };
 
   return (
-    <div className="blog-header rounded-4 p-4 text-center mb-4">
-      <span className="bubble b1" aria-hidden="true" />
-      <span className="bubble b2" aria-hidden="true" />
-      <span className="bubble b3" aria-hidden="true" />
-      <h1 className="display-6 fw-bold mb-1 text-truncate">
-        {params.category_id
-          ? `Blog ${
-              categories?.find((c) => c.id === Number(params.category_id))
-                ?.name ?? ""
-            }`
-          : "Blog"}
-      </h1>
-
-      <p className="lead text-muted mb-0">
-        Artikel dan ulasan seputar parfum untuk membantu Anda memilih aroma
-        terbaik.
+    <div className="blog-header rounded-4 p-4 p-md-5 text-center mb-5">
+      <h1 className="blog-header-title fw-bold mb-3">{headerTitle}</h1>
+      <p className="blog-header-subtitle mb-0">
+        Temukan insight, tips, dan inspirasi parfum agar pilihan aromamu lebih
+        tepat setiap hari.
       </p>
+      <form
+        className="blog-header-search mx-auto mt-4"
+        onSubmit={handleSearchSubmit}
+      >
+        <InputGroup>
+          <InputGroup.Text aria-hidden="true">
+            <i className="bi bi-search" />
+          </InputGroup.Text>
+          <Form.Control
+            type="search"
+            placeholder="Cari artikel..."
+            value={searchTerm}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              setSearchTerm(event.target.value)
+            }
+            aria-label="Cari artikel"
+          />
+        </InputGroup>
+      </form>
 
       {params.tag_id || params.search ? (
-        <div className="d-flex justify-content-center gap-2 flex-wrap mt-3">
+        <div className="blog-header-tags d-flex justify-content-center gap-2 flex-wrap mt-3">
           {params.tag_id && (
             <TagBadge
               id={Number(params.tag_id)}

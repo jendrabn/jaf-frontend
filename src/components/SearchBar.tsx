@@ -166,7 +166,9 @@ const SearchBar = ({ className }: SearchBarProps) => {
               {!loading &&
                 suggestions.length > 0 &&
                 suggestions.map((item) => {
-                  const to = `${paths.products.root()}?search=${encodeURIComponent(item)}`;
+                  const to = `${paths.products.root()}?search=${encodeURIComponent(
+                    item
+                  )}`;
                   return (
                     <Link
                       key={item}
@@ -191,4 +193,3 @@ const SearchBar = ({ className }: SearchBarProps) => {
 };
 
 export default SearchBar;
-

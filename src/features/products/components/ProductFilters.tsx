@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion, Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import {
   useGetProductBrands,
   useGetProductCategories,
@@ -13,24 +13,35 @@ const ProductFilters = () => {
 
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const [showAllBrands, setShowAllBrands] = useState(false);
 
-  const { data: categories } = useGetProductCategories();
-  const { data: brands } = useGetProductBrands();
+  const { data: categories, isLoading: isLoadingCategories } =
+    useGetProductCategories();
+  const { data: brands, isLoading: isLoadingBrands } = useGetProductBrands();
+  const hasMoreCategories = (categories?.length ?? 0) > 5;
+  const hasMoreBrands = (brands?.length ?? 0) > 5;
+  const visibleCategories = showAllCategories
+    ? categories
+    : categories?.slice(0, 5);
+  const visibleBrands = showAllBrands ? brands : brands?.slice(0, 5);
 
   return (
     <aside>
-      <h5 className="mb-4 d-none d-lg-block">
-        <i className="bi bi-funnel"></i> Filter
-      </h5>
+      <div className="product-filters blog-sidebar d-flex flex-column gap-4">
+        <div className="sidebar-section d-flex flex-column gap-3">
+          <div className="sidebar-section-title">Kategori</div>
 
-      <div className="product-filters d-flex flex-column gap-3">
-        <Accordion defaultActiveKey="0" flush alwaysOpen>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Kategori</Accordion.Header>
-            <Accordion.Body>
-              <ul className="list-unstyled mb-0">
-                {categories?.map((category) => (
-                  <li className="mb-2" key={`category-${category.id}`}>
+          {isLoadingCategories ? (
+            <div className="d-flex align-items-center gap-2 text-body-secondary">
+              <Spinner animation="border" size="sm" />
+              <span>Memuat...</span>
+            </div>
+          ) : visibleCategories?.length ? (
+            <>
+              <ul className="list-unstyled mb-0 d-flex flex-column gap-2">
+                {visibleCategories.map((category) => (
+                  <li key={`category-${category.id}`}>
                     <span
                       role="button"
                       className={
@@ -46,17 +57,37 @@ const ProductFilters = () => {
                   </li>
                 ))}
               </ul>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
 
-        <Accordion defaultActiveKey="1" flush alwaysOpen>
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>Brand</Accordion.Header>
-            <Accordion.Body>
-              <ul className="list-unstyled mb-0">
-                {brands?.map((brand) => (
-                  <li className="mb-2" key={`brand-${brand.id}`}>
+              {hasMoreCategories && (
+                <button
+                  type="button"
+                  className="sidebar-toggle"
+                  onClick={() => setShowAllCategories((value) => !value)}
+                >
+                  {showAllCategories
+                    ? "Lihat lebih sedikit"
+                    : "Lihat lebih banyak"}
+                </button>
+              )}
+            </>
+          ) : (
+            <div className="text-body-secondary">Belum ada data.</div>
+          )}
+        </div>
+
+        <div className="sidebar-section d-flex flex-column gap-3">
+          <div className="sidebar-section-title">Brand</div>
+
+          {isLoadingBrands ? (
+            <div className="d-flex align-items-center gap-2 text-body-secondary">
+              <Spinner animation="border" size="sm" />
+              <span>Memuat...</span>
+            </div>
+          ) : visibleBrands?.length ? (
+            <>
+              <ul className="list-unstyled mb-0 d-flex flex-column gap-2">
+                {visibleBrands.map((brand) => (
+                  <li key={`brand-${brand.id}`}>
                     <span
                       role="button"
                       className={
@@ -72,81 +103,87 @@ const ProductFilters = () => {
                   </li>
                 ))}
               </ul>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
 
-        <Accordion defaultActiveKey="2" flush alwaysOpen>
-          <Accordion.Item eventKey="2">
-            <Accordion.Header>Batas Harga</Accordion.Header>
-            <Accordion.Body>
-              <div className="input-group mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Min"
-                  value={minPrice}
-                  onChange={(e) =>
-                    setMinPrice(e.target.value.replace(/[^0-9]/g, ""))
-                  }
-                />
-
-                <span className="input-group-text">&mdash;</span>
-
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Maks"
-                  value={maxPrice}
-                  onChange={(e) =>
-                    setMaxPrice(e.target.value.replace(/[^0-9]/g, ""))
-                  }
-                />
-              </div>
-
-              <div className="d-grid">
-                <Button
-                  variant="outline-primary"
-                  onClick={() => {
-                    setFilter("min_price", minPrice);
-                    setFilter("max_price", maxPrice);
-                  }}
+              {hasMoreBrands && (
+                <button
+                  type="button"
+                  className="sidebar-toggle"
+                  onClick={() => setShowAllBrands((value) => !value)}
                 >
-                  Terapkan
-                </Button>
-              </div>
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+                  {showAllBrands ? "Lihat lebih sedikit" : "Lihat lebih banyak"}
+                </button>
+              )}
+            </>
+          ) : (
+            <div className="text-body-secondary">Belum ada data.</div>
+          )}
+        </div>
 
-        <Accordion defaultActiveKey="3" flush alwaysOpen>
-          <Accordion.Item eventKey="3">
-            <Accordion.Header>Gender</Accordion.Header>
-            <Accordion.Body>
-              {Object.keys(SEXS).map((sex) => (
-                <div className="form-check mb-2" key={`sex-${sex}`}>
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value={sex}
-                    id={sex}
-                    checked={Number(sex) == params.sex}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setFilter("sex", e.target.value);
-                      } else {
-                        clearFilters("sex");
-                      }
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor={sex}>
-                    {SEXS[Number(sex)]}
-                  </label>
-                </div>
-              ))}
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        <div className="sidebar-section d-flex flex-column gap-3">
+          <div className="sidebar-section-title">Batas Harga</div>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Min"
+              value={minPrice}
+              onChange={(e) =>
+                setMinPrice(e.target.value.replace(/[^0-9]/g, ""))
+              }
+            />
+
+            <span className="input-group-text">&mdash;</span>
+
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Maks"
+              value={maxPrice}
+              onChange={(e) =>
+                setMaxPrice(e.target.value.replace(/[^0-9]/g, ""))
+              }
+            />
+          </div>
+
+          <div className="d-grid">
+            <Button
+              variant="outline-primary"
+              onClick={() => {
+                setFilter("min_price", minPrice);
+                setFilter("max_price", maxPrice);
+              }}
+            >
+              Terapkan
+            </Button>
+          </div>
+        </div>
+
+        <div className="sidebar-section d-flex flex-column gap-3">
+          <div className="sidebar-section-title">Gender</div>
+          <div className="d-flex flex-column gap-2">
+            {Object.keys(SEXS).map((sex) => (
+              <div className="form-check" key={`sex-${sex}`}>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={sex}
+                  id={sex}
+                  checked={Number(sex) == params.sex}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setFilter("sex", e.target.value);
+                    } else {
+                      clearFilters("sex");
+                    }
+                  }}
+                />
+                <label className="form-check-label" htmlFor={sex}>
+                  {SEXS[Number(sex)]}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="d-grid">
           <Button
@@ -173,4 +210,3 @@ const ProductFilters = () => {
 };
 
 export default ProductFilters;
-

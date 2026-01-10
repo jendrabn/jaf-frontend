@@ -1,4 +1,4 @@
-import { Accordion, Button, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import { Link } from "react-router";
 import {
   useGetBlogCategories,
@@ -10,85 +10,71 @@ import type { BlogItemTypes } from "@/types/blog";
 import useFilters from "@/hooks/use-filters";
 import { paths } from "@/config/paths";
 import dayjs from "@/utils/dayjs";
+import { words } from "@/utils/functions";
 
-function BlogPostList({
-  title,
-  posts,
-  isLoading,
-}: {
-  title: string;
-  posts?: BlogItemTypes[];
-  isLoading: boolean;
-}) {
+function BlogItem({ post }: { post: BlogItemTypes }) {
+  const to = paths.blog.detail
+    ? paths.blog.detail(post.slug)
+    : `${paths.blog.root()}/${post.slug}`;
+
   return (
-    <div className="d-flex flex-column gap-2">
-      <div className="fw-bold">{title}</div>
-
-      {isLoading ? (
-        <div className="d-flex align-items-center gap-2 text-body-secondary">
-          <Spinner animation="border" size="sm" />
-          <span>Memuat...</span>
+    <Link to={to} className="text-decoration-none">
+      <div className="d-flex gap-3 align-items-start">
+        <div
+          className="ratio ratio-4x3 rounded-3 overflow-hidden bg-body-tertiary flex-shrink-0"
+          style={{ width: 92 }}
+        >
+          <img
+            src={post.featured_image}
+            alt={post.title}
+            className="w-100 h-100"
+            style={{ objectFit: "cover" }}
+            loading="lazy"
+          />
         </div>
-      ) : posts?.length ? (
-        <div className="d-flex flex-column gap-2">
-          {posts.slice(0, 3).map((post) => {
-            const to = paths.blog.detail
-              ? paths.blog.detail(post.slug)
-              : `${paths.blog.root()}/${post.slug}`;
 
-            return (
+        <div className="min-w-0">
+          <div
+            className="text-body fw-medium fs-6 lh-sm"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {post.title}
+          </div>
+
+          <div className="small text-body-secondary mt-1 d-flex align-items-center gap-2 flex-wrap lh-sm">
+            {post.author ? (
               <Link
-                key={`${title}-${post.id}`}
-                to={to}
-                className="text-decoration-none"
+                to={`${paths.blog.root()}/author/${encodeURIComponent(
+                  post.author
+                )}`}
+                className="text-decoration-none text-body-secondary fw-medium"
               >
-                <div className="d-flex gap-3 align-items-start">
-                  {/* Thumbnail */}
-                  <div
-                    className="ratio ratio-4x3 rounded-3 overflow-hidden bg-body-tertiary flex-shrink-0"
-                    style={{ width: 92 }}
-                  >
-                    <img
-                      src={post.featured_image}
-                      alt={post.title}
-                      className="w-100 h-100"
-                      style={{ objectFit: "cover" }}
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className="min-w-0">
-                    {/* JUDUL */}
-                    <div
-                      className="text-body fw-semibold"
-                      style={{
-                        display: "-webkit-box",
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical",
-                        overflow: "hidden",
-                      }}
-                    >
-                      {post.title}
-                    </div>
-
-                    <div className="small text-body-secondary mt-1">
-                      {dayjs(post.created_at).format("DD MMM YYYY")}
-                    </div>
-                  </div>
-                </div>
+                {words(post.author, 2, "")}
               </Link>
-            );
-          })}
+            ) : (
+              <span className="fw-medium">{post.author}</span>
+            )}
+            <span aria-hidden="true">-</span>
+            <time
+              dateTime={new Date(post.created_at).toISOString()}
+              title={new Date(post.created_at).toLocaleString()}
+            >
+              {dayjs(post.created_at).fromNow()}
+            </time>
+          </div>
         </div>
-      ) : (
-        <div className="text-body-secondary">Belum ada data.</div>
-      )}
-    </div>
+      </div>
+    </Link>
   );
 }
 
 function BlogSidebar() {
-  const { setFilter, clearFilters, params } = useFilters();
+  const { params } = useFilters();
 
   const { data: categories, isLoading: isLoadingCategories } =
     useGetBlogCategories();
@@ -98,114 +84,120 @@ function BlogSidebar() {
     useGetBlogPopular();
 
   return (
-    <aside className="d-flex flex-column gap-4">
-      <BlogPostList
-        title="Artikel Terbaru"
-        posts={latestBlogs}
-        isLoading={isLoadingLatest}
-      />
+    <aside className="blog-sidebar d-flex flex-column gap-4">
+      <div className="sidebar-section d-flex flex-column gap-3">
+        <div className="sidebar-section-title">Artikel Terbaru</div>
 
-      <BlogPostList
-        title="Artikel Populer"
-        posts={popularBlogs}
-        isLoading={isLoadingPopular}
-      />
+        {isLoadingLatest ? (
+          <div className="d-flex align-items-center gap-2 text-body-secondary">
+            <Spinner animation="border" size="sm" />
+            <span>Memuat...</span>
+          </div>
+        ) : latestBlogs?.length ? (
+          <div className="d-flex flex-column gap-2">
+            {latestBlogs.slice(0, 3).map((post) => (
+              <BlogItem key={`latest-${post.id}`} post={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-body-secondary">Belum ada data.</div>
+        )}
+      </div>
 
-      <div className="blog-filters d-flex flex-column gap-3">
-        <Accordion defaultActiveKey="0" flush alwaysOpen>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Kategori</Accordion.Header>
-            <Accordion.Body>
-              {isLoadingCategories ? (
-                <Spinner size="sm" />
-              ) : (
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-2">
-                    <span
-                      role="button"
-                      className={
-                        !params.category_id
-                          ? "text-primary fw-bold"
-                          : "text-dark-emphasis"
-                      }
-                      onClick={() => setFilter("category_id", "")}
-                    >
-                      Semua Kategori
-                    </span>
-                  </li>
+      <div className="sidebar-section d-flex flex-column gap-3">
+        <div className="sidebar-section-title">Artikel Populer</div>
 
-                  {categories?.map((category) => (
-                    <li key={category.id} className="mb-2">
-                      <span
-                        role="button"
-                        className={
-                          String(category.id) === String(params.category_id)
-                            ? "text-primary fw-bold"
-                            : "text-dark-emphasis"
-                        }
-                        onClick={() => setFilter("category_id", category.id)}
-                      >
-                        {category.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        {isLoadingPopular ? (
+          <div className="d-flex align-items-center gap-2 text-body-secondary">
+            <Spinner animation="border" size="sm" />
+            <span>Memuat...</span>
+          </div>
+        ) : popularBlogs?.length ? (
+          <div className="d-flex flex-column gap-2">
+            {popularBlogs.slice(0, 3).map((post) => (
+              <BlogItem key={`popular-${post.id}`} post={post} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-body-secondary">Belum ada data.</div>
+        )}
+      </div>
 
-        <Accordion defaultActiveKey="1" flush alwaysOpen>
-          <Accordion.Item eventKey="1">
-            <Accordion.Header>Tag</Accordion.Header>
-            <Accordion.Body>
-              {isLoadingTags ? (
-                <Spinner size="sm" />
-              ) : (
-                <ul className="list-unstyled mb-0">
-                  <li className="mb-2">
-                    <span
-                      role="button"
-                      className={
-                        !params.tag_id
-                          ? "text-primary fw-bold"
-                          : "text-dark-emphasis"
-                      }
-                      onClick={() => setFilter("tag_id", "")}
-                    >
-                      Semua Tag
-                    </span>
-                  </li>
+      <div className="sidebar-section d-flex flex-column gap-3">
+        <div className="sidebar-section-title">Kategori</div>
 
-                  {tags?.map((tag) => (
-                    <li key={tag.id} className="mb-2">
-                      <span
-                        role="button"
-                        className={
-                          String(tag.id) === String(params.tag_id)
-                            ? "text-primary fw-bold"
-                            : "text-dark-emphasis"
-                        }
-                        onClick={() => setFilter("tag_id", tag.id)}
-                      >
-                        {tag.name}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
+        {isLoadingCategories ? (
+          <div className="d-flex align-items-center gap-2 text-body-secondary">
+            <Spinner animation="border" size="sm" />
+            <span>Memuat...</span>
+          </div>
+        ) : categories?.length ? (
+          <ul className="list-unstyled mb-0 d-flex flex-column gap-2">
+            <li>
+              <Link
+                to={paths.blog.root()}
+                className={`text-decoration-none ${
+                  !params.category_id
+                    ? "text-primary fw-bold"
+                    : "text-dark-emphasis"
+                }`}
+              >
+                Semua Kategori
+              </Link>
+            </li>
 
-        <div className="d-grid">
-          <Button
-            variant="outline-danger"
-            onClick={() => clearFilters("category_id", "tag_id")}
-          >
-            Hapus Semua
-          </Button>
-        </div>
+            {categories?.map((category) => (
+              <li key={category.id}>
+                <Link
+                  to={`${paths.blog.root()}?category_id=${category.id}`}
+                  className={`text-decoration-none ${
+                    String(category.id) === String(params.category_id)
+                      ? "text-primary fw-bold"
+                      : "text-dark-emphasis"
+                  }`}
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className="text-body-secondary">Belum ada data.</div>
+        )}
+      </div>
+
+      <div className="sidebar-section d-flex flex-column gap-3">
+        <div className="sidebar-section-title">Tag</div>
+
+        {isLoadingTags ? (
+          <div className="d-flex align-items-center gap-2 text-body-secondary">
+            <Spinner animation="border" size="sm" />
+            <span>Memuat...</span>
+          </div>
+        ) : tags?.length ? (
+          <div className="d-flex flex-wrap gap-2">
+            <Link
+              to={paths.blog.root()}
+              className={`sidebar-tag${!params.tag_id ? " is-active" : ""}`}
+            >
+              Semua Tag
+            </Link>
+
+            {tags?.map((tag) => (
+              <Link
+                key={tag.id}
+                to={`${paths.blog.root()}?tag_id=${tag.id}`}
+                className={`sidebar-tag${
+                  String(tag.id) === String(params.tag_id) ? " is-active" : ""
+                }`}
+              >
+                {tag.name}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="text-body-secondary">Belum ada data.</div>
+        )}
       </div>
     </aside>
   );

@@ -1,22 +1,25 @@
 import { Link, useParams } from "react-router";
-import { useGetBlog } from "@/features/blogs/api";
+import { useGetBlog, useGetBlogRelated } from "@/features/blogs/api";
 import Layout from "@/components/layouts/Layout";
 import NotFoundPage from "@/pages/NotFound";
 import Loading from "@/components/ui/loading";
 import { Badge, Breadcrumb, Button, Image } from "react-bootstrap";
-import { useState } from "react";
 import { env } from "@/config/env";
-import ShareModal from "@/components/ShareModal";
 import dayjs from "@/utils/dayjs";
 import SEO from "@/components/SEO";
 import { generateArticleSchema } from "@/utils/seo-schemas";
 import { paths } from "@/config/paths";
 import BlogSidebar from "@/features/blogs/components/BlogSidebar";
+import TagBadge from "@/components/ui/tag-badge";
+import BlogItem from "@/features/blogs/components/BlogItem";
 
 function BlogDetailPage() {
   const { slug } = useParams();
   const { data: blog, isLoading } = useGetBlog(slug);
-  const [showShareModal, setShowShareModal] = useState(false);
+  const { data: relatedBlogs, isLoading: isLoadingRelated } = useGetBlogRelated(
+    slug,
+    { limit: 3 }
+  );
 
   if (!isLoading && !blog) return <NotFoundPage />;
 
@@ -31,6 +34,20 @@ function BlogDetailPage() {
         url: `${env.APP_URL}/blog/${blog.slug}`,
       })
     : null;
+
+  const handleShare = async () => {
+    if (!blog || !navigator.share) return;
+
+    try {
+      await navigator.share({
+        title: blog.title,
+        url: window.location.href,
+      });
+    } catch (error) {
+      // Ignore cancel
+      console.log(error);
+    }
+  };
 
   return (
     <Layout>
@@ -139,7 +156,7 @@ function BlogDetailPage() {
                         variant="outline-light"
                         className="rounded-0"
                         title="Bagikan artikel"
-                        onClick={() => setShowShareModal(true)}
+                        onClick={handleShare}
                       >
                         <i className="bi bi-share-fill me-2"></i>
                         Share
@@ -174,19 +191,35 @@ function BlogDetailPage() {
                       Tag:
                     </span>
                     {blog.tags.map((tag) => (
-                      <Badge
-                        as={"a"}
-                        href={`/blog?tag_id=${tag.id}`}
-                        key={tag.id}
-                        bg="light"
-                        text="dark"
-                        className="fs-6 border"
-                      >
-                        <i className="bi bi-tag me-1"></i>
+                      <TagBadge key={tag.id} href={`/blog?tag_id=${tag.id}`}>
                         {tag.name}
-                      </Badge>
+                      </TagBadge>
                     ))}
                   </div>
+
+                  <section className="blog-related mt-5">
+                    <h2 className="h4 fw-semibold mb-3 text-body-emphasis">
+                      Artikel Terkait
+                    </h2>
+                    {isLoadingRelated ? (
+                      <Loading className="py-3" />
+                    ) : relatedBlogs?.length ? (
+                      <div className="row g-4">
+                        {relatedBlogs.map((related) => (
+                          <div
+                            key={`related-${related.id}`}
+                            className="col-12 col-md-6 col-lg-4"
+                          >
+                            <BlogItem blog={related} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-body-secondary">
+                        Belum ada artikel terkait.
+                      </div>
+                    )}
+                  </section>
                 </article>
               </div>
               <div className="col-12 col-md-3">
@@ -195,17 +228,6 @@ function BlogDetailPage() {
             </div>
           </div>
         </>
-      )}
-
-      {!isLoading && blog && (
-        <ShareModal
-          show={showShareModal}
-          onHide={() => setShowShareModal(false)}
-          data={{
-            title: blog.title,
-            url: window.location.href,
-          }}
-        />
       )}
     </Layout>
   );

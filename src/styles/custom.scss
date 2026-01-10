@@ -1,138 +1,274 @@
-/* Custom styles: decorative background for blog header (cleaned up) */
-
+/* ==========================================================================
+   Blog
+   ========================================================================== */
 .blog-header {
   position: relative;
   overflow: hidden;
-  padding: 2rem;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   background-color: rgba($primary, 0.06);
-  transition: background-color 200ms ease;
+  background-image: radial-gradient(
+      circle at 25% 30%,
+      rgba($primary, 0.14) 0,
+      rgba($primary, 0.14) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 65% 40%,
+      rgba($primary, 0.12) 0,
+      rgba($primary, 0.12) 2px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      -35deg,
+      rgba($primary, 0.08) 0,
+      rgba($primary, 0.08) 2px,
+      transparent 2px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      35deg,
+      rgba($primary, 0.06) 0,
+      rgba($primary, 0.06) 2px,
+      transparent 2px,
+      transparent 16px
+    );
+  background-size: 140px 140px, 160px 160px, 220px 220px, 240px 240px;
+  background-position: 0 0, 40px 20px, 0 0, 20px 40px;
+  border: 1px solid rgba($primary, 0.15);
+  box-shadow: inset 0 1px 0 rgba($primary, 0.1);
 
-  // title color tweak
-  .display-6 {
-    color: darken($primary, 12%);
-  }
-
-  // blurred background circles
-  &::before,
   &::after {
     content: "";
     position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate3d(0, 0, 0);
-  }
-
-  &::before {
-    width: 300px;
-    height: 300px;
-    right: -100px;
-    top: -80px;
-    background: linear-gradient(135deg, lighten($primary, 6%), $primary);
-    filter: blur(28px);
-    opacity: 0.2;
-  }
-
-  &::after {
-    width: 160px;
-    height: 160px;
-    left: -60px;
-    bottom: -40px;
-    background: rgba($primary, 0.14);
-    filter: blur(20px);
-    opacity: 0.16;
-  }
-
-  // small floating bubbles
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba($primary, 0.12);
-    filter: blur(6px);
-    opacity: 0.9;
+    inset: 0;
+    background: radial-gradient(
+      circle at 20% 20%,
+      rgba($primary, 0.12),
+      transparent 55%
+    );
+    opacity: 0.7;
     pointer-events: none;
   }
 
-  .bubble.b1 {
-    width: 52px;
-    height: 52px;
-    right: 18%;
-    top: 18%;
-  }
-  .bubble.b2 {
-    width: 30px;
-    height: 30px;
-    left: 12%;
-    top: 28%;
-  }
-  .bubble.b3 {
-    width: 40px;
-    height: 40px;
-    left: 22%;
-    bottom: 12%;
+  .blog-header-title {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    color: $gray-900;
+    letter-spacing: -0.02em;
   }
 
-  // ensure badges and buttons are readable
-  .badge {
-    box-shadow: none;
+  .blog-header-subtitle {
+    color: $gray-600;
+    max-width: 640px;
+    margin: 0 auto;
   }
 
-  @media (max-width: 767px) {
-    &::before {
-      right: -140px;
-      top: -100px;
-      width: 180px;
-      height: 180px;
+  .blog-header-search {
+    max-width: 720px;
+  }
+
+  .blog-header-search .input-group {
+    background: $white;
+    border-radius: 0.75rem;
+    border: 1px solid rgba($primary, 0.2);
+    padding: 0.35rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+    .input-group-text {
+      background: transparent;
+      border: 0;
+      color: $gray-600;
+      padding-left: 0.75rem;
+      padding-right: 0.8rem;
+      border-radius: 0.6rem 0 0 0.6rem;
     }
+
+    input {
+      border: 0;
+      border-radius: 0 0.6rem 0.6rem 0;
+      padding-left: 0.25rem;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    &:focus-within {
+      border-color: rgba($primary, 0.45);
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.15);
+    }
+  }
+
+  .blog-header-tags {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.blog-sidebar {
+  .sidebar-section-title {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $gray-800;
+    line-height: 1.2;
+    position: relative;
+    padding-bottom: 0.65rem;
+
     &::after {
-      left: -80px;
-      bottom: -80px;
-      width: 120px;
-      height: 120px;
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 46px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba($primary, 0.9),
+        rgba($primary, 0.3)
+      );
+    }
+  }
+
+  .sidebar-tag {
+    border: 1px solid rgba($primary, 0.2);
+    background: rgba($primary, 0.08);
+    color: $gray-700;
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: background 160ms ease, border-color 160ms ease,
+      color 160ms ease, transform 160ms ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      border-color: rgba($primary, 0.4);
+      color: $gray-900;
+    }
+
+    &.is-active {
+      background: rgba($primary, 0.18);
+      border-color: rgba($primary, 0.5);
+      color: $gray-900;
+    }
+  }
+
+  .sidebar-toggle {
+    align-self: flex-start;
+    border: 0;
+    background: transparent;
+    color: rgba($primary, 0.9);
+    font-weight: 600;
+    padding: 0;
+    font-size: 0.9rem;
+    transition: color 150ms ease, transform 150ms ease;
+
+    &:hover {
+      color: rgba($primary, 1);
+      transform: translateY(-1px);
     }
   }
 }
 
-/* Theme-specific tweaks: make bubbles more visible in light mode */
+.tag-badge {
+  border: 1px solid rgba($primary, 0.2);
+  background: rgba($primary, 0.08);
+  color: $gray-700;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease,
+    transform 160ms ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: rgba($primary, 0.4);
+    color: $gray-900;
+  }
+}
+
+/* ==========================================================================
+   Blog Theme Overrides
+   ========================================================================== */
 html[data-bs-theme="light"] {
   .blog-header {
     background-color: rgba($primary, 0.08);
-
-    &::before {
-      opacity: 0.32;
-      filter: blur(30px);
-    }
-    &::after {
-      opacity: 0.26;
-      filter: blur(22px);
-    }
-
-    .bubble {
-      background: rgba($primary, 0.22);
-      filter: blur(4px);
-      opacity: 0.95;
-    }
+    border-color: rgba($primary, 0.2);
   }
 }
 
 html[data-bs-theme="dark"] {
   .blog-header {
     background-color: rgba($primary, 0.04);
-    &::before {
-      opacity: 0.12;
-      filter: blur(24px);
+    border-color: rgba($primary, 0.15);
+
+    .blog-header-title {
+      color: $gray-100;
     }
-    &::after {
-      opacity: 0.1;
-      filter: blur(18px);
+
+    .blog-header-subtitle {
+      color: $gray-400;
     }
-    .bubble {
-      background: rgba($primary, 0.1);
-      filter: blur(6px);
-      opacity: 0.9;
+
+    .blog-header-search .input-group {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba($primary, 0.2);
+
+      input {
+        color: $gray-100;
+
+        &::placeholder {
+          color: $gray-400;
+        }
+      }
+
+      .input-group-text {
+        color: $gray-400;
+      }
+    }
+  }
+
+  .blog-sidebar {
+    .sidebar-section-title {
+      color: $gray-100;
+    }
+
+    .sidebar-tag {
+      background: rgba($primary, 0.16);
+      border-color: rgba($primary, 0.35);
+      color: $gray-200;
+
+      &.is-active {
+        color: $gray-100;
+      }
+    }
+
+    .sidebar-toggle {
+      color: rgba($primary, 0.85);
+
+      &:hover {
+        color: rgba($primary, 1);
+      }
+    }
+  }
+
+  .tag-badge {
+    background: rgba($primary, 0.16);
+    border-color: rgba($primary, 0.35);
+    color: $gray-200;
+
+    &:hover {
+      color: $gray-100;
     }
   }
 }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
 body {
   font-family: "Roboto", serif;
   min-height: 100dvh;
@@ -144,16 +280,26 @@ a {
   text-decoration: none !important;
 }
 
-// Header
+/* ==========================================================================
+   Header / Navbar
+   ========================================================================== */
 .topbar {
   background-color: $gray-100;
 }
 
 .navbar {
   background-color: $gray-100;
+  padding: 0.65rem 0;
 
   .navbar-brand {
     max-width: 125px;
+    display: inline-flex;
+    align-items: center;
+
+    img,
+    svg {
+      max-height: 36px;
+    }
   }
 
   .navbar-toggler {
@@ -163,10 +309,59 @@ a {
       box-shadow: none;
     }
   }
-}
-// End Header
 
-// Dropdown
+  .nav-primary .nav-link {
+    font-weight: 500;
+    color: $gray-700;
+    padding: 0.45rem 0.6rem;
+    border-radius: 0.5rem;
+    transition: color 150ms ease, background-color 150ms ease;
+
+    &:hover,
+    &:focus {
+      color: $primary;
+      background-color: rgba($primary, 0.08);
+    }
+
+    &.active {
+      color: $primary;
+      background-color: rgba($primary, 0.12);
+    }
+  }
+
+  .nav-actions .nav-link {
+    color: $gray-700;
+  }
+
+  .navbar-collapse {
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 991.98px) {
+    .navbar-collapse {
+      padding: 1rem 0;
+      border-top: 1px solid $gray-200;
+    }
+
+    .navbar-nav {
+      gap: 0.5rem;
+    }
+  }
+}
+
+/* ==========================================================================
+   Navbar Dropdown
+   ========================================================================== */
+.navbar {
+  .dropdown-menu {
+    max-height: 320px;
+    overflow-y: auto;
+  }
+}
+
+/* ==========================================================================
+   Dropdown
+   ========================================================================== */
 .dropdown-toggle::after {
   display: inline-block;
   margin-left: 0.255em;
@@ -190,9 +385,10 @@ a {
     no-repeat center center;
   background-size: 1em 1em;
 }
-// End Dropdown
 
-// Footer
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 footer {
   a {
     color: $white;
@@ -202,9 +398,10 @@ footer {
     text-decoration: underline;
   }
 }
-// End Footer
 
-// Section Title
+/* ==========================================================================
+   Section Title
+   ========================================================================== */
 .section-title {
   font-weight: 700;
   margin-bottom: 25px;
@@ -218,17 +415,19 @@ footer {
     margin-bottom: 5px;
   }
 }
-// End Section Title
 
-// Search Bar
+/* ==========================================================================
+   Search Bar
+   ========================================================================== */
 .search-bar {
   .input-group {
     border: 1px solid $gray-500;
-    border-radius: 5px;
+    border-radius: 0.6rem;
 
     input,
     button {
       border: none;
+      border-radius: 0.55rem;
       &:active,
       &:focus {
         box-shadow: none;
@@ -248,9 +447,10 @@ footer {
     width: 100%;
   }
 }
-// End Search Bar
 
-// Product List Filters & Blog Filters
+/* ==========================================================================
+   Product & Blog Filters (Accordion)
+   ========================================================================== */
 .product-filters,
 .blog-filters {
   .accordion {
@@ -279,9 +479,10 @@ footer {
     padding: 0.5rem 0;
   }
 }
-// End Product List Filters & Blog Filters
 
-// Stepper
+/* ==========================================================================
+   Stepper
+   ========================================================================== */
 .stepper {
   display: flex;
   justify-content: space-between;
@@ -313,12 +514,16 @@ footer {
   color: #6c757d;
 }
 
+/* ==========================================================================
+   Form Controls
+   ========================================================================== */
 .form-check-input {
   border-color: $gray-500;
 }
-// End Stepper
 
-// Accordion for Account Menu
+/* ==========================================================================
+   Account Menu Accordion
+   ========================================================================== */
 .accordion-menu-account {
   border-radius: 0;
 
@@ -337,7 +542,9 @@ footer {
   }
 }
 
-// FAQs Accordion
+/* ==========================================================================
+   FAQs Accordion
+   ========================================================================== */
 .faqs-accordion {
   .accordion-button:not(.collapsed) {
     background-color: $primary !important;
@@ -357,8 +564,10 @@ footer {
     padding: 1rem;
   }
 }
-// End FAQs Accordion
 
+/* ==========================================================================
+   Transitions
+   ========================================================================== */
 .transition-fade {
   opacity: 0;
 }
@@ -367,6 +576,9 @@ footer {
   transition: opacity 0.3s;
 }
 
+/* ==========================================================================
+   Review Dots
+   ========================================================================== */
 .control__dot-review {
   width: 12px !important;
   height: 12px !important;
@@ -382,7 +594,9 @@ footer {
   }
 }
 
-// Our Services
+/* ==========================================================================
+   Services
+   ========================================================================== */
 .our__services-container {
   .service-icon {
     font-size: 32px;
@@ -397,49 +611,10 @@ footer {
     font-size: 14px;
   }
 }
-// End Our Services
 
-// Blog Search Form
-.blog-search-form {
-  @media (min-width: 576px) {
-    max-width: 400px !important;
-  }
-
-  @media (min-width: 768px) {
-    max-width: 500px !important;
-  }
-
-  @media (min-width: 992px) {
-    max-width: 600px !important;
-  }
-
-  @media (min-width: 1200px) {
-    max-width: 700px !important;
-  }
-
-  .input-group {
-    border: 1px solid $gray-500;
-    border-radius: 5px;
-
-    input,
-    button {
-      border: none;
-      &:active,
-      &:focus {
-        box-shadow: none;
-      }
-    }
-
-    // add shadow on focus
-    &:focus-within {
-      box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
-      border-color: $primary;
-    }
-  }
-}
-// End Blog Search Form
-
-// Product Image Carousel
+/* ==========================================================================
+   Product Image Carousel
+   ========================================================================== */
 .product__image-carousel {
   .carousel-item {
     aspect-ratio: 3/2;
@@ -468,9 +643,10 @@ footer {
     }
   }
 }
-// End Product Image Carousel
 
-// Newsletter: Styled input group (non-invasive, keeps Bootstrap default colors)
+/* ==========================================================================
+   Newsletter
+   ========================================================================== */
 .newsletter-input-group {
   // pill container with subtle glass effect
   background: rgba($white, 0.9);
@@ -563,7 +739,6 @@ footer {
   }
 }
 
-// Optional: ensure the newsletter section keeps spacing harmony
 .newsletter-section {
   .newsletter-form {
     // center form content in its column scope
@@ -573,7 +748,9 @@ footer {
   }
 }
 
-// Skip link
+/* ==========================================================================
+   Skip Link
+   ========================================================================== */
 .skip-link {
   position: absolute;
   left: 12px;
@@ -604,9 +781,10 @@ footer {
     transition: none;
   }
 }
-// End Skip link
 
-// Notification
+/* ==========================================================================
+   Notification
+   ========================================================================== */
 .notification-item {
   &.border-primary {
     border-left: 4px solid var(--bs-primary) !important;
@@ -621,9 +799,10 @@ footer {
     font-size: 0.8rem;
   }
 }
-// End Notification
 
-// Flash Sale Stock
+/* ==========================================================================
+   Flash Sale Stock
+   ========================================================================== */
 .flash-sale-stock {
   .flash-sale-stock-progress {
     width: 100%;
@@ -638,9 +817,10 @@ footer {
     background: linear-gradient(90deg, #ef4444, #f97316);
   }
 }
-// End Flash Sale Stock
 
-// Flash Sale Slider
+/* ==========================================================================
+   Flash Sale Slider
+   ========================================================================== */
 .flash-sale-home-header {
   padding: 1.25rem 1.5rem;
   border-radius: 1rem;
@@ -700,9 +880,10 @@ footer {
     display: none;
   }
 }
-// End Flash Sale Slider
 
-// Brand Slider
+/* ==========================================================================
+   Brand Slider
+   ========================================================================== */
 @font-face {
   src: url("../assets/fonts/didot-2/Didot\ Bold.otf");
   font-family: "DidotBold";
@@ -785,9 +966,10 @@ footer {
     }
   }
 }
-// End Brand Slider
 
-// Banner Slider
+/* ==========================================================================
+   Banner Slider
+   ========================================================================== */
 .banner-swiper-wrapper {
   position: relative;
 
@@ -903,9 +1085,10 @@ footer {
     }
   }
 }
-// End Banner Slider
 
-// Product Image Slider
+/* ==========================================================================
+   Product Image Slider
+   ========================================================================== */
 .product-image-slider {
   .slider-box {
     position: relative;
@@ -1009,8 +1192,10 @@ footer {
     }
   }
 }
-// End Product Image Slider
 
+/* ==========================================================================
+   Flash Sale Page
+   ========================================================================== */
 .flash-sale-page {
   .flash-sale-hero {
     padding: 1.5rem;
@@ -1076,6 +1261,9 @@ footer {
   }
 }
 
+/* ==========================================================================
+   Countdown Blocks
+   ========================================================================== */
 .countdown-blocks {
   display: inline-flex;
   gap: 4px;

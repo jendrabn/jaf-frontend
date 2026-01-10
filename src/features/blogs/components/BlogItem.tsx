@@ -1,5 +1,5 @@
 import { type BlogItemTypes } from "@/types/blog";
-import { Badge, Card, Col, Image, Row } from "react-bootstrap";
+import { Badge, Card, Image } from "react-bootstrap";
 import dayjs from "@/utils/dayjs";
 import { Link } from "react-router";
 import { words } from "@/utils/functions";
@@ -8,9 +8,9 @@ import { paths } from "@/config/paths";
 type Props = { blog: BlogItemTypes };
 
 const BlogItem = ({ blog }: Props) => (
-  <Card as="article" className="h-100 border-0 hover-up">
-    <Row className="g-0 g-md-2">
-      <Col xs={3} md={12}>
+  <Card as="article" className="h-100 border-0">
+    <div className="row g-2 g-md-2 align-items-start">
+      <div className="col-4 col-md-12">
         <div className="position-relative">
           <Link
             to={paths.blog.detail(blog.slug)}
@@ -38,11 +38,14 @@ const BlogItem = ({ blog }: Props) => (
             </Link>
           )}
         </div>
-      </Col>
+      </div>
 
-      <Col xs={9} md={12}>
-        <Card.Body className="py-0 pe-0 px-md-0">
-          <Card.Title as="h5" className="line-clamp-2 m-0">
+      <div className="col-8 col-md-12">
+        <Card.Body className="pt-0 pt-md-2 pb-3 pe-0 px-md-0">
+          <Card.Title
+            as="h5"
+            className="line-clamp-2 m-0 fs-6 fs-md-5 fw-semibold"
+          >
             <Link
               to={paths.blog.detail(blog.slug)}
               className="text-decoration-none text-body-emphasis hover-text-primary"
@@ -51,10 +54,12 @@ const BlogItem = ({ blog }: Props) => (
             </Link>
           </Card.Title>
 
-          <Card.Text className="d-flex align-items-center gap-2 small mt-2">
+          <Card.Text className="d-flex align-items-center gap-2 small mt-2 flex-wrap lh-sm">
             {blog.author ? (
               <Link
-                to={`${paths.blog.root()}/author/${encodeURIComponent(blog.author)}`}
+                to={`${paths.blog.root()}/author/${encodeURIComponent(
+                  blog.author
+                )}`}
                 className="text-decoration-none text-body-secondary d-inline-flex align-items-center"
               >
                 <Image
@@ -67,15 +72,15 @@ const BlogItem = ({ blog }: Props) => (
                   height={32}
                   className="d-none d-md-inline-block me-2"
                 />
-                <span className="fw-semibold">{words(blog.author, 2, "")}</span>
+                <span className="fw-medium">{words(blog.author, 2, "")}</span>
               </Link>
             ) : (
-              <span className="text-body-secondary fw-semibold">
+              <span className="text-body-secondary fw-medium">
                 {blog.author}
               </span>
             )}
 
-            <span className="text-body-secondary">•</span>
+            <span className="text-body-secondary">-</span>
             <time
               className="text-body-secondary"
               dateTime={new Date(blog.created_at).toISOString()}
@@ -85,10 +90,9 @@ const BlogItem = ({ blog }: Props) => (
             </time>
           </Card.Text>
         </Card.Body>
-      </Col>
-    </Row>
+      </div>
+    </div>
   </Card>
 );
 
 export default BlogItem;
-

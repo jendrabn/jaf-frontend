@@ -91,14 +91,14 @@ const Navbar = () => {
         <div className="d-none d-lg-block py-2 border-bottom topbar">
           <div className="container">
             <div className="d-flex justify-content-between align-items-center small">
-              <div>
-                <NavLink className="me-3 text-muted" to={paths.about.root()}>
+              <div className="d-flex align-items-center gap-3">
+                <NavLink className="text-muted" to={paths.about.root()}>
                   Tentang Kami
                 </NavLink>
-                <NavLink className="me-3 text-muted" to={paths.contact.root()}>
+                <NavLink className="text-muted" to={paths.contact.root()}>
                   Kontak
                 </NavLink>
-                <NavLink className="me-3 text-muted" to={paths.help.root()}>
+                <NavLink className="text-muted" to={paths.help.root()}>
                   Bantuan
                 </NavLink>
                 <NavLink className="text-muted" to={paths.faq.root()}>
@@ -118,11 +118,11 @@ const Navbar = () => {
 
         <nav className="navbar navbar-expand-lg border-bottom">
           <div className="container">
-            <NavLink className="navbar-brand d-none d-md-block" to={paths.landing.root()}>
+            <NavLink className="navbar-brand d-flex align-items-center" to={paths.landing.root()}>
               <Logo className="img-fluid" />
             </NavLink>
 
-            <SearchBar className="flex-grow-1 me-2 d-lg-none" />
+            <SearchBar className="flex-grow-1 d-lg-none mx-2" />
 
             <button
               className="navbar-toggler"
@@ -141,7 +141,7 @@ const Navbar = () => {
             >
               <SearchBar className="mx-4 d-none d-lg-block" />
 
-              <ul className="navbar-nav mb-2 mb-lg-0 gap-1">
+              <ul className="navbar-nav nav-primary gap-2">
                 <li className="nav-item">
                   <NavLink
                     className={({ isActive }) =>
@@ -206,10 +206,10 @@ const Navbar = () => {
                 </li>
               </ul>
 
-              <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+              <ul className="navbar-nav nav-actions ms-lg-auto gap-2 align-items-lg-center">
                 {isAuthenticated ? (
                   <>
-                    <li className="nav-item me-2">
+                    <li className="nav-item">
                       <NavLink
                         className="nav-link"
                         to={paths.account.notifications()}
@@ -225,7 +225,7 @@ const Navbar = () => {
                         </div>
                       </NavLink>
                     </li>
-                    <li className="nav-item me-2">
+                    <li className="nav-item">
                       <NavLink
                         className="nav-link"
                         to={paths.cart.root()}
@@ -239,7 +239,7 @@ const Navbar = () => {
                         </div>
                       </NavLink>
                     </li>
-                    <Dropdown as="li" className="nav-item me-2">
+                    <Dropdown as="li" className="nav-item">
                       <Dropdown.Toggle
                         as={NavDropdownToggle}
                         className="p-0 d-flex align-items-center"
@@ -339,8 +339,8 @@ const Navbar = () => {
               </ul>
             </div>
 
-            <div className="position-relative d-none d-lg-block">
-              <ThemeToggle className="position-absolute top-50 start-50 ms-5 translate-middle" />
+            <div className="d-none d-lg-flex align-items-center ms-3">
+              <ThemeToggle />
             </div>
           </div>
         </nav>
