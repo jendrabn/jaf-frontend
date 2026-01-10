@@ -5,13 +5,14 @@ import { type PropsWithChildren } from "react";
 import Loading from "@/components/ui/loading";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
-import { Card } from "react-bootstrap";
 import { paths } from "@/config/paths";
 
-function AuthLayout({
-  children,
-  title,
-}: PropsWithChildren & { title?: string }) {
+type AuthLayoutProps = PropsWithChildren & {
+  title?: string;
+  subtitle?: string;
+};
+
+function AuthLayout({ children, title, subtitle }: AuthLayoutProps) {
   const location = useLocation();
   const { isAuthenticated, isLoading } = useAuthState();
 
@@ -20,25 +21,30 @@ function AuthLayout({
   }
 
   if (isAuthenticated) {
-    return <Navigate to={location.state?.from?.pathname || paths.landing.root()} />;
+    return (
+      <Navigate to={location.state?.from?.pathname || paths.landing.root()} />
+    );
   }
 
   return (
     <>
       <Navbar />
-      <main
-        id="main-content"
-        className="main-content"
-        role="main"
-        tabIndex={-1}
-      >
+      <main id="main-content" className="auth-layout" role="main" tabIndex={-1}>
         <div className="container">
           <div className="row justify-content-center">
-            <div className="col-12 col-md-6 col-lg-4">
-              <Card body className="border-0 shadow p-3">
-                <h1 className="h3 mb-5 text-center">{title}</h1>
-                {children}
-              </Card>
+            <div className="col-12 col-md-8 col-lg-5">
+              <div className="auth-card card border-0 shadow-sm">
+                <div className="card-body p-4 p-md-5">
+                  <div className="auth-card-header">
+                    <span className="auth-card-eyebrow">Selamat datang</span>
+                    <h1 className="h3 mb-2 text-body-emphasis">{title}</h1>
+                    {subtitle && (
+                      <p className="auth-card-subtitle mb-0">{subtitle}</p>
+                    )}
+                  </div>
+                  {children}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -49,4 +55,3 @@ function AuthLayout({
 }
 
 export default AuthLayout;
-

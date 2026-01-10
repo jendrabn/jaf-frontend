@@ -5,7 +5,10 @@ import VerifyLoginForm from "@/features/auth/components/VerifyLoginForm";
 
 const VerifyLoginPage = () => {
   return (
-    <AuthLayout title="Verifikasi Login">
+    <AuthLayout
+      title="Verifikasi Login"
+      subtitle="Masukkan kode verifikasi untuk melanjutkan proses login."
+    >
       <SEO
         title="Verifikasi Login"
         description="Verifikasi login akun Anda"

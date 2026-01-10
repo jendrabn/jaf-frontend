@@ -4,7 +4,10 @@ import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
 
 function ResetPasswordPage() {
   return (
-    <AuthLayout title="Reset Password">
+    <AuthLayout
+      title="Reset Password"
+      subtitle="Buat kata sandi baru yang aman untuk akunmu."
+    >
       <SEO
         title="Reset Password"
         description="Reset password akun Anda"

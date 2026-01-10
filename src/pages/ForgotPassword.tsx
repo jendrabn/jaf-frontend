@@ -4,7 +4,10 @@ import ForgotPasswordForm from "@/features/auth/components/ForgotPasswordForm";
 
 function ForgotPasswordPage() {
   return (
-    <AuthLayout title="Lupa Password">
+    <AuthLayout
+      title="Lupa Password"
+      subtitle="Masukkan email untuk menerima tautan pemulihan password."
+    >
       <SEO
         title="Lupa Password"
         description="Lupa password akun Anda? Dapatkan link reset password melalui email."

@@ -1087,6 +1087,86 @@ footer {
 }
 
 /* ==========================================================================
+   Auth Layout
+   ========================================================================== */
+.auth-layout {
+  min-height: calc(100dvh - 120px);
+  padding: 3rem 0;
+  background: linear-gradient(180deg, rgba($primary, 0.08), transparent 55%);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-layout::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+      circle at 30% 30%,
+      rgba($primary, 0.2) 0,
+      rgba($primary, 0.2) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 70% 20%,
+      rgba($primary, 0.12) 0,
+      rgba($primary, 0.12) 2px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      rgba($primary, 0.08) 0,
+      rgba($primary, 0.08) 2px,
+      transparent 2px,
+      transparent 12px
+    );
+  background-size: 48px 48px, 60px 60px, 120px 120px;
+  background-position: 0 0, 12px 18px, 0 0;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.auth-card {
+  border-radius: 1rem;
+  background: $white;
+}
+
+.auth-card-header {
+  margin-bottom: 2rem;
+}
+
+.auth-card-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: $gray-600;
+  margin-bottom: 0.5rem;
+}
+
+.auth-card-subtitle {
+  color: $gray-600;
+}
+
+html[data-bs-theme="dark"] {
+  .auth-layout {
+    background: linear-gradient(180deg, rgba($primary, 0.12), transparent 60%);
+  }
+
+  .auth-card {
+    background: #141414;
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .auth-card-subtitle {
+    color: $gray-400;
+  }
+}
+
+/* ==========================================================================
    Product Image Slider
    ========================================================================== */
 .product-image-slider {

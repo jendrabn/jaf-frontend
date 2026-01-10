@@ -4,7 +4,10 @@ import LoginForm from "@/features/auth/components/LoginForm";
 
 function LoginPage() {
   return (
-    <AuthLayout title="Log in">
+    <AuthLayout
+      title="Log in"
+      subtitle="Masuk untuk melanjutkan belanja dan akses akunmu dengan cepat."
+    >
       <SEO
         title="Login"
         description="Login ke akun JAF Parfum's Anda"

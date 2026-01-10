@@ -4,7 +4,10 @@ import RegisterForm from "@/features/auth/components/RegisterForm";
 
 function RegisterPage() {
   return (
-    <AuthLayout title="Daftar">
+    <AuthLayout
+      title="Daftar"
+      subtitle="Buat akun baru untuk mulai berbelanja dan simpan parfum favorit."
+    >
       <SEO
         title="Register"
         description="Daftar akun baru di JAF Parfum's"
