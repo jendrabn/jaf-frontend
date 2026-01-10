@@ -10,10 +10,8 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",
-
       // ⚠️ Jangan aktifkan dev SW kecuali sedang debug
-      // devOptions: { enabled: false },
-
+      devOptions: { enabled: false },
       includeAssets: ["images/**"],
       manifest: {
         name: "JAF Parfum's",
@@ -44,6 +42,7 @@ export default defineConfig({
       workbox: {
         // Precache file build + aset umum
         globPatterns: ["**/*.{js,css,html,svg,png,ico,jpg,jpeg,webp,woff2}"],
+        globIgnores: ["**/offline.html"],
         clientsClaim: true,
         skipWaiting: true,
         cleanupOutdatedCaches: true,
