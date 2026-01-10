@@ -138,8 +138,8 @@
     padding: 0.35rem 0.75rem;
     font-size: 0.875rem;
     font-weight: 600;
-    transition: background 160ms ease, border-color 160ms ease,
-      color 160ms ease, transform 160ms ease;
+    transition: background 160ms ease, border-color 160ms ease, color 160ms ease,
+      transform 160ms ease;
 
     &:hover {
       transform: translateY(-1px);
@@ -370,11 +370,11 @@ a {
   font-family: inherit;
   font-weight: normal;
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 0.8em;
+  height: 0.8em;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%236c757d" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>')
     no-repeat center center;
-  background-size: 1em 1em;
+  background-size: 0.8em 0.8em;
   border: 0 !important;
   color: $gray-700;
 }
@@ -383,7 +383,7 @@ a {
   content: "";
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%236c757d" class="bi bi-chevron-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 11.354a.5.5 0 0 0 .708 0L8 5.707l5.646 5.647a.5.5 0 0 0 .708-.708l-6-6a.5.5 0 0 0-.708 0l-6 6a.5.5 0 0 0 0 .708z"/></svg>')
     no-repeat center center;
-  background-size: 1em 1em;
+  background-size: 0.8em 0.8em;
 }
 
 /* ==========================================================================
@@ -1086,7 +1086,6 @@ footer {
   }
 }
 
-
 /* ==========================================================================
    Auth Layout
    ========================================================================== */
@@ -1314,11 +1313,7 @@ html[data-bs-theme="dark"] {
   height: 4px;
   border-radius: 999px;
   margin-top: 0.75rem;
-  background: linear-gradient(
-    90deg,
-    rgba($primary, 0.9),
-    rgba($primary, 0.3)
-  );
+  background: linear-gradient(90deg, rgba($primary, 0.9), rgba($primary, 0.3));
 }
 
 .page-header-center .page-header-title::after {
@@ -1444,7 +1439,6 @@ html[data-bs-theme="dark"] {
     color: $gray-300;
   }
 }
-
 
 /* ==========================================================================
    Notifications

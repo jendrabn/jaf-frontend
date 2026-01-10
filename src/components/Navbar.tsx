@@ -247,7 +247,7 @@ const Navbar = () => {
                     <Dropdown as="li" className="nav-item">
                       <Dropdown.Toggle
                         as={NavDropdownToggle}
-                        className="p-0 d-flex align-items-center"
+                        className="nav-user-toggle d-flex align-items-center"
                         id="nav-dropdown-account"
                         title="Akun Saya"
                       >
@@ -260,53 +260,41 @@ const Navbar = () => {
                         />
                       </Dropdown.Toggle>
 
-                      <Dropdown.Menu
-                        align="end"
-                        className="p-2"
-                        style={{ minWidth: 225 }}
-                      >
+                      <Dropdown.Menu align="end" className="nav-user-menu">
                         <Dropdown.Item
                           as={Link}
                           to={paths.account.profile()}
-                          className="p-0"
+                          className="nav-user-item"
                         >
-                          <div className="d-flex align-items-center">
-                            <Image
-                              src={user?.avatar}
-                              width={35}
-                              height={35}
-                              roundedCircle
-                              className="border border-2 border-primary"
-                            />
-
-                            <span className="ms-2 fw-medium">{user?.name}</span>
-                          </div>
-                        </Dropdown.Item>
-
-                        <Dropdown.Divider />
-
-                        <Dropdown.Item
-                          as={Link}
-                          to={paths.account.profile()}
-                          className="text-muted fs-6 d-flex gap-3"
-                        >
-                          <i className="bi bi-gear"></i>Pengaturan Akun
+                          Profil
                         </Dropdown.Item>
                         <Dropdown.Item
                           as={Link}
                           to={paths.account.orders.root()}
-                          className="text-muted fs-6 d-flex gap-3"
+                          className="nav-user-item"
                         >
-                          <i className="bi bi-box-seam"></i>Pesanan Saya
+                          Pesanan
                         </Dropdown.Item>
                         <Dropdown.Item
-                          as="a"
-                          href={`https://wa.me/${env.STORE_WHATSAPP}?text=Hai,%20Admin%20JAF,%20Saya%20ingin%20bertanya%20tentang%20sesuatu%20bisakah%20kamu%20membantu?`}
-                          className="text-muted fs-6 d-flex gap-3"
-                          target="_blank"
-                          rel="noreferrer"
+                          as={Link}
+                          to={paths.account.wishlist()}
+                          className="nav-user-item"
                         >
-                          <i className="bi bi-headset"></i>Chat Admin JAF
+                          Wishlist
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          as={Link}
+                          to={paths.account.notifications()}
+                          className="nav-user-item"
+                        >
+                          Notifikasi
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          as={Link}
+                          to={paths.account.changePassword()}
+                          className="nav-user-item"
+                        >
+                          Ubah Password
                         </Dropdown.Item>
 
                         <Dropdown.Divider />
@@ -314,17 +302,17 @@ const Navbar = () => {
                         <Dropdown.Item
                           as={Link}
                           to="/"
-                          className="text-muted fs-6 d-flex gap-3"
+                          className="nav-user-item text-danger nav-user-logout"
                           onClick={handleLogout}
                         >
-                          <i className="bi bi-box-arrow-right"></i>Keluar Akun
+                          Logout
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                   </>
                 ) : (
                   <>
-                    <li className="nav-item d-flex flex-column flex-lg-row gap-2">
+                    <li className="nav-item d-flex flex-column flex-lg-row gap-2 mt-3 mt-lg-0">
                       <Link
                         className="btn btn-outline-primary px-lg-3 py-lg-1 rounded-pill"
                         to={paths.auth.login.root()}
