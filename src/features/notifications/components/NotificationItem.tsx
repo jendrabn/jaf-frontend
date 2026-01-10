@@ -1,10 +1,9 @@
 import type { KeyboardEvent } from "react";
-import { Card, Badge, Button } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import type { Notification } from "@/types/notification";
 import { headline } from "@/utils/format";
 import dayjs from "@/utils/dayjs";
-import { paths } from "@/config/paths";
 
 interface NotificationItemProps {
   notification: Notification;
@@ -80,9 +79,9 @@ const NotificationItem = ({
   };
 
   return (
-    <Card
-      className={`mb-3 notification-item ${
-        !notification.is_read ? "border-primary" : ""
+    <div
+      className={`notification-card ${
+        !notification.is_read ? "is-unread" : ""
       }`}
       style={{ cursor: isNavigable ? "pointer" : "default" }}
       onClick={handleNavigate}
@@ -90,64 +89,49 @@ const NotificationItem = ({
       role={isNavigable ? "button" : undefined}
       tabIndex={isNavigable ? 0 : undefined}
     >
-      <Card.Body className="p-3">
-        <div className="d-flex align-items-start">
-          <div className="flex-grow-1">
-            <div className="d-flex justify-content-between align-items-start mb-2">
-              <div className="flex-grow-1">
-                <h6 className="fw-semibold mb-2">
-                  {headline(notification.title)}
-                </h6>
-                <Badge
-                  bg={getLevelVariant(notification.level)}
-                  className="me-2"
-                  pill
-                >
-                  <i
-                    className={`bi ${getLevelIcon(notification.level)} me-1`}
-                  ></i>
-                  {notification.level}
-                </Badge>
-                <Badge bg="secondary" className="me-2" pill>
-                  <i
-                    className={`bi ${getCategoryIcon(
-                      notification.category
-                    )} me-1`}
-                  ></i>
-                  {notification.category}
-                </Badge>
-              </div>
-
-              <div className="text-end ms-2">
-                <small className="text-muted d-block">
-                  {dayjs(notification.created_at).format("DD-MM-YYYY HH:mm")}
-                </small>
-              </div>
-            </div>
-
-            <p className="mb-2 text-muted">{notification.body}</p>
-
-            <div className="d-flex justify-content-end align-items-center gap-2">
-              {!notification.is_read && onMarkAsRead && (
-                <Button
-                  variant="outline-secondary"
-                  size="sm"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onMarkAsRead(notification.id);
-                  }}
-                >
-                  <i className="bi bi-check2 me-1"></i>
-                  Tandai dibaca
-                </Button>
-              )}
-            </div>
+      <div className="notification-card-body">
+        <div className="notification-icon">
+          <i className={`bi ${getCategoryIcon(notification.category)}`}></i>
+        </div>
+        <div className="notification-content">
+          <div className="notification-header">
+            <h3 className="notification-title">
+              {headline(notification.title)}
+            </h3>
+            <span className="notification-date">
+              {dayjs(notification.created_at).format("DD MMM YYYY, HH:mm")}
+            </span>
+          </div>
+          <p className="notification-body">{notification.body}</p>
+          <div className="notification-meta">
+            <Badge bg={getLevelVariant(notification.level)} pill>
+              <i className={`bi ${getLevelIcon(notification.level)} me-1`} />
+              {notification.level}
+            </Badge>
+            <Badge bg="secondary" pill>
+              <i
+                className={`bi ${getCategoryIcon(notification.category)} me-1`}
+              />
+              {notification.category}
+            </Badge>
+            {!notification.is_read && onMarkAsRead && (
+              <Button
+                variant="outline-secondary"
+                size="sm"
+                className="ms-auto"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onMarkAsRead(notification.id);
+                }}
+              >
+                Tandai dibaca
+              </Button>
+            )}
           </div>
         </div>
-      </Card.Body>
-    </Card>
+      </div>
+    </div>
   );
 };
 
 export default NotificationItem;
-

@@ -171,14 +171,14 @@ const NotificationsPage = () => {
         noIndex={true}
         noFollow={true}
       />
-      <div className="mb-4">
+      <div className="notifications-toolbar mb-4">
         {pushPermission === "unsupported" ? (
-          <Alert variant="warning">
+          <Alert variant="warning" className="notification-alert">
             <i className="bi bi-exclamation-triangle me-2"></i>
             Browser tidak mendukung push notification.
           </Alert>
         ) : (
-          <Alert variant="light" className="border">
+          <Alert variant="light" className="notification-alert">
             <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
               <div className="flex-grow-1">
                 <div className="fw-semibold mb-1">Notifikasi Browser</div>
@@ -228,8 +228,10 @@ const NotificationsPage = () => {
         )}
       </div>
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div></div>
+      <div className="notifications-actions mb-4">
+        <div className="text-body-secondary">
+          {notifications.length} notifikasi
+        </div>
         {unreadCount > 0 && (
           <Button
             variant="outline-primary"
@@ -307,4 +309,3 @@ const NotificationsPage = () => {
 };
 
 export default NotificationsPage;
-
