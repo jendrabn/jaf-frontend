@@ -164,14 +164,15 @@ function App() {
   return (
     <>
       <ToastContainer
-        limit={10}
-        theme="colored"
+        limit={5}
+        theme="light"
         position="top-right"
-        closeButton={false}
+        closeButton={true}
         autoClose={1000}
-        pauseOnHover={false}
+        pauseOnHover={true}
         hideProgressBar={true}
         newestOnTop
+        stacked
       />
 
       <QueryClientProvider client={queryClient}>
