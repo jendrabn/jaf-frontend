@@ -2,8 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
 
-export type LogoutInput = {};
-
 export type LogoutResponse = void;
 
 export const logout = (): Promise<LogoutResponse> => {

@@ -1,8 +1,8 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { ProductBrandTypes } from "@/types/product";
+import type { ProductBrand } from "@/types/product";
 
-export const getProductBrands = (): Promise<ProductBrandTypes[]> => {
+export const getProductBrands = (): Promise<ProductBrand[]> => {
   return api.get("/brands");
 };
 

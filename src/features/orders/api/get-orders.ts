@@ -1,7 +1,7 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { OrderTypes } from "@/types/order";
-import type { PageTypes } from "@/types";
+import type { Order } from "@/types/order";
+import type { Page } from "@/types";
 
 export type GetOrdersParams = {
   page?: number;
@@ -16,8 +16,8 @@ export type GetOrdersParams = {
 };
 
 export type GetOrdersResponse = {
-  data: OrderTypes[];
-  page: PageTypes;
+  data: Order[];
+  page: Page;
 };
 
 export const getOrders = ({

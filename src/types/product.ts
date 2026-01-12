@@ -56,24 +56,24 @@ export interface ProductFlashSaleMeta {
   is_flash_price_masked?: boolean;
 }
 
-export interface ProductItem extends ProductFlashSaleMeta {
+export interface Product extends ProductFlashSaleMeta {
   id: number;
   name: string;
   slug: string;
   image: string;
-  category: ProductCategory;
-  brand: ProductBrand;
-  sex?: 1 | 2 | 3;
   price: number;
   stock: number;
   weight: number;
   sold_count: number;
-  is_wishlist: boolean;
   rating_avg: number;
   discount?: ProductDiscount | null;
   price_after_discount?: number | null;
   is_discounted?: boolean;
   discount_in_percent?: number | null;
+  category: ProductCategory;
+  brand: ProductBrand;
+  sex?: 1 | 2 | 3;
+  is_wishlist: boolean;
 }
 
 export interface ProductDetail extends ProductFlashSaleMeta {
@@ -98,4 +98,3 @@ export interface ProductDetail extends ProductFlashSaleMeta {
   ratings: Rating[];
   sku: string;
 }
-

@@ -20,14 +20,13 @@ import { formatCurrency } from "@/utils/format";
 import { env } from "@/config/env";
 import { loadSnapScript, payWithSnap } from "@/lib/midtrans";
 import { toast } from "react-toastify";
-import type { PaymentInfoTypes } from "@/types/order";
+import type { PaymentInfo } from "@/types/order";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/utils/constans";
 import PayNowButton from "@/features/orders/components/PayNowButton";
 import TrackingModal from "@/features/orders/components/TrackingModal";
 import dayjs from "@/utils/dayjs";
 import SEO from "@/components/SEO";
-import { paths } from "@/config/paths";
 
 const OrderDetail = () => {
   const { id } = useParams();
@@ -45,7 +44,7 @@ const OrderDetail = () => {
   const canOpenSnap = !!(isGateway && isUnpaid);
 
   const openSnap = useCallback(async () => {
-    const info: PaymentInfoTypes | undefined = order?.payment?.info;
+    const info: PaymentInfo | undefined = order?.payment?.info;
     const clientKey: string | undefined = info?.client_key;
     const snapToken: string | undefined = info?.snap_token;
     const redirectUrl: string | undefined = info?.redirect_url;

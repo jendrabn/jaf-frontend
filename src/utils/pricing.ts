@@ -1,6 +1,6 @@
-import type { ProductDetail, ProductItem } from "@/types/product";
+import type { ProductDetail, Product } from "@/types/product";
 
-export type ProductPricingSource = ProductItem | ProductDetail;
+export type ProductPricingSource = Product | ProductDetail;
 
 export interface ProductPricingInfo {
   currentPrice: number | null;
@@ -219,4 +219,3 @@ export const getProductPricingInfo = (
     strikeThroughPrice: null,
   };
 };
-

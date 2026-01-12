@@ -1,9 +1,9 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { QueryConfig } from "@/lib/react-query";
-import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
+import type { FlashSaleSchedule } from "@/types/flash-sale";
 
-export const getFlashSales = (): Promise<FlashSaleScheduleTypes[]> => {
+export const getFlashSales = (): Promise<FlashSaleSchedule[]> => {
   return api.get("/flash-sale");
 };
 

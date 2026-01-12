@@ -1,12 +1,12 @@
 import { useState } from "react";
 import OurServices from "@/components/OurServices";
-import googleReviews from "@/data/google-reviews.json";
 import Layout from "@/components/layouts/Layout";
 
 import StarRating from "@/components/ui/star-rating";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import PageHeader from "@/components/layouts/PageHeader";
+import { reviews } from "@/data/reviews";
 
 const About = () => {
   const [activeReview, setActiveReview] = useState(0);
@@ -18,7 +18,7 @@ const About = () => {
     setTimeout(() => {
       setActiveReview(idx);
       setFade(true);
-    }, 200); // durasi fade out
+    }, 200);
   };
 
   return (
@@ -156,14 +156,14 @@ const About = () => {
                         fontSize: 18,
                       }}
                     >
-                      {googleReviews[activeReview].name.charAt(0)}
+                      {reviews[activeReview].name.charAt(0)}
                     </div>
                     <div>
                       <div className="fw-semibold">
-                        {googleReviews[activeReview].name}
+                        {reviews[activeReview].name}
                       </div>
                       <div className="text-warning" style={{ fontSize: 16 }}>
-                        <StarRating rate={googleReviews[activeReview].rating} />
+                        <StarRating rate={reviews[activeReview].rating} />
                       </div>
                     </div>
                   </div>
@@ -171,7 +171,7 @@ const About = () => {
                     className="fst-italic text-muted mb-0"
                     style={{ minHeight: 60 }}
                   >
-                    “{googleReviews[activeReview].text}”
+                    “{reviews[activeReview].text}”
                   </blockquote>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const About = () => {
               role="list"
               aria-label="Review pagination dots"
             >
-              {googleReviews.map((_review, idx) => (
+              {reviews.map((_review, idx) => (
                 <button
                   key={idx}
                   type="button"

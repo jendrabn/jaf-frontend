@@ -1,14 +1,15 @@
-import { Row, Col, Button, Form, Image } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import { useAuthState } from "@/contexts/AuthContext";
 import type { User } from "@/types/user";
 import AccountLayout from "@/components/layouts/AccountLayout";
 import { useUpdateUser } from "@/features/user/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { type ChangeEvent, useRef } from "react";
+import { type ChangeEvent, useCallback, useRef } from "react";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import SEO from "@/components/SEO";
+import AvatarUpload from "@/features/user/components/AvatarUpload";
 
 const Profile = () => {
   const { user } = useAuthState();
@@ -24,8 +25,8 @@ const Profile = () => {
     register,
     handleSubmit,
     reset: resetForm,
-    watch,
     setValue,
+    control,
   } = useForm<User>({
     defaultValues: {
       name: user?.name || "",
@@ -36,10 +37,11 @@ const Profile = () => {
     },
   });
 
-  const watchedSex = watch("sex");
+  const watchedSex = useWatch({ control, name: "sex" });
 
-  const onSubmit = (data: User) => {
-    const formData = new FormData();
+  const onSubmit = useCallback(
+    (data: User) => {
+      const formData = new FormData();
 
     // Append form data
     formData.append("name", data.name);
@@ -53,21 +55,30 @@ const Profile = () => {
       formData.append("avatar", inputAvatarRef.current.files[0]);
     }
 
-    mutate(
-      { data: formData },
-      {
-        onSuccess: () => {
-          toast.success("Berhasil memperbarui profil.");
+      mutate(
+        { data: formData },
+        {
+          onSuccess: () => {
+            toast.success("Berhasil memperbarui profil.");
 
-          queryClient.invalidateQueries({ queryKey: ["user"] });
-        },
-        onError: () => {
-          resetForm();
-          avatarRef.current?.setAttribute("src", user?.avatar ?? "");
-        },
-      }
-    );
-  };
+            queryClient.invalidateQueries({ queryKey: ["user"] });
+          },
+          onError: () => {
+            resetForm();
+            avatarRef.current?.setAttribute("src", user?.avatar ?? "");
+          },
+        }
+      );
+    },
+    [mutate, queryClient, resetForm, user]
+  );
+
+  const handleFormSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      void handleSubmit(onSubmit)(event);
+    },
+    [handleSubmit, onSubmit]
+  );
 
   const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -100,33 +111,19 @@ const Profile = () => {
 
       <div className="row flex-row-reverse">
         <div className="col-lg-3">
-          <div className="text-center mb-3 mb-lg-0">
-            <Image
+          <div className="mb-3 mb-lg-0">
+            <AvatarUpload
               src={user?.avatar}
-              alt="Avatar"
-              roundedCircle
-              fluid
-              className="object-fit-cover border border-primary border-3 border-opacity-50 mb-2"
-              style={{ width: 100, height: 100 }}
-              ref={avatarRef}
-              loading="lazy"
-            />
-
-            <br />
-
-            <Button
-              variant="outline-primary"
-              size="sm"
-              onClick={() => {
+              name={user?.name || "Username"}
+              imageRef={avatarRef}
+              onTriggerUpload={() => {
                 inputAvatarRef.current?.click();
               }}
-            >
-              <i className="bi bi-upload me-2"></i> Upload Foto
-            </Button>
+            />
           </div>
         </div>
         <div className="col-lg-9">
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleFormSubmit}>
             <fieldset disabled={isPending}>
               <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="3" className="text-muted">

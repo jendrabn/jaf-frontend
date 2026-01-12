@@ -1,12 +1,12 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { ProductItemTypes } from "@/types/product";
+import type { Product } from "@/types/product";
 
 export const getRelatedProducts = ({
   productId,
 }: {
   productId: string;
-}): Promise<ProductItemTypes[]> => {
+}): Promise<Product[]> => {
   return api.get(`/products/${productId}/similars`);
 };
 

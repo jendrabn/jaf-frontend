@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type ResetPasswordInput = {
   email: string;
@@ -10,7 +10,7 @@ export type ResetPasswordInput = {
   password_confirmation: string;
 };
 
-export type ResetPasswordResponse = NoContentTypes;
+export type ResetPasswordResponse = NoContent;
 
 export const resetPassword = ({
   data,

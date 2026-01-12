@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type CreateCartInput = {
   product_id: number;
   quantity: number;
 };
 
-export type CreateCartResponse = NoContentTypes;
+export type CreateCartResponse = NoContent;
 
 export const createCart = ({
   data,

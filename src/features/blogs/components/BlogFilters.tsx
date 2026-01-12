@@ -1,4 +1,4 @@
-import type { BlogCategoryTypes, BlogTagTypes } from "@/types/blog";
+import type { BlogCategory, BlogTag } from "@/types/blog";
 import { Accordion, Button } from "react-bootstrap";
 import useFilters from "@/hooks/use-filters";
 import { useGetBlogCategories, useGetBlogTags } from "@/features/blogs/api";
@@ -15,7 +15,7 @@ function BlogFilters() {
           <Accordion.Header>Kategori</Accordion.Header>
           <Accordion.Body>
             <ul className="list-unstyled mb-0">
-              {categories?.map((category: BlogCategoryTypes) => (
+              {categories?.map((category: BlogCategory) => (
                 <li key={`category-${category.id}`} className="mb-2">
                   <span
                     role="button"
@@ -41,7 +41,7 @@ function BlogFilters() {
           <Accordion.Header>Tag</Accordion.Header>
           <Accordion.Body>
             <ul className="list-unstyled mb-0">
-              {tags?.map((tag: BlogTagTypes) => (
+              {tags?.map((tag: BlogTag) => (
                 <li key={`tag-${tag.id}`} className="mb-2">
                   <span
                     role="button"

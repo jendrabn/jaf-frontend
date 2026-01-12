@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { LoginTypes } from "@/types/auth";
+import type { Login } from "@/types/auth";
 
 export type VerifyLoginOtpInput = {
   email: string;
@@ -12,7 +12,7 @@ export const verifyLoginOtp = ({
   data,
 }: {
   data: VerifyLoginOtpInput;
-}): Promise<LoginTypes> => {
+}): Promise<Login> => {
   return api.post("/auth/verify_login_otp", data);
 };
 

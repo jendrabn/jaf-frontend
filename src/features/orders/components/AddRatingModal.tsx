@@ -1,5 +1,5 @@
 import { Modal, Button, Form } from "react-bootstrap";
-import type { OrderTypes } from "@/types/order";
+import type { Order } from "@/types/order";
 import { useState } from "react";
 import { useAddRating } from "@/features/orders/api";
 import { useQueryClient } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 interface AddRatingModalProps {
   show: boolean;
   onClose: () => void;
-  order: OrderTypes;
+  order: Order;
 }
 
 const AddRatingModal = (props: AddRatingModalProps) => {

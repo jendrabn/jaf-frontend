@@ -1,7 +1,7 @@
 import { Breadcrumb, Button, Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router";
 import { getGenderLabel, formatCurrency } from "@/utils/functions";
-import ProductItem from "@/features/products/components/ProductItem";
+import ProductCard from "@/features/products/components/ProductCard";
 import { useState } from "react";
 import { useCreateCart } from "@/features/carts/api";
 import Layout from "@/components/layouts/Layout";
@@ -410,7 +410,7 @@ export default function ProductDetail() {
                       className="col-6 col-md-3 col-lg-2"
                       key={`product-${product.id}`}
                     >
-                      <ProductItem product={product} />
+                      <ProductCard product={product} />
                     </div>
                   ))}
                 </div>

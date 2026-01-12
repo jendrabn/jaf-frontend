@@ -1,4 +1,4 @@
-import type { ProductItemTypes } from "@/types/product";
+import type { ProductCard as ProductCardType } from "@/types/product";
 import { Card, Image } from "react-bootstrap";
 import { formatCurrency } from "@/utils/format";
 import { Link } from "react-router";
@@ -8,15 +8,15 @@ import {
 } from "@/utils/pricing";
 import { paths } from "@/config/paths";
 
-interface ProductItemProps {
-  product: ProductItemTypes;
+interface ProductCardProps {
+  product: ProductCardType;
   showSoldCount?: boolean;
   showRating?: boolean;
   flashSaleStatus?: FlashSaleStatusOverride;
   hideZeroSoldCount?: boolean;
 }
 
-const ProductItem = (props: ProductItemProps) => {
+const ProductCard = (props: ProductCardProps) => {
   const {
     product,
     showSoldCount = true,
@@ -70,7 +70,7 @@ const ProductItem = (props: ProductItemProps) => {
     : 0;
 
   return (
-    <Card className="h-100 text-decoration-none border-0 position-relative">
+    <Card className="h-100 text-decoration-none border-0 position-relative d-flex flex-column">
       {(isFlashSale || flashSaleStatus === "scheduled") && (
         <span className="badge text-bg-light text-danger position-absolute top-0 start-0 m-2 z-1">
           Flash Sale
@@ -88,7 +88,7 @@ const ProductItem = (props: ProductItemProps) => {
         </div>
       </Link>
 
-      <Card.Body className="px-0">
+      <Card.Body className="px-0 d-flex flex-column flex-grow-1">
         <Card.Title className="fs-6 line-clamp-2" title={name}>
           <Link
             className="text-body-emphasis text-decoration-none hover-text-primary"
@@ -120,32 +120,38 @@ const ProductItem = (props: ProductItemProps) => {
           )}
         </Card.Text>
 
-        {showFlashStock && (
-          <div className="flash-sale-stock mb-2">
-            <div className="d-flex justify-content-between text-danger text-xs">
-              <span>
-                Sisa {flashRemaining} <i className="bi bi-fire"></i>
-              </span>
-              <span>Terjual {flashSold ?? flashStock - flashRemaining}</span>
-            </div>
-            <div className="flash-sale-stock-progress">
-              <div
-                className="flash-sale-stock-progress-bar"
-                style={{ width: `${soldPercentage}%` }}
-              ></div>
-            </div>
-          </div>
-        )}
-
-        {(showRating || showSoldCount) && (
-          <div className="d-flex justify-content-between align-items-center small text-body-secondary">
-            {showRating && (
-              <div>
-                <i className="bi bi-star-fill text-warning me-1"></i>
-                <span>{product.rating_avg}</span>
+        {(showFlashStock || showRating || showSoldCount) && (
+          <div className="mt-auto">
+            {showFlashStock && (
+              <div className="flash-sale-stock mb-2">
+                <div className="d-flex justify-content-between text-danger text-xs">
+                  <span>
+                    Sisa {flashRemaining} <i className="bi bi-fire"></i>
+                  </span>
+                  <span>
+                    Terjual {flashSold ?? flashStock - flashRemaining}
+                  </span>
+                </div>
+                <div className="flash-sale-stock-progress">
+                  <div
+                    className="flash-sale-stock-progress-bar"
+                    style={{ width: `${soldPercentage}%` }}
+                  ></div>
+                </div>
               </div>
             )}
-            {showSoldCount && soldLabel && <span>{soldLabel}</span>}
+
+            {(showRating || showSoldCount) && (
+              <div className="d-flex justify-content-between align-items-center small text-body-secondary">
+                {showRating && (
+                  <div>
+                    <i className="bi bi-star-fill text-warning me-1"></i>
+                    <span>{product.rating_avg}</span>
+                  </div>
+                )}
+                {showSoldCount && soldLabel && <span>{soldLabel}</span>}
+              </div>
+            )}
           </div>
         )}
       </Card.Body>
@@ -153,4 +159,4 @@ const ProductItem = (props: ProductItemProps) => {
   );
 };
 
-export default ProductItem;
+export default ProductCard;

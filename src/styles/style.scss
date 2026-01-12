@@ -296,5 +296,57 @@ $breakpoints: (
   }
 }
 
+/* Container XS untuk Blog dengan Sidebar */
+/* Tambahkan CSS ini setelah Bootstrap 5.3 */
+
+.container-xs {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Breakpoint untuk container-xs */
+@media (min-width: 576px) {
+  .container-xs {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container-xs {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container-xs {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-xs {
+    max-width: 1040px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container-xs {
+    max-width: 1140px;
+  }
+}
+
+/* Variasi fluid */
+.container-xs-fluid {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1140px;
+}
+
 @import "custom.scss";
 @import "theme.scss";

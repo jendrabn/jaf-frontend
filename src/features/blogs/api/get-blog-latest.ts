@@ -1,12 +1,12 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { BlogItemTypes } from "@/types/blog";
+import type { Blog } from "@/types/blog";
 
 export type GetBlogLatestParams = {
   limit?: number;
 };
 
-export type GetBlogLatestResponse = BlogItemTypes[];
+export type GetBlogLatestResponse = Blog[];
 
 export const getBlogLatest = ({
   params,

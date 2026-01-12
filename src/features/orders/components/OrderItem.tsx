@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { type OrderTypes } from "@/types/order";
+import { type Order } from "@/types/order";
 import { ORDER_STATUS_COLORS, ORDER_STATUSES } from "@/utils/constans";
 import { formatCurrency } from "@/utils/format";
 import { Alert, Badge, Button } from "react-bootstrap";
@@ -10,7 +10,7 @@ import dayjs from "@/utils/dayjs";
 import { paths } from "@/config/paths";
 
 interface OrderItemProps {
-  order: OrderTypes;
+  order: Order;
   onConfirmOrderReceived: (orderId: number) => void;
 }
 

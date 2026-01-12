@@ -11,7 +11,7 @@ import SEO from "@/components/SEO";
 import { localBusinessSchema } from "@/utils/seo-schemas";
 import PageHeader from "@/components/layouts/PageHeader";
 
-function Contact() {
+const Contact = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

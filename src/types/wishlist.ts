@@ -1,9 +1,6 @@
-import type { ProductItem } from "./product";
+import type { Product } from "./product";
 
 export interface Wishlist {
   id: number;
-  product: ProductItem;
+  product: Product;
 }
-
-
-

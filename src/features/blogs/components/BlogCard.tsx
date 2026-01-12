@@ -1,13 +1,13 @@
-import { type BlogItemTypes } from "@/types/blog";
+import { type Blog } from "@/types/blog";
 import { Badge, Card, Image } from "react-bootstrap";
 import dayjs from "@/utils/dayjs";
 import { Link } from "react-router";
 import { words } from "@/utils/functions";
 import { paths } from "@/config/paths";
 
-type Props = { blog: BlogItemTypes };
+type Props = { blog: Blog };
 
-const BlogItem = ({ blog }: Props) => (
+const BlogCard = ({ blog }: Props) => (
   <Card as="article" className="h-100 border-0">
     <div className="row g-2 g-md-2 align-items-start">
       <div className="col-4 col-md-12">
@@ -95,4 +95,4 @@ const BlogItem = ({ blog }: Props) => (
   </Card>
 );
 
-export default BlogItem;
+export default BlogCard;

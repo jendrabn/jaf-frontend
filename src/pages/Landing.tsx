@@ -1,7 +1,7 @@
 import { useGetLanding } from "@/features/landing/api";
-import ProductItem from "@/features/products/components/ProductItem";
-import BlogItem from "@/features/blogs/components/BlogItem";
-import type { ProductItemTypes } from "@/types/product";
+import ProductCard from "@/features/products/components/ProductCard";
+import BlogCard from "@/features/blogs/components/BlogCard";
+import type { Product } from "@/types/product";
 import Loading from "@/components/ui/loading";
 import OurServices from "@/components/OurServices";
 import OurMarketplace from "@/components/OurMarketplace";
@@ -16,18 +16,18 @@ import BrandSlider from "@/features/landing/components/BrandSlider";
 import { useGetProductBrands } from "@/features/products/api";
 import { Link } from "react-router";
 import { useGetFlashSales } from "@/features/flash-sale/api";
-import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
+import type { FlashSaleSchedule } from "@/types/flash-sale";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
 import FlashSaleSlider from "@/features/flash-sale/components/FlashSaleSlider";
 import { paths } from "@/config/paths";
 
-function Landing() {
+const Landing = () => {
   const { data: landing, isLoading } = useGetLanding();
   const { data: brands, isLoading: isLoadingBrands } = useGetProductBrands();
   const { data: flashSales, isLoading: isLoadingFlashSales } =
     useGetFlashSales();
 
-  const getRunningFlashSale = (flashSales?: FlashSaleScheduleTypes[]) =>
+  const getRunningFlashSale = (flashSales?: FlashSaleSchedule[]) =>
     flashSales?.find((sale) => sale.status === "running");
 
   const runningFlashSale = getRunningFlashSale(flashSales);
@@ -157,9 +157,9 @@ function Landing() {
 
             {landing?.products && landing?.products.length > 0 && (
               <div className="row g-3">
-                {landing.products.map((product: ProductItemTypes) => (
+                {landing.products.map((product: Product) => (
                   <div className="col-6 col-md-3 col-lg-2" key={product.id}>
-                    <ProductItem
+                    <ProductCard
                       product={product}
                       showSoldCount={false}
                       showRating={false}
@@ -265,7 +265,7 @@ function Landing() {
               <div className="row g-4">
                 {landing.blogs.slice(0, 4).map((blog) => (
                   <div className="col-12 col-md-4 col-lg-3" key={blog.id}>
-                    <BlogItem blog={blog} />
+                    <BlogCard blog={blog} />
                   </div>
                 ))}
               </div>
@@ -303,6 +303,6 @@ function Landing() {
       <Footer />
     </>
   );
-}
+};
 
 export default Landing;

@@ -62,9 +62,8 @@ const AccountLayout = ({ children, title }: AuthLayoutProps) => {
       >
         <div className="container">
           <div className="row g-4">
-            <div className="col-12 col-lg-3">
+            <div className="col-12 col-lg-3 d-none d-lg-block">
               <div className="account-sidebar">
-                <div className="account-sidebar-title">Menu Akun</div>
                 <NavAccount />
               </div>
             </div>

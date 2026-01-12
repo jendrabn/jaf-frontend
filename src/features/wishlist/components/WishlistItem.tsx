@@ -1,6 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router";
-import type { WishlistTypes } from "@/types/wishlist";
+import type { Wishlist } from "@/types/wishlist";
 import { formatCurrency } from "@/utils/format";
 import ProductImage from "@/features/products/components/ProductImage";
 import {
@@ -15,7 +15,7 @@ import { QUERY_KEYS } from "@/utils/constans";
 import { paths } from "@/config/paths";
 
 interface WishlistItemProps {
-  item: WishlistTypes;
+  item: Wishlist;
 }
 
 const WishlistItem = (props: WishlistItemProps) => {

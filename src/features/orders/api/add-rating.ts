@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type AddRatingInput = {
   ratings: {
@@ -12,7 +12,7 @@ export type AddRatingInput = {
   }[];
 };
 
-export type AddRatingResponse = NoContentTypes;
+export type AddRatingResponse = NoContent;
 
 export const addRating = ({
   data,

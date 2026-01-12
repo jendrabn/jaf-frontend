@@ -1,12 +1,9 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { QueryConfig } from "@/lib/react-query";
-import type { WishlistTypes } from "@/types/wishlist";
+import type { Wishlist } from "@/types/wishlist";
 
-// 1. Response Type (already defined in /types/wishlist.ts as WishlistTypes[])
-// export type GetWishlistResponse = WishlistTypes[];
-
-export const getWishlist = (): Promise<WishlistTypes[]> => {
+export const getWishlist = (): Promise<Wishlist[]> => {
   return api.get("/wishlist");
 };
 

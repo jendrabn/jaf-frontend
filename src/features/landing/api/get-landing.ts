@@ -1,14 +1,14 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { ProductItemTypes } from "@/types/product";
-import type { BannerTypes } from "@/types/landing";
-import type { BlogItemTypes } from "@/types/blog";
+import type { Product } from "@/types/product";
+import type { Banner } from "@/types/landing";
+import type { Blog } from "@/types/blog";
 import type { QueryConfig } from "@/lib/react-query";
 
 export type GetLandingResponse = {
-  products: ProductItemTypes[];
-  banners: BannerTypes[];
-  blogs: BlogItemTypes[];
+  products: Product[];
+  banners: Banner[];
+  blogs: Blog[];
 };
 
 export const getLanding = (): Promise<GetLandingResponse> => {

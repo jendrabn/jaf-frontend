@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type UpdateCartInput = {
   id: number;
@@ -10,7 +10,7 @@ export type UpdateCartInput = {
   };
 };
 
-export type UpdateCartResponse = NoContentTypes;
+export type UpdateCartResponse = NoContent;
 
 export const updateCart = ({
   id,

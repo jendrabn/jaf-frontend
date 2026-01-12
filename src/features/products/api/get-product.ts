@@ -1,12 +1,12 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { ProductDetailTypes } from "@/types/product";
+import type { ProductDetail } from "@/types/product";
 
 export const getProduct = ({
   slug,
 }: {
   slug: string;
-}): Promise<ProductDetailTypes> => {
+}): Promise<ProductDetail> => {
   return api.get(`/products/${slug}`);
 };
 

@@ -1,13 +1,13 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { BlogItemTypes } from "@/types/blog";
+import type { Blog } from "@/types/blog";
 
 export type GetBlogRelatedParams = {
   slug: string;
   limit?: number;
 };
 
-export type GetBlogRelatedResponse = BlogItemTypes[];
+export type GetBlogRelatedResponse = Blog[];
 
 export const getBlogRelated = ({
   slug,
@@ -19,7 +19,9 @@ export const getBlogRelated = ({
   const queryString = new URLSearchParams(
     params as Record<string, string>
   ).toString();
-  return api.get(`/blogs/${slug}/related${queryString ? `?${queryString}` : ""}`);
+  return api.get(
+    `/blogs/${slug}/related${queryString ? `?${queryString}` : ""}`
+  );
 };
 
 export const getBlogRelatedQueryOptions = (

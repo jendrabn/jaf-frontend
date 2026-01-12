@@ -5,7 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import bankList from "@/data/bank-list.json";
 import { useLocation, useNavigate } from "react-router";
 import Loading from "@/components/ui/loading";
 import {
@@ -17,6 +16,7 @@ import type { ConfirmPaymentReqTypes } from "@/types/order";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import PaymentInfo from "@/features/orders/components/PaymentInfo";
 import { paths } from "@/config/paths";
+import { banks } from "@/data/banks";
 
 interface ConfirmPaymentModalProps {
   show: boolean;
@@ -54,7 +54,7 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
 
   const bankOptions = useMemo(
     () =>
-      bankList.map((bank) => ({
+      banks.map((bank) => ({
         value: bank.name,
         label: bank.name,
       })),

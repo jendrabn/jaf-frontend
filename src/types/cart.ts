@@ -1,10 +1,7 @@
-import type { ProductItem } from "./product";
+import type { ProductCard } from "./product";
 
 export interface CartItem {
   id: number;
-  product: ProductItem;
+  product: ProductCard;
   quantity: number;
 }
-
-
-

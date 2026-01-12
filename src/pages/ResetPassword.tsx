@@ -2,7 +2,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import SEO from "@/components/SEO";
 import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
 
-function ResetPassword() {
+const ResetPassword = () => {
   return (
     <AuthLayout
       title="Reset Password"
@@ -18,6 +18,6 @@ function ResetPassword() {
       <ResetPasswordForm />
     </AuthLayout>
   );
-}
+};
 
 export default ResetPassword;

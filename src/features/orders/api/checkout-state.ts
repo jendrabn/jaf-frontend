@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { CheckoutTypes } from "@/types/order";
+import type { Checkout } from "@/types/order";
 
 export type CheckoutStateInput = {
   cart_ids?: number[];
@@ -28,7 +28,7 @@ export const checkoutState = ({
   data,
 }: {
   data: CheckoutStateInput;
-}): Promise<CheckoutTypes> => {
+}): Promise<Checkout> => {
   return api.post("/checkout", data);
 };
 

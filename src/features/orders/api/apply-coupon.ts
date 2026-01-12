@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { ApplyCouponResTypes } from "@/types/checkout";
+import type { ApplyCouponRes } from "@/types/checkout";
 
 export type ApplyCouponInput = {
   cart_ids?: number[];
@@ -12,7 +12,7 @@ export const applyCoupon = ({
   data,
 }: {
   data: ApplyCouponInput;
-}): Promise<ApplyCouponResTypes> => {
+}): Promise<ApplyCouponRes> => {
   return api.post("/apply_coupon", data);
 };
 

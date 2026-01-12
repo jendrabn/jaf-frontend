@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSubscribeNewsletter } from "@/features/landing/api/subscribe-newsletter";
-import type { NewsletterRequest } from "@/types/newsletter";
+import {
+  useSubscribeNewsletter,
+  type SubscribeNewsletterInput,
+} from "@/features/landing/api/subscribe-newsletter";
 import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 
 const Newsletter = () => {
@@ -11,11 +13,11 @@ const Newsletter = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<NewsletterRequest>();
+  } = useForm<SubscribeNewsletterInput>();
 
   const subscribeMutation = useSubscribeNewsletter();
 
-  const onSubmit = (data: NewsletterRequest) => {
+  const onSubmit = (data: SubscribeNewsletterInput) => {
     subscribeMutation.mutate(
       { data },
       {

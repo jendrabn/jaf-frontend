@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { RegisterTypes } from "@/types/auth";
+import type { Register } from "@/types/auth";
 
 export type RegisterInput = {
   name: string;
@@ -14,7 +14,7 @@ export const register = ({
   data,
 }: {
   data: RegisterInput;
-}): Promise<RegisterTypes> => {
+}): Promise<Register> => {
   return api.post("/auth/register", data);
 };
 

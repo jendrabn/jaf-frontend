@@ -1,12 +1,12 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { CityTypes } from "@/types/checkout";
+import type { City } from "@/types/checkout";
 
 export const getCities = ({
   provinceId,
 }: {
   provinceId: number;
-}): Promise<CityTypes[]> => {
+}): Promise<City[]> => {
   return api.get(`/region/cities/${provinceId}`);
 };
 

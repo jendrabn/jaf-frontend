@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { UserTypes } from "@/types/user";
+import type { User } from "@/types/user";
 
 export type UpdateUserInput = FormData;
 
-export type UpdateUserResponse = UserTypes;
+export type UpdateUserResponse = User;
 
 export const updateUser = ({
   data,

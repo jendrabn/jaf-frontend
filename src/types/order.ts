@@ -1,8 +1,8 @@
-import type { ProductItem } from "./product";
+import type { Product } from "./product";
 
 export interface OrderItem {
   id: number;
-  product: ProductItem;
+  product: Product;
   name: string;
   price: number;
   price_before_discount?: number | null;

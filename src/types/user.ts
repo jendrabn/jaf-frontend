@@ -7,6 +7,3 @@ export interface User {
   birth_date?: string | null;
   avatar: string;
 }
-
-
-

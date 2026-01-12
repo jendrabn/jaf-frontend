@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type UpdatePasswordInput = {
   current_password: string;
@@ -9,7 +9,7 @@ export type UpdatePasswordInput = {
   new_password_confirmation: string;
 };
 
-export type UpdatePasswordResponse = NoContentTypes;
+export type UpdatePasswordResponse = NoContent;
 
 export const updatePassword = ({
   data,

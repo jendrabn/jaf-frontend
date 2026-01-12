@@ -1,8 +1,8 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { BlogCategoryTypes } from "@/types/blog";
+import type { BlogCategory } from "@/types/blog";
 
-export const getBlogCategories = (): Promise<BlogCategoryTypes[]> => {
+export const getBlogCategories = (): Promise<BlogCategory[]> => {
   return api.get("/blogs/categories");
 };
 

@@ -6,72 +6,30 @@ import type { Swiper as SwiperClass } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import type { ProductBrandTypes } from "@/types/product";
+import type { ProductBrand } from "@/types/product";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router";
 import { paths } from "@/config/paths";
+import SliderArrowButton from "@/components/ui/slider-arrow-button";
 
-const circleStyle: React.CSSProperties = {
-  width: 44,
-  height: 44,
-  borderRadius: "50%",
-  backgroundColor: "rgba(255,255,255,0.5)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#6C757D",
-  boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-};
-
-type ArrowButtonProps = {
-  direction: "prev" | "next";
-  onClick: () => void;
-};
-
-function ArrowButton({ direction, onClick }: ArrowButtonProps) {
-  return (
-    <button
-      type="button"
-      aria-label={direction === "prev" ? "Previous brand" : "Next brand"}
-      className={`brand-arrow brand-arrow-${direction} d-none d-sm-inline-flex`}
-      onClick={onClick}
-      style={{
-        position: "absolute",
-        top: "50%",
-        zIndex: 10,
-        transform:
-          direction === "prev"
-            ? "translate(-50%, -50%)"
-            : "translate(50%, -50%)",
-        border: "none",
-        background: "transparent",
-        cursor: "pointer",
-        ...(direction === "prev" ? { left: 0 } : { right: 0 }),
-      }}
-    >
-      <span style={circleStyle}>
-        <i
-          className={
-            direction === "prev" ? "bi bi-chevron-left" : "bi bi-chevron-right"
-          }
-        ></i>
-      </span>
-    </button>
-  );
-}
-
-const BrandSlider = ({ brands }: { brands: ProductBrandTypes[] }) => {
+const BrandSlider = ({ brands }: { brands: ProductBrand[] }) => {
   const swiperRef = useRef<SwiperClass | null>(null);
 
   return (
-    <div className="brand-swiper-wrapper position-relative">
-      <ArrowButton
+    <div className="brand-swiper-wrapper position-relative slider-arrow-host">
+      <SliderArrowButton
         direction="prev"
+        ariaLabel="Previous brand"
         onClick={() => swiperRef.current?.slidePrev()}
+        revealOnHover
+        className="d-none d-sm-inline-flex"
       />
-      <ArrowButton
+      <SliderArrowButton
         direction="next"
+        ariaLabel="Next brand"
         onClick={() => swiperRef.current?.slideNext()}
+        revealOnHover
+        className="d-none d-sm-inline-flex"
       />
 
       <Swiper

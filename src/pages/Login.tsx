@@ -2,7 +2,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import SEO from "@/components/SEO";
 import LoginForm from "@/features/auth/components/LoginForm";
 
-function Login() {
+const Login = () => {
   return (
     <AuthLayout
       title="Log in"
@@ -18,6 +18,6 @@ function Login() {
       <LoginForm />
     </AuthLayout>
   );
-}
+};
 
 export default Login;

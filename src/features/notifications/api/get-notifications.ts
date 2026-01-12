@@ -17,8 +17,8 @@ export const getNotificationsQueryOptions = (page: number = 1) => {
   return queryOptions({
     queryKey: ["notifications", page],
     queryFn: () => apiGetNotifications(page),
-    staleTime: 1000 * 60, // 1 minute
-    refetchInterval: 1000 * 60, // Auto refresh every 1 minute
+    staleTime: 1000 * 60,
+    refetchInterval: 1000 * 60,
   });
 };
 

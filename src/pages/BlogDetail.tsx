@@ -11,9 +11,9 @@ import { generateArticleSchema } from "@/utils/seo-schemas";
 import { paths } from "@/config/paths";
 import BlogSidebar from "@/features/blogs/components/BlogSidebar";
 import TagBadge from "@/components/ui/tag-badge";
-import BlogItem from "@/features/blogs/components/BlogItem";
+import BlogCard from "@/features/blogs/components/BlogCard";
 
-function BlogDetail() {
+const BlogDetail = () => {
   const { slug } = useParams();
   const { data: blog, isLoading } = useGetBlog(slug);
   const { data: relatedBlogs, isLoading: isLoadingRelated } = useGetBlogRelated(
@@ -44,7 +44,6 @@ function BlogDetail() {
         url: window.location.href,
       });
     } catch (error) {
-      // Ignore cancel
       console.log(error);
     }
   };
@@ -210,7 +209,7 @@ function BlogDetail() {
                             key={`related-${related.id}`}
                             className="col-12 col-md-6 col-lg-4"
                           >
-                            <BlogItem blog={related} />
+                            <BlogCard blog={related} />
                           </div>
                         ))}
                       </div>

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type CreateWishlistInput = {
   product_id: number;
 };
 
-export type CreateWishlistResponse = NoContentTypes;
+export type CreateWishlistResponse = NoContent;
 
 export const createWishlist = ({
   data,

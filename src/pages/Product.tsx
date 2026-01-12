@@ -1,6 +1,6 @@
 import { useGetProducts } from "@/features/products/api";
-import type { ProductItemTypes, ProductParamsTypes } from "@/types/product";
-import ProductItem from "@/features/products/components/ProductItem";
+import type { Product, ProductParams } from "@/types/product";
+import ProductCard from "@/features/products/components/ProductCard";
 import ProductFilters from "@/features/products/components/ProductFilters";
 import Loading from "@/components/ui/loading";
 import Pagination from "@/components/ui/pagination";
@@ -42,7 +42,7 @@ const FILTER_OPTIONS: { label: string; value: string }[] = [
 ];
 
 const Product = () => {
-  const { setFilter, clearFilters, params } = useFilters<ProductParamsTypes>();
+  const { setFilter, clearFilters, params } = useFilters<ProductParams>();
 
   const { data: products, isLoading } = useGetProducts(params);
 
@@ -174,12 +174,12 @@ const Product = () => {
             {products?.data && products?.data?.length > 0 && (
               <>
                 <div className="row g-4">
-                  {products.data.map((product: ProductItemTypes) => (
+                  {products.data.map((product: Product) => (
                     <div
                       className="col-6 col-md-4 col-lg-1of5"
                       key={`product-${product.id}`}
                     >
-                      <ProductItem product={product} />
+                      <ProductCard product={product} />
                     </div>
                   ))}
                 </div>

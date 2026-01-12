@@ -1,10 +1,10 @@
 import Layout from "@/components/layouts/Layout";
-import ProductItem from "@/features/products/components/ProductItem";
+import ProductCard from "@/features/products/components/ProductCard";
 import Loading from "@/components/ui/loading";
 import NoData from "@/components/ui/no-data";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { useGetFlashSales } from "@/features/flash-sale/api";
-import type { FlashSaleScheduleTypes } from "@/types/flash-sale";
+import type { FlashSaleSchedule } from "@/types/flash-sale";
 import { useEffect, useMemo, useState } from "react";
 import SEO from "@/components/SEO";
 import { env } from "@/config/env";
@@ -18,7 +18,7 @@ const formatTime = (dateString: string) => {
   });
 };
 
-const formatTabLabel = (sale: FlashSaleScheduleTypes) => {
+const formatTabLabel = (sale: FlashSaleSchedule) => {
   if (sale.status === "running") return "Berlangsung";
 
   const start = new Date(sale.start_at);
@@ -165,7 +165,7 @@ const FlashSale = () => {
                   <div className="row g-3">
                     {activeSale.products.map((product) => (
                       <div className="col-6 col-md-3 col-lg-2" key={product.id}>
-                        <ProductItem
+                        <ProductCard
                           product={product}
                           showRating={false}
                           flashSaleStatus={

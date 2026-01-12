@@ -10,7 +10,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: "auto",
-      // ⚠️ Jangan aktifkan dev SW kecuali sedang debug
+      // ⚠️ Don't enable devOptions if you're not in development
       devOptions: { enabled: false },
       includeAssets: ["images/**"],
       manifest: {

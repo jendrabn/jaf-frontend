@@ -1,6 +1,6 @@
 import { useGetBlogs } from "@/features/blogs/api";
-import type { BlogParamsTypes } from "@/types/blog";
-import BlogItem from "@/features/blogs/components/BlogItem";
+import type { BlogParams } from "@/types/blog";
+import BlogCard from "@/features/blogs/components/BlogCard";
 import Loading from "@/components/ui/loading";
 import Pagination from "@/components/ui/pagination";
 import Layout from "@/components/layouts/Layout";
@@ -13,7 +13,7 @@ import SEO from "@/components/SEO";
 import BlogSidebar from "@/features/blogs/components/BlogSidebar";
 
 const Blog = () => {
-  const { params, setFilter } = useFilters<BlogParamsTypes>();
+  const { params, setFilter } = useFilters<BlogParams>();
   const { data: blogs, isLoading } = useGetBlogs(params);
 
   const handlePageClick = (page: number) => {
@@ -61,7 +61,7 @@ const Blog = () => {
                       key={`blog-${blog.id}`}
                       className="col-12 col-md-6 col-lg-4"
                     >
-                      <BlogItem blog={blog} />
+                      <BlogCard blog={blog} />
                     </div>
                   ))}
                 </div>

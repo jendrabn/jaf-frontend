@@ -12,7 +12,7 @@ export interface BlogTag {
   blogs_count: number;
 }
 
-export interface BlogItem {
+export interface Blog {
   id: number;
   title: string;
   slug: string;

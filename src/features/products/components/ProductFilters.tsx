@@ -4,12 +4,12 @@ import {
   useGetProductBrands,
   useGetProductCategories,
 } from "@/features/products/api";
-import type { ProductParamsTypes } from "@/types/product";
+import type { ProductParams } from "@/types/product";
 import useFilters from "@/hooks/use-filters";
 import { SEXS } from "@/utils/constans";
 
 const ProductFilters = () => {
-  const { params, setFilter, clearFilters } = useFilters<ProductParamsTypes>();
+  const { params, setFilter, clearFilters } = useFilters<ProductParams>();
 
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");

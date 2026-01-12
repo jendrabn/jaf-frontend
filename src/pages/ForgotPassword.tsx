@@ -2,7 +2,7 @@ import AuthLayout from "@/components/layouts/AuthLayout";
 import SEO from "@/components/SEO";
 import ForgotPasswordForm from "@/features/auth/components/ForgotPasswordForm";
 
-function ForgotPassword() {
+const ForgotPassword = () => {
   return (
     <AuthLayout
       title="Lupa Password"
@@ -18,6 +18,6 @@ function ForgotPassword() {
       <ForgotPasswordForm />
     </AuthLayout>
   );
-}
+};
 
 export default ForgotPassword;

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type ForgotPasswordInput = {
   email: string;
 };
 
-export type ForgotPasswordResponse = NoContentTypes;
+export type ForgotPasswordResponse = NoContent;
 
 export const forgotPassword = ({
   data,

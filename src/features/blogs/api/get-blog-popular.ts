@@ -1,13 +1,13 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { BlogItemTypes } from "@/types/blog";
+import type { Blog } from "@/types/blog";
 
 export type GetBlogPopularParams = {
   window?: "1d" | "7d" | "30d";
   limit?: number;
 };
 
-export type GetBlogPopularResponse = BlogItemTypes[];
+export type GetBlogPopularResponse = Blog[];
 
 export const getBlogPopular = ({
   params,

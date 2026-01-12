@@ -1,13 +1,13 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
-import type { OrderDetailTypes } from "@/types/order";
+import type { OrderDetail } from "@/types/order";
 import { getAuthToken } from "@/utils/functions";
 
 export const getOrder = ({
   orderId,
 }: {
   orderId: number;
-}): Promise<OrderDetailTypes> => {
+}): Promise<OrderDetail> => {
   return api.get(`/orders/${orderId}`);
 };
 

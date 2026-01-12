@@ -117,7 +117,6 @@ const SearchBar = ({ className }: SearchBarProps) => {
             setSearchTerm(e.target.value)
           }
           onBlur={() => {
-            // Biarkan listener klik-luar yang menutup dropdown
             setTimeout(() => setIsFocused(false), 0);
           }}
           onKeyDown={(e) => {

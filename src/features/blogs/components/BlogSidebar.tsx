@@ -6,13 +6,13 @@ import {
   useGetBlogPopular,
   useGetBlogTags,
 } from "@/features/blogs/api";
-import type { BlogItemTypes } from "@/types/blog";
+import type { Blog } from "@/types/blog";
 import useFilters from "@/hooks/use-filters";
 import { paths } from "@/config/paths";
 import dayjs from "@/utils/dayjs";
 import { words } from "@/utils/functions";
 
-function BlogItem({ post }: { post: BlogItemTypes }) {
+function BlogCard({ post }: { post: Blog }) {
   const to = paths.blog.detail
     ? paths.blog.detail(post.slug)
     : `${paths.blog.root()}/${post.slug}`;
@@ -84,7 +84,7 @@ function BlogSidebar() {
     useGetBlogPopular();
 
   return (
-    <aside className="blog-sidebar d-flex flex-column gap-5 gap-md-4">
+    <aside className="blog-sidebar d-flex flex-column gap-5">
       <div className="sidebar-section d-flex flex-column gap-3">
         <div className="sidebar-section-title">Artikel Terbaru</div>
 
@@ -96,7 +96,7 @@ function BlogSidebar() {
         ) : latestBlogs?.length ? (
           <div className="d-flex flex-column gap-2">
             {latestBlogs.slice(0, 3).map((post) => (
-              <BlogItem key={`latest-${post.id}`} post={post} />
+              <BlogCard key={`latest-${post.id}`} post={post} />
             ))}
           </div>
         ) : (
@@ -115,7 +115,7 @@ function BlogSidebar() {
         ) : popularBlogs?.length ? (
           <div className="d-flex flex-column gap-2">
             {popularBlogs.slice(0, 3).map((post) => (
-              <BlogItem key={`popular-${post.id}`} post={post} />
+              <BlogCard key={`popular-${post.id}`} post={post} />
             ))}
           </div>
         ) : (

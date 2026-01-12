@@ -26,7 +26,7 @@ export const paths = {
   },
 
   faq: {
-    root: () => `/faq`,
+    root: () => `/faqs`,
   },
 
   help: {

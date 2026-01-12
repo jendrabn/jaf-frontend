@@ -37,7 +37,7 @@ const Checkout = lazy(() => import("@/pages/Checkout"));
 const OrderDetail = lazy(() => import("@/pages/OrderDetail"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const About = lazy(() => import("@/pages/About"));
-const Faq = lazy(() => import("@/pages/Faq"));
+const Faqs = lazy(() => import("@/pages/Faqs"));
 const Help = lazy(() => import("@/pages/Help"));
 const Notifications = lazy(() => import("@/pages/Notifications"));
 const FlashSale = lazy(() => import("@/pages/FlashSale"));
@@ -199,7 +199,7 @@ function App() {
                           <Route path="blog/:slug" element={<BlogDetail />} />
                           <Route path="contact" element={<Contact />} />
                           <Route path="about" element={<About />} />
-                          <Route path="faq" element={<Faq />} />
+                          <Route path="faqs" element={<Faqs />} />
                           <Route path="help" element={<Help />} />
 
                           {/* Protected Routes */}

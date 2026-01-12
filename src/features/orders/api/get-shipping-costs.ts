@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { ShippingCostTypes } from "@/types/checkout";
+import type { ShippingCost } from "@/types/checkout";
 
 export type GetShippingCostsInput = {
   origin?: number;
@@ -14,7 +14,7 @@ export const getShippingCosts = ({
   data,
 }: {
   data: GetShippingCostsInput;
-}): Promise<ShippingCostTypes[]> => {
+}): Promise<ShippingCost[]> => {
   return api.post("/shipping_costs", data);
 };
 

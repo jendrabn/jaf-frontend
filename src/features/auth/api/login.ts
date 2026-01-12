@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { LoginTypes } from "@/types/auth";
+import type { Login } from "@/types/auth";
 
 export type LoginInput = {
   email: string;
   password: string;
 };
 
-export const login = ({ data }: { data: LoginInput }): Promise<LoginTypes> => {
+export const login = ({ data }: { data: LoginInput }): Promise<Login> => {
   return api.post("/auth/login", data);
 };
 

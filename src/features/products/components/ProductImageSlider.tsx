@@ -1,46 +1,11 @@
-import { useRef, useState, type CSSProperties } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { SwiperRef } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
-
-type ArrowProps = {
-  direction: "prev" | "next";
-  onClick: () => void;
-};
-
-const circleStyle: CSSProperties = {
-  width: 44,
-  height: 44,
-  borderRadius: "50%",
-  backgroundColor: "rgba(255,255,255,0.9)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#6C757D",
-  boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-};
-
-function ArrowButton({ direction, onClick }: ArrowProps) {
-  return (
-    <button
-      type="button"
-      aria-label={direction === "prev" ? "Previous" : "Next"}
-      className={`product-image-arrow product-image-arrow-${direction}`}
-      onClick={onClick}
-    >
-      <span style={circleStyle}>
-        <i
-          className={
-            direction === "prev" ? "bi bi-chevron-left" : "bi bi-chevron-right"
-          }
-        ></i>
-      </span>
-    </button>
-  );
-}
+import SliderArrowButton from "@/components/ui/slider-arrow-button";
 
 const ProductImageSlider = ({ images }: { images: string[] }) => {
   const swiperRef = useRef<SwiperRef | null>(null);
@@ -50,16 +15,18 @@ const ProductImageSlider = ({ images }: { images: string[] }) => {
 
   return (
     <div className="product-image-slider">
-      <div className="slider-box position-relative rounded-3 overflow-hidden bg-body-tertiary">
+      <div className="slider-box position-relative rounded-3 overflow-hidden bg-body-tertiary slider-arrow-host">
         {hasMultiple && (
           <>
-            <ArrowButton
+            <SliderArrowButton
               direction="prev"
               onClick={() => swiperRef.current?.swiper.slidePrev()}
+              revealOnHover
             />
-            <ArrowButton
+            <SliderArrowButton
               direction="next"
               onClick={() => swiperRef.current?.swiper.slideNext()}
+              revealOnHover
             />
           </>
         )}
@@ -115,4 +82,3 @@ const ProductImageSlider = ({ images }: { images: string[] }) => {
 };
 
 export default ProductImageSlider;
-

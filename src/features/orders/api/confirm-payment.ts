@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type ConfirmPaymentInput = {
   orderId: number;
@@ -14,7 +14,7 @@ export type ConfirmPaymentInput = {
   };
 };
 
-export type ConfirmPaymentResponse = NoContentTypes;
+export type ConfirmPaymentResponse = NoContent;
 
 export const confirmPayment = ({
   orderId,

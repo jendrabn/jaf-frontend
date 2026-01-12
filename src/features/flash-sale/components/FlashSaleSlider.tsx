@@ -1,77 +1,32 @@
-import type { ProductItemTypes } from "@/types/product";
-import { useRef, type CSSProperties } from "react";
-import ProductItem from "@/features/products/components/ProductItem";
+import type { Product } from "@/types/product";
+import { useRef } from "react";
+import ProductCard from "@/features/products/components/ProductCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { SwiperRef } from "swiper/react";
 import { Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
-
-const circleStyle: CSSProperties = {
-  width: 44,
-  height: 44,
-  borderRadius: "50%",
-  backgroundColor: "rgba(255,255,255,0.85)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#6C757D",
-  boxShadow: "0 2px 8px rgba(0,0,0,0.18)",
-};
-
-type ArrowButtonProps = {
-  direction: "prev" | "next";
-  onClick: () => void;
-};
+import SliderArrowButton from "@/components/ui/slider-arrow-button";
 
 interface FlashSaleSliderProps {
-  products: ProductItemTypes[];
+  products: Product[];
 }
-
-const ArrowButton = ({ direction, onClick }: ArrowButtonProps) => {
-  return (
-    <button
-      type="button"
-      aria-label={direction === "prev" ? "Previous" : "Next"}
-      onClick={onClick}
-      style={{
-        position: "absolute",
-        top: "25%",
-        zIndex: 10,
-        transform:
-          direction === "prev"
-            ? "translate(-50%, -50%)"
-            : "translate(50%, -50%)",
-        border: "none",
-        background: "transparent",
-        cursor: "pointer",
-        ...(direction === "prev" ? { left: 0 } : { right: 0 }),
-      }}
-    >
-      <span style={circleStyle}>
-        <i
-          className={
-            direction === "prev" ? "bi bi-chevron-left" : "bi bi-chevron-right"
-          }
-        ></i>
-      </span>
-    </button>
-  );
-};
 
 const FlashSaleSlider = ({ products }: FlashSaleSliderProps) => {
   const swiperRef = useRef<SwiperRef | null>(null);
 
   return (
-    <div className="flash-sale-swiper-wrapper position-relative">
-      <ArrowButton
+    <div className="flash-sale-swiper-wrapper position-relative slider-arrow-host">
+      <SliderArrowButton
         direction="prev"
         onClick={() => swiperRef.current?.swiper.slidePrev()}
+        revealOnHover
       />
-      <ArrowButton
+      <SliderArrowButton
         direction="next"
         onClick={() => swiperRef.current?.swiper.slideNext()}
+        revealOnHover
       />
 
       <Swiper
@@ -91,7 +46,7 @@ const FlashSaleSlider = ({ products }: FlashSaleSliderProps) => {
       >
         {products.map((product) => (
           <SwiperSlide className="flash-sale-slide" key={product.id}>
-            <ProductItem
+            <ProductCard
               product={product}
               showRating={false}
               flashSaleStatus="running"

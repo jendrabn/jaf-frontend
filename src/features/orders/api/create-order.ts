@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { OrderSuccessTypes } from "@/types/order";
+import type { OrderSuccess } from "@/types/order";
 
 export type CreateOrderInput = {
   cart_ids?: number[];
@@ -28,7 +28,7 @@ export const createOrder = ({
   data,
 }: {
   data: CreateOrderInput;
-}): Promise<OrderSuccessTypes> => {
+}): Promise<OrderSuccess> => {
   return api.post("/orders", data);
 };
 

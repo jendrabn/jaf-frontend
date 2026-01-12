@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type DeleteCartInput = {
   cart_ids: number[];
 };
 
-export type DeleteCartResponse = NoContentTypes;
+export type DeleteCartResponse = NoContent;
 
 export const deleteCart = ({
   data,

@@ -1,7 +1,9 @@
 import { Button, Col, Form, Row } from "react-bootstrap";
 import AccountLayout from "@/components/layouts/AccountLayout";
-import type { PasswordReqTypes } from "@/types/user";
-import { useUpdatePassword } from "@/features/user/api";
+import {
+  useUpdatePassword,
+  type UpdatePasswordInput,
+} from "@/features/user/api";
 import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -13,16 +15,16 @@ const ChangePassword = () => {
     register,
     handleSubmit,
     reset: resetForm,
-  } = useForm<PasswordReqTypes>();
+  } = useForm<UpdatePasswordInput>();
   const { mutate, isPending, error, reset } = useUpdatePassword();
 
-  const onSubmit: SubmitHandler<PasswordReqTypes> = (data) => {
+  const onSubmit: SubmitHandler<UpdatePasswordInput> = (data) => {
     mutate(
       {
         data: {
           current_password: data.current_password,
-          new_password: data.password,
-          new_password_confirmation: data.password_confirmation,
+          new_password: data.new_password,
+          new_password_confirmation: data.new_password_confirmation,
         },
       },
       {
@@ -63,7 +65,7 @@ const ChangePassword = () => {
                   Password
                 </Form.Label>
                 <Col sm={9}>
-                  <PasswordInput {...register("password")} />
+                  <PasswordInput {...register("new_password")} />
                 </Col>
               </Form.Group>
 
@@ -72,7 +74,7 @@ const ChangePassword = () => {
                   Konfirmasi Password
                 </Form.Label>
                 <Col sm={9}>
-                  <PasswordInput {...register("password_confirmation")} />
+                  <PasswordInput {...register("new_password_confirmation")} />
                 </Col>
               </Form.Group>
 

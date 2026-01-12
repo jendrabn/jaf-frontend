@@ -11,7 +11,7 @@ import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
 import PageHeader from "@/components/layouts/PageHeader";
 
-function Cart() {
+const Cart = () => {
   const navigate = useNavigate();
   const { carts, selectedIds, totalItem, totalPrice } = useCartState();
   const dispatch = useCartDispatch();

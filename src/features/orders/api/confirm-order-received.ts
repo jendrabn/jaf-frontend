@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { NoContentTypes } from "@/types";
+import type { NoContent } from "@/types";
 
 export type ConfirmOrderReceivedInput = {
   orderId: number;
 };
 
-export type ConfirmOrderReceivedResponse = NoContentTypes;
+export type ConfirmOrderReceivedResponse = NoContent;
 
 export const confirmOrderReceived = ({
   orderId,
