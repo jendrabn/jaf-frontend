@@ -1,7 +1,6 @@
 import { useState } from "react";
 import OurServices from "@/components/OurServices";
 import Layout from "@/components/layouts/Layout";
-
 import StarRating from "@/components/ui/star-rating";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";

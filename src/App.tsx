@@ -167,7 +167,7 @@ function App() {
         limit={5}
         theme="light"
         position="top-right"
-        closeButton={true}
+        closeButton={false}
         autoClose={1000}
         pauseOnHover={true}
         hideProgressBar={true}

@@ -2,14 +2,14 @@ export interface BlogCategory {
   id: number;
   name: string;
   slug: string;
-  blogs_count: number;
+  blogs_count: number | null;
 }
 
 export interface BlogTag {
   id: number;
   name: string;
   slug: string;
-  blogs_count: number;
+  blogs_count: number | null;
 }
 
 export interface Blog {
@@ -25,18 +25,7 @@ export interface Blog {
   created_at: string;
 }
 
-export interface BlogSidebarItem {
-  id: number;
-  title: string;
-  slug: string;
-  featured_image: string;
-  views_count: number;
-  author: string;
-  category: BlogCategory;
-}
-
 export interface BlogDetail {
-  updated_at: string | undefined;
   id: number;
   title: string;
   slug: string;

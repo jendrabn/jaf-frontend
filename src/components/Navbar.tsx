@@ -221,6 +221,10 @@ const Navbar = () => {
                 </ul>
 
                 <ul className="navbar-nav nav-actions ms-lg-auto gap-2 align-items-lg-center">
+                  <li className="nav-item">
+                    <ThemeToggle />
+                  </li>
+
                   {isAuthenticated ? (
                     <>
                       <li className="nav-item">
@@ -497,10 +501,6 @@ const Navbar = () => {
                   </div>
                 ) : null}
               </div>
-            </div>
-
-            <div className="d-none d-lg-flex align-items-center ms-3">
-              <ThemeToggle />
             </div>
           </div>
         </nav>

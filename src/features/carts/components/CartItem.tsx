@@ -1,6 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router";
-import type { CartItem } from "@/types/cart";
+import type { Cart } from "@/types/cart";
 import { formatCurrency } from "@/utils/format";
 import ProductImage from "@/features/products/components/ProductImage";
 import QuantityInput from "@/components/ui/quantity-input";
@@ -10,7 +10,7 @@ import { getProductPricingInfo } from "@/utils/pricing";
 import { paths } from "@/config/paths";
 
 interface CartItemProps {
-  cart: CartItem;
+  cart: Cart;
 }
 
 function CartItem({ cart }: CartItemProps) {

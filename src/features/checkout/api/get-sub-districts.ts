@@ -2,9 +2,6 @@ import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { SubDistrict } from "@/types/checkout";
 
-// 1. Response Type (already defined in /types/region.ts as SubDistrict[])
-// export type GetSubDistrictsResponse = SubDistrict[];
-
 export const getSubDistricts = ({
   districtId,
 }: {

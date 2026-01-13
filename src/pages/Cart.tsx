@@ -1,6 +1,6 @@
 import Layout from "@/components/layouts/Layout";
 import { useNavigate } from "react-router";
-import { useCheckoutState } from "@/features/orders/api";
+import { useCheckoutState } from "@/features/checkout/api";
 import { formatCurrency } from "@/utils/format";
 import { Button, Form } from "react-bootstrap";
 import { useDeleteCart } from "@/features/carts/api";
@@ -185,6 +185,6 @@ const Cart = () => {
       </div>
     </Layout>
   );
-}
+};
 
 export default Cart;

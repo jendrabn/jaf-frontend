@@ -3,42 +3,45 @@ import {
   useForgotPassword,
   type ForgotPasswordInput,
 } from "@/features/auth/api";
-import type { ForgotPasswordReqTypes } from "@/types/auth";
 import { toast } from "react-toastify";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 export default function ForgotPasswordForm() {
-  const { mutate, isPending, error, reset } = useForgotPassword();
+  const { mutate, isPending, error } = useForgotPassword();
 
-  const {
-    register,
-    handleSubmit,
-    reset: resetForm,
-  } = useForm<ForgotPasswordReqTypes>();
+  const form = useForm<ForgotPasswordInput>();
 
-  const onSubmit: SubmitHandler<ForgotPasswordReqTypes> = (data) => {
+  const onSubmit: SubmitHandler<ForgotPasswordInput> = (data) => {
     mutate(
       { data: data as ForgotPasswordInput },
       {
         onSuccess() {
           toast.success("Link reset password berhasil dikirim ke email anda.");
 
-          resetForm();
+          form.reset();
         },
       }
     );
   };
 
+  useServerValidation(error, form);
+
   return (
     <>
-      <ErrorValidationAlert error={error} onClose={reset} />
-
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
           <Form.Group className="mb-3">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" {...register("email")} autoFocus />
+            <Form.Control
+              type="email"
+              {...form.register("email")}
+              autoFocus
+              isInvalid={!!form.formState.errors.email}
+            />
+            <Form.Control.Feedback type="invalid">
+              {form.formState.errors.email?.message}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <div className="d-grid">

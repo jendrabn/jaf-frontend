@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import Layout from "@/components/layouts/Layout";
-import { useCreateOrder } from "@/features/orders/api";
+import { useCreateOrder, type CreateOrderInput } from "@/features/orders/api";
 import { useCallback, useMemo, useState } from "react";
 import type { ChangeEvent } from "react";
 import { Button, Form, Table } from "react-bootstrap";
@@ -16,7 +16,6 @@ import {
   useCheckoutDispatch,
   useCheckoutState,
 } from "@/contexts/CheckoutContext";
-import { type OrderReqTypes } from "@/types/order";
 import { useCartDispatch } from "@/contexts/CartContext";
 import { QUERY_KEYS, PAYMENT_METHOD_GATEWAY } from "@/utils/constans";
 import SEO from "@/components/SEO";
@@ -137,7 +136,7 @@ const Checkout = () => {
     return true;
   }, [address, shipping, paymentMethod, bank, ewallet]);
 
-  const buildOrderPayload = useCallback((): OrderReqTypes => {
+  const buildOrderPayload = useCallback((): CreateOrderInput => {
     return {
       cart_ids: checkout?.carts?.map((cart) => cart.id),
       shipping_address: {
@@ -320,5 +319,5 @@ const Checkout = () => {
       </div>
     </Layout>
   );
-}
+};
 export default Checkout;

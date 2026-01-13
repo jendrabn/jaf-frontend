@@ -1,17 +1,20 @@
 import { api } from "@/lib/api-client";
-import type {
-  NotificationListResponse,
-  UnreadCountResponse,
-} from "@/types/notification";
+import type { Page } from "@/types/api";
+import type { Notification } from "@/types/notification";
+
+export type GetNotificationsResponse = {
+  data: Notification[];
+  page: Page;
+};
 
 export const getNotifications = async (
   page = 1
-): Promise<NotificationListResponse> => {
-  const response = await api.get<NotificationListResponse>(
+): Promise<GetNotificationsResponse> => {
+  const response = await api.get<GetNotificationsResponse>(
     `/notifications?page=${page}`
   );
 
-  return response as unknown as NotificationListResponse;
+  return response as unknown as GetNotificationsResponse;
 };
 
 export const markNotificationAsRead = async (id: number) => {
@@ -21,6 +24,10 @@ export const markNotificationAsRead = async (id: number) => {
 export const markAllNotificationsAsRead = async () => {
   return api.put("/notifications/read-all");
 };
+
+export interface UnreadCountResponse {
+  data?: number;
+}
 
 export const getUnreadCount = async (): Promise<UnreadCountResponse> => {
   const response = await api.get("/notifications/unread-count");

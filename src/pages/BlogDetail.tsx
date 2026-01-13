@@ -30,7 +30,7 @@ const BlogDetail = () => {
         image: blog.featured_image,
         author: blog.author,
         publishedTime: blog.created_at,
-        modifiedTime: blog.updated_at,
+        modifiedTime: blog.created_at,
         url: `${env.APP_URL}/blog/${blog.slug}`,
       })
     : null;
@@ -64,7 +64,7 @@ const BlogDetail = () => {
             ogImageAlt={blog.title}
             author={blog.author}
             publishedTime={blog.created_at}
-            modifiedTime={blog.updated_at}
+            modifiedTime={blog.created_at}
             structuredData={articleSchema ? [articleSchema] : undefined}
           />
 
@@ -230,6 +230,6 @@ const BlogDetail = () => {
       )}
     </Layout>
   );
-}
+};
 
 export default BlogDetail;

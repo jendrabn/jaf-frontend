@@ -211,6 +211,6 @@ const Contact = () => {
       </div>
     </Layout>
   );
-}
+};
 
 export default Contact;

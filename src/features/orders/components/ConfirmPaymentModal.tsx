@@ -2,7 +2,6 @@ import { Button, Card, Form, Modal } from "react-bootstrap";
 import Select, { type SingleValue } from "react-select";
 import { useConfirmPayment, useGetOrder } from "@/features/orders/api";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router";
@@ -12,17 +11,24 @@ import {
   PAYMENT_METHOD_EWALLET,
   QUERY_KEYS,
 } from "@/utils/constans";
-import type { ConfirmPaymentReqTypes } from "@/types/order";
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { useForm, useWatch, type SubmitHandler } from "react-hook-form";
 import PaymentInfo from "@/features/orders/components/PaymentInfo";
-import { paths } from "@/config/paths";
 import { banks } from "@/data/banks";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 interface ConfirmPaymentModalProps {
   show: boolean;
   orderId: number | null;
   onClose: () => void;
 }
+
+type ConfirmPaymentInput = {
+  name: string;
+  account_name: string;
+  account_number: string;
+  account_username: string;
+  phone: string;
+};
 
 const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
   const { show, orderId, onClose } = props;
@@ -37,20 +43,19 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
     isPending,
   } = useConfirmPayment();
 
-  const { register, handleSubmit, setValue, reset, watch } =
-    useForm<ConfirmPaymentReqTypes>({
-      defaultValues: {
-        name: "",
-        account_name: "",
-        account_number: "",
-        account_username: "",
-        phone: "",
-      },
-    });
+  const form = useForm<ConfirmPaymentInput>({
+    defaultValues: {
+      name: "",
+      account_name: "",
+      account_number: "",
+      account_username: "",
+      phone: "",
+    },
+  });
 
   useEffect(() => {
-    register("name");
-  }, [register]);
+    form.register("name");
+  }, [form]);
 
   const bankOptions = useMemo(
     () =>
@@ -61,7 +66,7 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
     []
   );
 
-  const watchedBankName = watch("name");
+  const watchedBankName = useWatch({ control: form.control, name: "name" });
 
   const selectedBankOption = useMemo(
     () =>
@@ -71,12 +76,12 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
 
   const handleBankChange = useCallback(
     (option: SingleValue<{ value: string; label: string }>) => {
-      setValue("name", option?.value ?? "", {
+      form.setValue("name", option?.value ?? "", {
         shouldValidate: true,
         shouldDirty: true,
       });
     },
-    [setValue]
+    [form]
   );
 
   const location = useLocation();
@@ -96,23 +101,25 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
     if (!order) return;
 
     if (order.payment?.method === PAYMENT_METHOD_EWALLET) {
-      setValue("name", order.payment.info.name || "", { shouldValidate: true });
+      form.setValue("name", order.payment.info.name || "", {
+        shouldValidate: true,
+      });
     } else if (order.payment?.method === PAYMENT_METHOD_BANK) {
       const bankOption = bankOptions.find(
         (option) => option.value === order.payment?.info?.name
       );
 
       if (bankOption) {
-        setValue("name", bankOption.value, { shouldValidate: true });
+        form.setValue("name", bankOption.value, { shouldValidate: true });
       }
     }
-  }, [order, bankOptions, setValue]);
+  }, [order, bankOptions, form]);
 
   useEffect(() => {
     clearState();
   }, [clearState, location]);
 
-  const onConfirm: SubmitHandler<ConfirmPaymentReqTypes> = (data) => {
+  const onConfirm: SubmitHandler<ConfirmPaymentInput> = (data) => {
     if (!orderId) return;
 
     mutate(
@@ -121,7 +128,7 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
         onSuccess() {
           toast.success("Pesanan berhasil dikonfirmasi.");
 
-          reset();
+          form.reset();
           resetMutation();
 
           onClose?.();
@@ -136,7 +143,7 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
   };
 
   const handleClose = () => {
-    reset();
+    form.reset();
     resetMutation();
 
     onClose();
@@ -145,6 +152,8 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
 
     clearState();
   };
+
+  useServerValidation(error, form);
 
   return (
     <Modal
@@ -157,7 +166,7 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
       <Modal.Header closeButton className="border-bottom-0">
         <Modal.Title>Konfirmasi Pembayaran</Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleSubmit(onConfirm)}>
+      <Form onSubmit={form.handleSubmit(onConfirm)}>
         <fieldset disabled={isPending}>
           <Modal.Body className="py-3">
             {isLoading && show && <Loading className="py-5" />}
@@ -182,8 +191,6 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
                   Kami akan memverifikasi pembayaran Anda secepatnya.
                 </p>
 
-                <ErrorValidationAlert error={error} onClose={resetMutation} />
-
                 {order?.payment?.method === PAYMENT_METHOD_BANK && (
                   <>
                     <Form.Group className="mb-3">
@@ -202,14 +209,25 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label>Nama Pemilik Rekening</Form.Label>
-                      <Form.Control type="text" {...register("account_name")} />
+                      <Form.Control
+                        type="text"
+                        {...form.register("account_name")}
+                        isInvalid={!!form.formState.errors.account_name}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {form.formState.errors.account_name?.message}
+                      </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label>Nomor Rekening</Form.Label>
                       <Form.Control
                         type="text"
-                        {...register("account_number")}
+                        {...form.register("account_number")}
+                        isInvalid={!!form.formState.errors.account_number}
                       />
+                      <Form.Control.Feedback type="invalid">
+                        {form.formState.errors.account_number?.message}
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </>
                 )}
@@ -220,29 +238,48 @@ const ConfirmPaymentModal = (props: ConfirmPaymentModalProps) => {
                       <Form.Label>E-Wallet</Form.Label>
                       <Form.Control
                         type="text"
-                        {...register("name")}
+                        {...form.register("name")}
                         value={order?.payment?.info?.name}
                         disabled
+                        isInvalid={!!form.formState.errors.name}
                       />
+                      <Form.Control.Feedback type="invalid">
+                        {form.formState.errors.name?.message}
+                      </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label>Nama Akun</Form.Label>
                       <Form.Control
                         type="text"
-                        {...register("account_name")}
+                        {...form.register("account_name")}
                         autoFocus
+                        isInvalid={!!form.formState.errors.account_name}
                       />
+                      <Form.Control.Feedback type="invalid">
+                        {form.formState.errors.account_name?.message}
+                      </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label>Username Akun</Form.Label>
                       <Form.Control
                         type="text"
-                        {...register("account_username")}
+                        {...form.register("account_username")}
+                        isInvalid={!!form.formState.errors.account_username}
                       />
+                      <Form.Control.Feedback type="invalid">
+                        {form.formState.errors.account_username?.message}
+                      </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3">
                       <Form.Label>No. Handphone</Form.Label>
-                      <Form.Control type="text" {...register("phone")} />
+                      <Form.Control
+                        type="text"
+                        {...form.register("phone")}
+                        isInvalid={!!form.formState.errors.phone}
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {form.formState.errors.phone?.message}
+                      </Form.Control.Feedback>
                     </Form.Group>
                   </>
                 )}

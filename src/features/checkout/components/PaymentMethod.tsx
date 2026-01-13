@@ -108,7 +108,6 @@ function PaymentMethod({ className }: PaymentMethodProps) {
 
           {paymentMethod === PAYMENT_METHOD_GATEWAY && gateway && (
             <div className="alert alert-info small">
-              <div>Provider: {gateway.provider}</div>
               <div>Biaya Payment Gateway: {formatCurrency(gateway.fee)}</div>
             </div>
           )}
@@ -150,4 +149,3 @@ function PaymentMethod({ className }: PaymentMethodProps) {
 }
 
 export default PaymentMethod;
-

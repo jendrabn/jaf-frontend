@@ -5,7 +5,7 @@ import NoData from "@/components/ui/no-data";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
 import { useGetFlashSales } from "@/features/flash-sale/api";
 import type { FlashSaleSchedule } from "@/types/flash-sale";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import SEO from "@/components/SEO";
 import { env } from "@/config/env";
 
@@ -52,28 +52,27 @@ const formatTabLabel = (sale: FlashSaleSchedule) => {
 
 const FlashSale = () => {
   const { data, isLoading } = useGetFlashSales();
-  const flashSales = data || [];
+  const flashSales = useMemo(() => data ?? [], [data]);
   const [activeId, setActiveId] = useState<number | null>(null);
 
-  useEffect(() => {
+  const resolvedActiveId = useMemo(() => {
     if (flashSales.length === 0) {
-      setActiveId(null);
-      return;
+      return null;
     }
 
-    setActiveId((prev) => {
-      if (prev && flashSales.some((sale) => sale.id === prev)) {
-        return prev;
-      }
-      const currentSale =
-        flashSales.find((sale) => sale.status === "running") || flashSales[0];
-      return currentSale.id;
-    });
-  }, [flashSales]);
+    if (activeId && flashSales.some((sale) => sale.id === activeId)) {
+      return activeId;
+    }
+
+    const currentSale =
+      flashSales.find((sale) => sale.status === "running") || flashSales[0];
+
+    return currentSale.id;
+  }, [activeId, flashSales]);
 
   const activeSale = useMemo(
-    () => flashSales.find((sale) => sale.id === activeId) || null,
-    [flashSales, activeId]
+    () => flashSales.find((sale) => sale.id === resolvedActiveId) || null,
+    [flashSales, resolvedActiveId]
   );
 
   const countdownTarget =
@@ -125,7 +124,7 @@ const FlashSale = () => {
                   key={sale.id}
                   type="button"
                   className={`flash-sale-tab ${
-                    sale.id === activeId ? "active" : ""
+                    sale.id === resolvedActiveId ? "active" : ""
                   }`}
                   onClick={() => setActiveId(sale.id)}
                 >

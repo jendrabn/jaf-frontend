@@ -1,7 +1,7 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { Blog } from "@/types/blog";
-import type { Page } from "@/types";
+import type { Page } from "@/types/api";
 
 export type GetBlogsParams = {
   page?: number;

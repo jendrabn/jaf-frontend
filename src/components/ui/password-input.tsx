@@ -1,30 +1,33 @@
-import { useState, forwardRef } from "react";
+import { forwardRef, useState } from "react";
+import { Form, InputGroup } from "react-bootstrap";
 import type { FormControlProps } from "react-bootstrap";
-import { InputGroup, Form } from "react-bootstrap";
 
 interface PasswordInputProps extends FormControlProps {
   autofocus?: boolean;
+  errorMessage?: string;
 }
 
 const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
-  ({ autofocus = false, className, ...rest }, ref) => {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
+  ({ autofocus = false, errorMessage, ...rest }, ref) => {
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
-      <InputGroup>
+      <InputGroup hasValidation>
         <Form.Control
           type={showPassword ? "text" : "password"}
           autoFocus={autofocus}
-          className={`border-end-0 ${className || ""}`}
           ref={ref}
           {...rest}
         />
         <InputGroup.Text
-          className="cursor-pointer border-start-0"
+          className="cursor-pointer"
           onClick={() => setShowPassword(!showPassword)}
         >
           <i className={`bi ${showPassword ? "bi-eye" : "bi-eye-slash"}`}></i>
         </InputGroup.Text>
+        <Form.Control.Feedback type="invalid">
+          {errorMessage}
+        </Form.Control.Feedback>
       </InputGroup>
     );
   }
@@ -33,4 +36,3 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
 PasswordInput.displayName = "PasswordInput";
 
 export default PasswordInput;
-

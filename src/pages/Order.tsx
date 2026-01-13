@@ -9,7 +9,6 @@ import { ORDER_STATUSES } from "@/utils/constans";
 import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrderReceivedModal";
 import { Alert, Dropdown } from "react-bootstrap";
 import NoData from "@/components/ui/no-data";
-
 import SEO from "@/components/SEO";
 
 type OrderStatusKey = keyof typeof ORDER_STATUSES;

@@ -9,7 +9,6 @@ import Layout from "@/components/layouts/Layout";
 import { Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import NoData from "@/components/ui/no-data";
-
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import { generateItemListSchema } from "@/utils/seo-schemas";

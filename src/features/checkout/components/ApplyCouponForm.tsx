@@ -1,7 +1,7 @@
-import { type FormEvent, useEffect, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { useApplyCoupon } from "@/features/orders/api";
+import { useApplyCoupon } from "@/features/checkout/api";
 import {
   useCheckoutDispatch,
   useCheckoutState,
@@ -12,10 +12,10 @@ const APPLY_COUPON_ERROR_TOAST = "apply-coupon-error";
 const APPLY_COUPON_SUCCESS_TOAST = "apply-coupon-success";
 const APPLY_COUPON_INFO_TOAST = "apply-coupon-info";
 
-const ApplyCouponForm: React.FC = () => {
+const ApplyCouponFormBody: React.FC = () => {
   const { checkout, coupon } = useCheckoutState();
   const dispatch = useCheckoutDispatch();
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState(() => coupon?.code ?? "");
   const applyCoupon = useApplyCoupon();
 
   const couponLabel = coupon?.code || coupon?.name || "Kupon";
@@ -26,12 +26,6 @@ const ApplyCouponForm: React.FC = () => {
     Math.max(rawAppliedDiscount, 0),
     discountSubtotal
   );
-
-  useEffect(() => {
-    if (coupon?.code) {
-      setCode(coupon.code);
-    }
-  }, [coupon?.code]);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,7 +45,7 @@ const ApplyCouponForm: React.FC = () => {
     applyCoupon.mutate(
       {
         data: {
-          code: trimmedCode,
+          coupon_code: trimmedCode,
           cart_ids: cartIds,
         },
       },
@@ -157,6 +151,13 @@ const ApplyCouponForm: React.FC = () => {
       </div>
     </div>
   );
+};
+
+const ApplyCouponForm: React.FC = () => {
+  const { coupon } = useCheckoutState();
+  const formKey = coupon?.code ?? coupon?.name ?? "empty";
+
+  return <ApplyCouponFormBody key={formKey} />;
 };
 
 export default ApplyCouponForm;

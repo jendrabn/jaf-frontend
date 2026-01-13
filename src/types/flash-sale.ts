@@ -1,8 +1,8 @@
-import type { ProductCard } from "./product";
+import type { Product } from "./product";
 
 export type FlashSaleStatus = "running" | "scheduled" | "completed" | string;
 
-export interface FlashSaleItem extends ProductCard {
+export interface FlashSale extends Product {
   flash_price?: number | null;
   flash_price_display?: string | null;
 }
@@ -17,5 +17,5 @@ export interface FlashSaleSchedule {
   status_label: string;
   status_color: string;
   is_active: boolean;
-  products: FlashSaleItem[];
+  products: FlashSale[];
 }

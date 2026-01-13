@@ -16,4 +16,3 @@ export interface Page {
 export interface NoContent {
   data: true;
 }
-

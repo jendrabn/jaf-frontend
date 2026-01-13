@@ -5,7 +5,7 @@ import type { Product } from "@/types/product";
 import Loading from "@/components/ui/loading";
 import OurServices from "@/components/OurServices";
 import OurMarketplace from "@/components/OurMarketplace";
-import Newsletter from "@/components/Newsletter";
+import Newsletter from "@/features/landing/components/Newsletter";
 import SEO from "@/components/SEO";
 import { env } from "@/config/env";
 import { websiteSchema } from "@/utils/seo-schemas";
@@ -240,7 +240,7 @@ const Landing = () => {
           <div className="container">
             <div className="d-flex justify-content-between align-items-end mb-3">
               <div>
-                <h2 className="h4 mb-1">Artikel Terbaru</h2>
+                <h2 className="h4 mb-1">Blog & Artikel Terbaru</h2>
                 <p className="text-secondary mb-0">
                   Tips & inspirasi memilih parfum favorit Anda.
                 </p>

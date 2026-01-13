@@ -1,13 +1,13 @@
 import { Table } from "react-bootstrap";
 import { formatCurrency } from "@/utils/functions";
-import { type OrderDetailTypes } from "@/types/order";
+import { type OrderDetail } from "@/types/order";
 import { PAYMENT_METHOD_BANK, PAYMENT_METHOD_EWALLET } from "@/utils/constans";
 import { useEffect, useState } from "react";
 import CopyTextButton from "@/components/ui/copy-text-button";
 
 interface PaymentInfoProps {
   paymentDueDate: string;
-  payment: OrderDetailTypes["payment"];
+  payment: OrderDetail["payment"];
 }
 
 // count down payment due date
@@ -131,4 +131,3 @@ const PaymentInfo = ({ paymentDueDate, payment }: PaymentInfoProps) => {
 };
 
 export default PaymentInfo;
-

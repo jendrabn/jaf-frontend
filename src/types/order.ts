@@ -99,21 +99,6 @@ export interface OrderDetail {
   created_at: string;
 }
 
-export interface Checkout {
-  items: Array<OrderItem>;
-  shipping_address: {
-    name: string;
-    phone: string;
-    province: string;
-    city: string;
-    district: string;
-    postal_code: string;
-    address: string;
-  };
-  shipping_cost: number;
-  total_amount: number;
-}
-
 export interface PaymentInfo {
   name?: string;
   code?: string;

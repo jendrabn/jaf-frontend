@@ -1,5 +1,4 @@
 import AuthLayout from "@/components/layouts/AuthLayout";
-
 import SEO from "@/components/SEO";
 import VerifyLoginForm from "@/features/auth/components/VerifyLoginForm";
 

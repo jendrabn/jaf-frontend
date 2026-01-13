@@ -1,4 +1,4 @@
-import type { CartItem } from "./cart";
+import type { Cart } from "./cart";
 import type { Bank, Ewallet, PaymentGateway } from "./payment-method";
 
 export interface Province {
@@ -9,13 +9,11 @@ export interface Province {
 export interface City {
   id: number;
   name: string;
-  zip_code: string;
 }
 
 export interface District {
   id: number;
   name: string;
-  zip_code: string;
 }
 
 export interface SubDistrict {
@@ -26,7 +24,7 @@ export interface SubDistrict {
 
 export interface Checkout {
   shipping_address: Address;
-  carts: Array<CartItem>;
+  carts: Array<Cart>;
   shipping_methods: Array<ShippingCost>;
   payment_methods: {
     bank: Array<Bank>;
@@ -44,7 +42,7 @@ export interface Checkout {
 export interface Tax {
   id: number;
   name: string;
-  rate: number;
+  rate: string;
 }
 
 export type CouponPromoType = "limit" | "period" | "product";
@@ -83,8 +81,9 @@ export interface ShippingAddress {
   phone: string;
   province: Province;
   city: City;
-  district: string;
-  postal_code: string;
+  district: District;
+  subdistrict: SubDistrict;
+  zip_code: string;
   address: string;
 }
 
@@ -102,18 +101,20 @@ export interface DeliveryAddress {
   phone: string;
   province: Province;
   city: City;
-  district: string;
-  postal_code: string;
+  district: District;
+  subdistrict: SubDistrict;
+  zip_code: string;
   address: string;
 }
 
 export interface Address {
-  name?: string;
-  phone?: string;
-  province?: Province;
-  city?: City;
-  district?: District;
-  subdistrict?: SubDistrict;
-  zip_code?: string;
-  address?: string;
+  id: number;
+  name: string;
+  phone: string;
+  province: Province;
+  city: City;
+  district: District;
+  subdistrict: SubDistrict;
+  zip_code: string;
+  address: string;
 }

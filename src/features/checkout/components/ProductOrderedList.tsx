@@ -42,7 +42,7 @@ function ProductOrderedList({ className }: ProductOrderedListProps) {
             <thead>
               <tr className="text-center">
                 <th></th>
-                <th>Produk</th>
+                <th>Harga</th>
                 <th>Kuantitas</th>
                 <th>Subtotal</th>
               </tr>
@@ -66,13 +66,13 @@ function ProductOrderedList({ className }: ProductOrderedListProps) {
 
                 return (
                   <tr key={cart.id}>
-                    <td>
+                    <td className="d-flex align-items-center">
                       <ProductImage
                         className="me-2"
                         url={product.image}
                         alt={product.name}
                       />
-                      {product.name}
+                      <span>{product.name}</span>
                     </td>
                     <td className="text-center">
                       {showStrikeThrough ? (
@@ -186,4 +186,3 @@ function ProductOrderedList({ className }: ProductOrderedListProps) {
 }
 
 export default ProductOrderedList;
-

@@ -7,7 +7,6 @@ import Layout from "@/components/layouts/Layout";
 import BlogHeader from "@/features/blogs/components/BlogHeader";
 import useFilters from "@/hooks/use-filters";
 import NoData from "@/components/ui/no-data";
-
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import BlogSidebar from "@/features/blogs/components/BlogSidebar";

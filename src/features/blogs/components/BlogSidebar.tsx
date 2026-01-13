@@ -18,10 +18,10 @@ function BlogCard({ post }: { post: Blog }) {
     : `${paths.blog.root()}/${post.slug}`;
 
   return (
-    <Link to={to} className="text-decoration-none">
-      <div className="d-flex gap-3 align-items-start">
+    <div className="d-flex gap-3 align-items-start">
+      <Link to={to} className="text-decoration-none flex-shrink-0">
         <div
-          className="ratio ratio-4x3 rounded-3 overflow-hidden bg-body-tertiary flex-shrink-0"
+          className="ratio ratio-4x3 rounded-3 overflow-hidden bg-body-tertiary"
           style={{ width: 92 }}
         >
           <img
@@ -32,8 +32,10 @@ function BlogCard({ post }: { post: Blog }) {
             loading="lazy"
           />
         </div>
+      </Link>
 
-        <div className="min-w-0">
+      <div className="min-w-0">
+        <Link to={to} className="text-decoration-none">
           <div
             className="text-body fw-medium fs-6 lh-sm"
             style={{
@@ -45,31 +47,31 @@ function BlogCard({ post }: { post: Blog }) {
           >
             {post.title}
           </div>
+        </Link>
 
-          <div className="small text-body-secondary mt-1 d-flex align-items-center gap-2 flex-wrap lh-sm">
-            {post.author ? (
-              <Link
-                to={`${paths.blog.root()}/author/${encodeURIComponent(
-                  post.author
-                )}`}
-                className="text-decoration-none text-body-secondary fw-medium"
-              >
-                {words(post.author, 2, "")}
-              </Link>
-            ) : (
-              <span className="fw-medium">{post.author}</span>
-            )}
-            <span aria-hidden="true">-</span>
-            <time
-              dateTime={new Date(post.created_at).toISOString()}
-              title={new Date(post.created_at).toLocaleString()}
+        <div className="small text-body-secondary mt-1 d-flex align-items-center gap-2 flex-wrap lh-sm">
+          {post.author ? (
+            <Link
+              to={`${paths.blog.root()}/author/${encodeURIComponent(
+                post.author
+              )}`}
+              className="text-decoration-none text-body-secondary fw-medium"
             >
-              {dayjs(post.created_at).fromNow()}
-            </time>
-          </div>
+              {words(post.author, 2, "")}
+            </Link>
+          ) : (
+            <span className="fw-medium">{post.author}</span>
+          )}
+          <span aria-hidden="true">-</span>
+          <time
+            dateTime={new Date(post.created_at).toISOString()}
+            title={new Date(post.created_at).toLocaleString()}
+          >
+            {dayjs(post.created_at).fromNow()}
+          </time>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 

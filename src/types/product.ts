@@ -4,6 +4,7 @@ export interface ProductCategory {
   id: number;
   name: string;
   slug: string;
+  products_count: number | null;
   logo: string | null;
 }
 
@@ -11,6 +12,7 @@ export interface ProductBrand {
   id: number;
   name: string;
   slug: string;
+  products_count: number | null;
   logo: string | null;
 }
 
@@ -30,16 +32,37 @@ export interface ProductDiscount {
   name: string;
   description: string;
   promo_type: string;
-  code: string | null;
+  code: string;
   discount_type: "fixed" | "percentage";
   discount_amount: number;
-  limit: number | null;
-  limit_per_user: number | null;
-  start_date: string | null;
-  end_date: string | null;
+  limit: number;
+  limit_per_user: number;
+  start_date: string;
+  end_date: string;
   is_active: boolean;
-  available_coupons?: number | null;
-  pivot?: { product_id: number; coupon_id: number } | null;
+  created_at: string;
+  updated_at: string;
+  available_coupons: number;
+  pivot: { product_id: number; coupon_id: number };
+}
+
+export interface ProductCoupon {
+  id: number;
+  name: string;
+  description: string;
+  promo_type: string;
+  code: string;
+  discount_type: "fixed" | "percentage";
+  discount_amount: number;
+  limit: number;
+  limit_per_user: number;
+  start_date: string;
+  end_date: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  available_coupons: number;
+  pivot: { product_id: number; coupon_id: number };
 }
 
 export interface ProductFlashSaleMeta {
@@ -61,19 +84,24 @@ export interface Product extends ProductFlashSaleMeta {
   name: string;
   slug: string;
   image: string;
+  category: ProductCategory;
+  brand: ProductBrand;
+  sex: number | null;
   price: number;
   stock: number;
   weight: number;
   sold_count: number;
+  is_wishlist: boolean;
   rating_avg: number;
   discount?: ProductDiscount | null;
-  price_after_discount?: number | null;
-  is_discounted?: boolean;
-  discount_in_percent?: number | null;
-  category: ProductCategory;
-  brand: ProductBrand;
-  sex?: 1 | 2 | 3;
-  is_wishlist: boolean;
+  is_discounted: boolean;
+  discount_in_percent: number;
+  price_after_discount: number;
+  flash_sale_price: number | null;
+  is_in_flash_sale: boolean;
+  final_price: number;
+  flash_sale_end_at: string | null;
+  coupons: ProductCoupon[];
 }
 
 export interface ProductDetail extends ProductFlashSaleMeta {
@@ -84,7 +112,7 @@ export interface ProductDetail extends ProductFlashSaleMeta {
   category: ProductCategory;
   description: string;
   brand: ProductBrand;
-  sex: number;
+  sex: number | null;
   price: number;
   stock: number;
   weight: number;
@@ -92,9 +120,13 @@ export interface ProductDetail extends ProductFlashSaleMeta {
   is_wishlist: boolean;
   rating_avg: number;
   discount?: ProductDiscount | null;
-  price_after_discount?: number | null;
-  is_discounted?: boolean;
-  discount_in_percent?: number | null;
+  is_discounted: boolean;
+  discount_in_percent: number;
+  price_after_discount: number;
+  flash_sale_price: number | null;
+  is_in_flash_sale: boolean;
+  final_price: number;
+  flash_sale_end_at: string | null;
   ratings: Rating[];
   sku: string;
 }

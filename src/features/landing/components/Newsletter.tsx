@@ -31,7 +31,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="newsletter-section py-5 bg-primary bg-gradient">
+    <div className="newsletter-section py-5 bg-primary bg-gradient">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-lg-8 col-md-10">
@@ -44,7 +44,7 @@ const Newsletter = () => {
             </div>
 
             {isSubscribed ? (
-              <Alert variant="primary">
+              <Alert variant="light">
                 <Alert.Heading>Terima kasih!</Alert.Heading>
                 <p className="mb-0">
                   Anda telah berlangganan newsletter kami. Kami akan mengirimkan
@@ -96,7 +96,7 @@ const Newsletter = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

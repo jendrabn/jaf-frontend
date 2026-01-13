@@ -1,7 +1,7 @@
-import type { ProductCard } from "./product";
+import type { Product } from "./product";
 
-export interface CartItem {
+export interface Cart {
   id: number;
-  product: ProductCard;
+  product: Product;
   quantity: number;
 }

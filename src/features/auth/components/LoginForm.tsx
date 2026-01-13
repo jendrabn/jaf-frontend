@@ -1,25 +1,24 @@
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router";
 import { useLogin, type LoginInput } from "@/features/auth/api";
-import type { LoginReqTypes } from "@/types/auth";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useLocation } from "react-router";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { paths } from "@/config/paths";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 export default function LoginForm() {
   const navigate = useNavigate();
 
   const location = useLocation();
 
-  const { mutate, isPending, error, reset } = useLogin();
+  const { mutate, isPending, error } = useLogin();
 
-  const { register, handleSubmit } = useForm<LoginReqTypes>();
+  const form = useForm<LoginInput>();
 
-  const onSubmit: SubmitHandler<LoginReqTypes> = (data) => {
+  const onSubmit: SubmitHandler<LoginInput> = (data) => {
     mutate(
       { data: data as LoginInput },
       {
@@ -65,25 +64,33 @@ export default function LoginForm() {
     );
   };
 
+  useServerValidation(error, form);
+
   return (
     <>
-      <ErrorValidationAlert error={error} onClose={reset} />
-
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
           <Form.Group className="mb-3">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              {...register("email")}
+              {...form.register("email")}
               autoFocus
               autoSave="email"
+              isInvalid={!!form.formState.errors.email}
             />
+            <Form.Control.Feedback type="invalid">
+              {form.formState.errors.email?.message}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Password</Form.Label>
-            <PasswordInput {...register("password")} />
+            <PasswordInput
+              {...form.register("password")}
+              isInvalid={!!form.formState.errors.password}
+              errorMessage={form.formState.errors.password?.message}
+            />
           </Form.Group>
 
           <p className="text-end mb-3">

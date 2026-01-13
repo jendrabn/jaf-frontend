@@ -1,13 +1,12 @@
 import { Button, Form } from "react-bootstrap";
 import { useForm, type SubmitHandler } from "react-hook-form";
-
 import { useLocation, useNavigate } from "react-router";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useVerifyLoginOtp } from "@/features/auth/api/verify-login-otp";
 import { useResendLoginOtp } from "@/features/auth/api/resend-login-otp";
 import { setAuthToken, setSelectedCartIds } from "@/utils/functions";
 import { useEffect, useRef, useState } from "react";
 import { paths } from "@/config/paths";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 type FormFields = {
   otp: string;
@@ -32,9 +31,9 @@ export default function VerifyLoginForm() {
     }
   }, [email, navigate]);
 
-  const { mutate, error, isPending, reset: resetError } = useVerifyLoginOtp();
+  const { mutate, error, isPending } = useVerifyLoginOtp();
 
-  const { register, handleSubmit, setValue } = useForm<FormFields>();
+  const form = useForm<FormFields>();
 
   // Resend OTP handling
   const {
@@ -57,7 +56,7 @@ export default function VerifyLoginForm() {
 
   const updateOtpValue = (next: string[]) => {
     setDigits(next);
-    setValue("otp", next.join(""), { shouldDirty: true });
+    form.setValue("otp", next.join(""), { shouldDirty: true });
   };
 
   const handleChange =
@@ -134,11 +133,12 @@ export default function VerifyLoginForm() {
     );
   };
 
+  useServerValidation(error as Error, form);
+  useServerValidation(resendError as unknown as Error, form);
+
   return (
     <>
-      <ErrorValidationAlert error={error as Error} onClose={resetError} />
-
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
           <p className="mb-3">
             Masukkan 6 digit kode OTP yang telah dikirim ke email{" "}
@@ -146,7 +146,6 @@ export default function VerifyLoginForm() {
           </p>
 
           <Form.Group className="mb-3">
-            <Form.Label>Kode OTP</Form.Label>
             <div
               className="d-flex gap-2 justify-content-center"
               onPaste={handlePaste}
@@ -167,14 +166,22 @@ export default function VerifyLoginForm() {
                     inputsRef.current[i] = el;
                   }}
                   autoFocus={i === 0}
+                  isInvalid={!!form.formState.errors.otp}
                 />
               ))}
             </div>
             <Form.Text className="text-muted">
               Periksa spam jika tidak menemukan email OTP.
             </Form.Text>
+            <Form.Control.Feedback type="invalid">
+              {form.formState.errors.otp?.message}
+            </Form.Control.Feedback>
             {/* Hidden field bound to react-hook-form to submit combined OTP */}
-            <input type="hidden" {...register("otp")} value={digits.join("")} />
+            <input
+              type="hidden"
+              {...form.register("otp")}
+              value={digits.join("")}
+            />
           </Form.Group>
 
           <div className="d-flex justify-content-between align-items-center mb-3">
@@ -212,7 +219,7 @@ export default function VerifyLoginForm() {
                         // clear inputs and focus first
                         const cleared = Array(6).fill("");
                         setDigits(cleared);
-                        setValue("otp", "");
+                        form.setValue("otp", "");
                         inputsRef.current[0]?.focus();
                       },
                     }
@@ -224,11 +231,6 @@ export default function VerifyLoginForm() {
               </Button>
             </div>
           </div>
-
-          <ErrorValidationAlert
-            error={resendError as unknown as Error}
-            onClose={resetResendError}
-          />
 
           <div className="d-grid gap-2">
             <Button type="submit" variant="primary">

@@ -1,6 +1,6 @@
 import { Pagination as BootstrapPagination } from "react-bootstrap";
-import type { Page } from "@/types";
-import { useEffect, useState } from "react";
+import type { Page } from "@/types/api";
+import { useEffect, useState, type JSX } from "react";
 
 type PaginationProps = Page & {
   onClick: (page: number) => void;
@@ -104,4 +104,3 @@ function Pagination({ current_page, last_page, onClick }: PaginationProps) {
 }
 
 export default Pagination;
-

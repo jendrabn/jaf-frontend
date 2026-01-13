@@ -9,7 +9,3 @@ export interface Login {
 }
 
 export type Register = User;
-
-
-
-

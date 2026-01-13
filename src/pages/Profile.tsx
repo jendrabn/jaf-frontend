@@ -6,10 +6,10 @@ import { useUpdateUser } from "@/features/user/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { type ChangeEvent, useCallback, useRef } from "react";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import { useForm, useWatch } from "react-hook-form";
 import SEO from "@/components/SEO";
 import AvatarUpload from "@/features/user/components/AvatarUpload";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 const Profile = () => {
   const { user } = useAuthState();
@@ -19,15 +19,9 @@ const Profile = () => {
   const inputAvatarRef = useRef<HTMLInputElement>(null);
   const avatarRef = useRef<HTMLImageElement>(null);
 
-  const { mutate, isPending, error, reset } = useUpdateUser();
+  const { mutate, isPending, error } = useUpdateUser();
 
-  const {
-    register,
-    handleSubmit,
-    reset: resetForm,
-    setValue,
-    control,
-  } = useForm<User>({
+  const form = useForm<User>({
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
@@ -37,7 +31,7 @@ const Profile = () => {
     },
   });
 
-  const watchedSex = useWatch({ control, name: "sex" });
+  const watchedSex = useWatch({ control: form.control, name: "sex" });
 
   const onSubmit = useCallback(
     (data: User) => {
@@ -64,20 +58,20 @@ const Profile = () => {
             queryClient.invalidateQueries({ queryKey: ["user"] });
           },
           onError: () => {
-            resetForm();
+            form.reset();
             avatarRef.current?.setAttribute("src", user?.avatar ?? "");
           },
         }
       );
     },
-    [mutate, queryClient, resetForm, user]
+    [mutate, queryClient, form, user]
   );
 
   const handleFormSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
-      void handleSubmit(onSubmit)(event);
+      void form.handleSubmit(onSubmit)(event);
     },
-    [handleSubmit, onSubmit]
+    [form, onSubmit]
   );
 
   const handleAvatarChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +92,8 @@ const Profile = () => {
     }
   };
 
+  useServerValidation(error, form);
+
   return (
     <AccountLayout title="Profil">
       <SEO
@@ -106,8 +102,6 @@ const Profile = () => {
         noIndex={true}
         noFollow={true}
       />
-
-      <ErrorValidationAlert error={error} onClose={reset} />
 
       <div className="row flex-row-reverse">
         <div className="col-lg-3">
@@ -130,7 +124,14 @@ const Profile = () => {
                   Nama
                 </Form.Label>
                 <Col sm="9">
-                  <Form.Control type="text" {...register("name")} />
+                  <Form.Control
+                    type="text"
+                    {...form.register("name")}
+                    isInvalid={!!form.formState.errors.name}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {form.formState.errors.name?.message}
+                  </Form.Control.Feedback>
                 </Col>
               </Form.Group>
 
@@ -139,7 +140,14 @@ const Profile = () => {
                   Email
                 </Form.Label>
                 <Col sm="9">
-                  <Form.Control type="email" {...register("email")} />
+                  <Form.Control
+                    type="email"
+                    {...form.register("email")}
+                    isInvalid={!!form.formState.errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {form.formState.errors.email?.message}
+                  </Form.Control.Feedback>
                 </Col>
               </Form.Group>
 
@@ -148,7 +156,14 @@ const Profile = () => {
                   Nomor Telepon
                 </Form.Label>
                 <Col sm="9">
-                  <Form.Control type="text" {...register("phone")} />
+                  <Form.Control
+                    type="text"
+                    {...form.register("phone")}
+                    isInvalid={!!form.formState.errors.phone}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {form.formState.errors.phone?.message}
+                  </Form.Control.Feedback>
                 </Col>
               </Form.Group>
 
@@ -163,7 +178,7 @@ const Profile = () => {
                     label="Laki-laki"
                     name="sex"
                     checked={watchedSex === 1}
-                    onChange={() => setValue("sex", 1)}
+                    onChange={() => form.setValue("sex", 1)}
                   />
                   <Form.Check
                     type="radio"
@@ -171,7 +186,7 @@ const Profile = () => {
                     inline
                     name="sex"
                     checked={watchedSex === 2}
-                    onChange={() => setValue("sex", 2)}
+                    onChange={() => form.setValue("sex", 2)}
                   />
                 </Col>
               </Form.Group>
@@ -181,7 +196,14 @@ const Profile = () => {
                   Tanggal Lahir
                 </Form.Label>
                 <Col sm="9">
-                  <Form.Control type="date" {...register("birth_date")} />
+                  <Form.Control
+                    type="date"
+                    {...form.register("birth_date")}
+                    isInvalid={!!form.formState.errors.birth_date}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {form.formState.errors.birth_date?.message}
+                  </Form.Control.Feedback>
                 </Col>
               </Form.Group>
 

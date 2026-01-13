@@ -1,7 +1,7 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { Order } from "@/types/order";
-import type { Page } from "@/types";
+import type { Page } from "@/types/api";
 
 export type GetOrdersParams = {
   page?: number;

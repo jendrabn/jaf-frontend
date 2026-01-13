@@ -1,10 +1,4 @@
-import {
-  type FormEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { type FormEvent, useCallback, useMemo, useState } from "react";
 import {
   useGetCities,
   useGetDistricts,
@@ -13,55 +7,84 @@ import {
 } from "@/features/checkout/api";
 import { Button, Form, Modal } from "react-bootstrap";
 import Select, { type SingleValue } from "react-select";
-import type { AddressTypes } from "@/types/checkout";
+import type { Address, Checkout } from "@/types/checkout";
 import {
   useCheckoutDispatch,
   useCheckoutState,
 } from "@/contexts/CheckoutContext";
 import { toast } from "react-toastify";
-import { useGetShippingCosts } from "@/features/orders/api";
+import { useGetShippingCosts } from "@/features/checkout/api";
 
 interface DeliveryAddressModalProps {
   onClose: () => void;
   show?: boolean;
 }
 
-const EMPTY_ADDRESS: AddressTypes = {
-  name: "",
-  phone: "",
-  province: undefined,
-  city: undefined,
-  district: undefined,
-  subdistrict: undefined,
-  zip_code: "",
-  address: "",
+const buildAddressData = (address?: Address | null): Address => ({
+  name: address?.name ?? "",
+  phone: address?.phone ?? "",
+  province: address?.province,
+  city: address?.city,
+  district: address?.district,
+  subdistrict: address?.subdistrict,
+  zip_code: address?.zip_code ?? "",
+  address: address?.address ?? "",
+});
+
+const buildAddressKey = (address?: Address | null) => {
+  if (!address) {
+    return "new";
+  }
+
+  return [
+    address.name ?? "",
+    address.phone ?? "",
+    address.province?.id ?? "",
+    address.city?.id ?? "",
+    address.district?.id ?? "",
+    address.subdistrict?.id ?? "",
+    address.zip_code ?? "",
+    address.address ?? "",
+  ].join("|");
 };
+
+interface DeliveryAddressFormProps {
+  address: Address | null;
+  checkout: Checkout | null;
+  onClose: () => void;
+}
 
 function DeliveryAddressModal({
   show = false,
   onClose,
 }: DeliveryAddressModalProps) {
   const { address, checkout } = useCheckoutState();
+  const formKey = `${show ? "open" : "closed"}-${buildAddressKey(address)}`;
+
+  return (
+    <Modal show={show} onHide={onClose} backdrop="static">
+      <Modal.Header className="border-bottom-0">
+        <Modal.Title>Alamat Pengiriman</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <DeliveryAddressForm
+          key={formKey}
+          address={address}
+          checkout={checkout}
+          onClose={onClose}
+        />
+      </Modal.Body>
+    </Modal>
+  );
+}
+
+function DeliveryAddressForm({
+  address,
+  checkout,
+  onClose,
+}: DeliveryAddressFormProps) {
   const dispatch = useCheckoutDispatch();
-
-  const [data, setData] = useState<AddressTypes>({ ...EMPTY_ADDRESS });
-
-  useEffect(() => {
-    if (address) {
-      setData({
-        name: address.name ?? "",
-        phone: address.phone ?? "",
-        province: address.province,
-        city: address.city,
-        district: address.district,
-        subdistrict: address.subdistrict,
-        zip_code: address.zip_code ?? "",
-        address: address.address ?? "",
-      });
-    } else {
-      setData({ ...EMPTY_ADDRESS });
-    }
-  }, [address, show]);
+  const [data, setData] = useState<Address>(() => buildAddressData(address));
 
   const shippingCostMutation = useGetShippingCosts();
 
@@ -250,135 +273,128 @@ function DeliveryAddressModal({
   };
 
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static">
-      <Modal.Header className="border-bottom-0">
-        <Modal.Title>Alamat Pengiriman</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <fieldset disabled={shippingCostMutation.isPending}>
-            <Form.Group className="mb-3" controlId="name">
-              <Form.Label>Nama Lengkap</Form.Label>
-              <Form.Control
-                type="text"
-                value={data.name}
-                name="name"
-                onChange={(e) => setData({ ...data, name: e.target.value })}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="phone">
-              <Form.Label>Nomor Telepon</Form.Label>
-              <Form.Control
-                type="text"
-                name="phone"
-                value={data.phone}
-                onChange={(e) => setData({ ...data, phone: e.target.value })}
-              />
-            </Form.Group>
+    <Form onSubmit={handleSubmit}>
+      <fieldset disabled={shippingCostMutation.isPending}>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Nama Lengkap</Form.Label>
+          <Form.Control
+            type="text"
+            value={data.name}
+            name="name"
+            onChange={(e) => setData({ ...data, name: e.target.value })}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="phone">
+          <Form.Label>Nomor Telepon</Form.Label>
+          <Form.Control
+            type="text"
+            name="phone"
+            value={data.phone}
+            onChange={(e) => setData({ ...data, phone: e.target.value })}
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="province">
-              <Form.Label>Provinsi</Form.Label>
-              <Select
-                inputId="province-select"
-                classNamePrefix="react-select"
-                options={provinceOptions}
-                value={selectedProvinceOption}
-                onChange={handleProvinceChange}
-                isLoading={isLoadingProvinces}
-                isDisabled={isLoadingProvinces}
-                isClearable
-                placeholder="Pilih Provinsi"
-                noOptionsMessage={() => "Provinsi tidak ditemukan"}
-              />
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="province">
+          <Form.Label>Provinsi</Form.Label>
+          <Select
+            inputId="province-select"
+            classNamePrefix="react-select"
+            options={provinceOptions}
+            value={selectedProvinceOption}
+            onChange={handleProvinceChange}
+            isLoading={isLoadingProvinces}
+            isDisabled={isLoadingProvinces}
+            isClearable
+            placeholder="Pilih Provinsi"
+            noOptionsMessage={() => "Provinsi tidak ditemukan"}
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="city">
-              <Form.Label>Kabupaten/Kota</Form.Label>
-              <Select
-                inputId="city-select"
-                classNamePrefix="react-select"
-                options={cityOptions}
-                value={selectedCityOption}
-                onChange={handleCityChange}
-                isLoading={isLoadingCities}
-                isDisabled={isLoadingCities || !data.province}
-                isClearable
-                placeholder="Pilih Kabupaten/Kota"
-                noOptionsMessage={() => "Kabupaten/Kota tidak ditemukan"}
-              />
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="city">
+          <Form.Label>Kabupaten/Kota</Form.Label>
+          <Select
+            inputId="city-select"
+            classNamePrefix="react-select"
+            options={cityOptions}
+            value={selectedCityOption}
+            onChange={handleCityChange}
+            isLoading={isLoadingCities}
+            isDisabled={isLoadingCities || !data.province}
+            isClearable
+            placeholder="Pilih Kabupaten/Kota"
+            noOptionsMessage={() => "Kabupaten/Kota tidak ditemukan"}
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="district">
-              <Form.Label>Kecamatan</Form.Label>
-              <Select
-                inputId="district-select"
-                classNamePrefix="react-select"
-                options={districtOptions}
-                value={selectedDistrictOption}
-                onChange={handleDistrictChange}
-                isLoading={isLoadingDistricts}
-                isDisabled={isLoadingDistricts || !data.city}
-                isClearable
-                placeholder="Pilih Kecamatan"
-                noOptionsMessage={() => "Kecamatan tidak ditemukan"}
-              />
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="district">
+          <Form.Label>Kecamatan</Form.Label>
+          <Select
+            inputId="district-select"
+            classNamePrefix="react-select"
+            options={districtOptions}
+            value={selectedDistrictOption}
+            onChange={handleDistrictChange}
+            isLoading={isLoadingDistricts}
+            isDisabled={isLoadingDistricts || !data.city}
+            isClearable
+            placeholder="Pilih Kecamatan"
+            noOptionsMessage={() => "Kecamatan tidak ditemukan"}
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="subdistrict">
-              <Form.Label>Keluarahan/Desa</Form.Label>
-              <Select
-                inputId="subdistrict-select"
-                classNamePrefix="react-select"
-                options={subDistrictOptions}
-                value={selectedSubDistrictOption}
-                onChange={handleSubDistrictChange}
-                isLoading={isLoadingSubDistricts}
-                isDisabled={isLoadingSubDistricts || !data.district}
-                isClearable
-                placeholder="Pilih Kelurahan/Desa"
-                noOptionsMessage={() => "Kelurahan/Desa tidak ditemukan"}
-              />
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="subdistrict">
+          <Form.Label>Keluarahan/Desa</Form.Label>
+          <Select
+            inputId="subdistrict-select"
+            classNamePrefix="react-select"
+            options={subDistrictOptions}
+            value={selectedSubDistrictOption}
+            onChange={handleSubDistrictChange}
+            isLoading={isLoadingSubDistricts}
+            isDisabled={isLoadingSubDistricts || !data.district}
+            isClearable
+            placeholder="Pilih Kelurahan/Desa"
+            noOptionsMessage={() => "Kelurahan/Desa tidak ditemukan"}
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="postal_code">
-              <Form.Label>Kode Pos</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={(e) => setData({ ...data, zip_code: e.target.value })}
-                name="zip_code"
-                readOnly
-                value={data.zip_code}
-              />
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="postal_code">
+          <Form.Label>Kode Pos</Form.Label>
+          <Form.Control
+            type="text"
+            onChange={(e) => setData({ ...data, zip_code: e.target.value })}
+            name="zip_code"
+            readOnly
+            value={data.zip_code}
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="address">
-              <Form.Label>Alamat Lengkap</Form.Label>
-              <Form.Control
-                type="text"
-                as={"textarea"}
-                rows={2}
-                name="address"
-                onChange={(e) => setData({ ...data, address: e.target.value })}
-                value={data.address}
-              />
-              <Form.Text className="text-muted">
-                Masukkan alamat lengkap Anda, termasuk nomor rumah, nama jalan,
-                dan detail lainnya.
-              </Form.Text>
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="address">
+          <Form.Label>Alamat Lengkap</Form.Label>
+          <Form.Control
+            type="text"
+            as={"textarea"}
+            rows={2}
+            name="address"
+            onChange={(e) => setData({ ...data, address: e.target.value })}
+            value={data.address}
+          />
+          <Form.Text className="text-muted">
+            Masukkan alamat lengkap Anda, termasuk nomor rumah, nama jalan, dan
+            detail lainnya.
+          </Form.Text>
+        </Form.Group>
 
-            <div className="d-flex justify-content-end gap-2">
-              <Button variant="outline-secondary" onClick={handleClose}>
-                <i className="bi bi-x-circle"></i> Batal
-              </Button>
-              <Button variant="primary" type="submit">
-                <i className="bi bi-check-circle"></i> Simpan
-              </Button>
-            </div>
-          </fieldset>
-        </Form>
-      </Modal.Body>
-    </Modal>
+        <div className="d-flex justify-content-end gap-2">
+          <Button variant="light" onClick={handleClose}>
+            Batal
+          </Button>
+          <Button variant="primary" type="submit">
+            Simpan
+          </Button>
+        </div>
+      </fieldset>
+    </Form>
   );
 }
 

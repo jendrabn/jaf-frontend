@@ -1,22 +1,20 @@
 import { useNavigate, useSearchParams } from "react-router";
-import AuthLayout from "@/components/layouts/AuthLayout";
-import type { ResetPasswordReqTypes } from "@/types/auth";
 import { Button, Form, FormControl } from "react-bootstrap";
 import { useResetPassword, type ResetPasswordInput } from "@/features/auth/api";
 import { toast } from "react-toastify";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { paths } from "@/config/paths";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 export default function ResetPasswordForm() {
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
 
-  const { mutate, isPending, error, reset } = useResetPassword();
+  const { mutate, isPending, error } = useResetPassword();
 
-  const { register, handleSubmit } = useForm<ResetPasswordReqTypes>({
+  const form = useForm<ResetPasswordInput>({
     defaultValues: {
       email: searchParams.get("email") || "",
       token: searchParams.get("token") || "",
@@ -25,7 +23,7 @@ export default function ResetPasswordForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<ResetPasswordReqTypes> = (data) => {
+  const onSubmit: SubmitHandler<ResetPasswordInput> = (data) => {
     mutate(
       { data: data as ResetPasswordInput },
       {
@@ -38,31 +36,43 @@ export default function ResetPasswordForm() {
     );
   };
 
+  useServerValidation(error, form);
+
   return (
     <>
-      <ErrorValidationAlert error={error} onClose={reset} />
-
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
           <Form.Group className="mb-3">
             <Form.Label>Email</Form.Label>
-            <FormControl type="email" {...register("email")} disabled />
+            <FormControl
+              type="email"
+              {...form.register("email")}
+              disabled
+              isInvalid={!!form.formState.errors.email}
+            />
+            <Form.Control.Feedback type="invalid">
+              {form.formState.errors.email?.message}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Password</Form.Label>
             <PasswordInput
-              {...register("password")}
+              {...form.register("password")}
               className="mb-3"
               autofocus
+              isInvalid={!!form.formState.errors.password}
+              errorMessage={form.formState.errors.password?.message}
             />
           </Form.Group>
 
           <Form.Group>
             <Form.Label>Konfirmasi Password</Form.Label>
             <PasswordInput
-              {...register("password_confirmation")}
+              {...form.register("password_confirmation")}
               className="mb-3"
+              isInvalid={!!form.formState.errors.password_confirmation}
+              errorMessage={form.formState.errors.password_confirmation?.message}
             />
           </Form.Group>
 

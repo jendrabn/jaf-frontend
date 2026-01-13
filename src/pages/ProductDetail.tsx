@@ -13,7 +13,6 @@ import QuantityInput from "@/components/ui/quantity-input";
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import StarRating from "@/components/ui/star-rating";
-
 import { env } from "@/config/env";
 import ProductImageSlider from "@/features/products/components/ProductImageSlider";
 import CountdownBlocks from "@/components/ui/countdown-blocks";
@@ -261,7 +260,7 @@ export default function ProductDetail() {
                         Gender
                       </div>
                       <div className="col-md-9 col-6">
-                        {getGenderLabel(product?.sex) || "-"}
+                        {getGenderLabel(product?.sex ?? 0) || "-"}
                       </div>
                     </div>
 
@@ -283,7 +282,7 @@ export default function ProductDetail() {
                           <QuantityInput
                             onChange={handleQuantityChange}
                             size="sm"
-                            maxValue={product?.stock}
+                            maxValue={product?.stock ?? undefined}
                           />
 
                           <span className="text-muted small d-none d-md-block">

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import type { MutationConfig } from "@/lib/react-query";
-import type { Checkout } from "@/types/order";
+import type { Checkout } from "@/types/checkout";
 
 export type CheckoutStateInput = {
   cart_ids?: number[];

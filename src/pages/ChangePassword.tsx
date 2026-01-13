@@ -4,19 +4,15 @@ import {
   useUpdatePassword,
   type UpdatePasswordInput,
 } from "@/features/user/api";
-import ErrorValidationAlert from "@/components/ui/error-validation-alert";
 import PasswordInput from "@/components/ui/password-input";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-toastify";
 import SEO from "@/components/SEO";
+import { useServerValidation } from "@/hooks/use-server-validation";
 
 const ChangePassword = () => {
-  const {
-    register,
-    handleSubmit,
-    reset: resetForm,
-  } = useForm<UpdatePasswordInput>();
-  const { mutate, isPending, error, reset } = useUpdatePassword();
+  const form = useForm<UpdatePasswordInput>();
+  const { mutate, isPending, error } = useUpdatePassword();
 
   const onSubmit: SubmitHandler<UpdatePasswordInput> = (data) => {
     mutate(
@@ -29,13 +25,15 @@ const ChangePassword = () => {
       },
       {
         onSuccess() {
-          resetForm();
+          form.reset();
 
           toast.success("Password updated successfully.");
         },
       }
     );
   };
+
+  useServerValidation(error, form);
 
   return (
     <AccountLayout title="Ubah Password">
@@ -48,15 +46,18 @@ const ChangePassword = () => {
 
       <div className="row">
         <div className="col-lg-9">
-          <ErrorValidationAlert error={error} onClose={reset} />
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={form.handleSubmit(onSubmit)}>
             <fieldset disabled={isPending}>
               <Form.Group className="mb-3" as={Row}>
                 <Form.Label column sm={3} className="text-muted">
                   Password Saat Ini
                 </Form.Label>
                 <Col sm={9}>
-                  <PasswordInput {...register("current_password")} />
+                  <PasswordInput
+                    {...form.register("current_password")}
+                    isInvalid={!!form.formState.errors.current_password}
+                    errorMessage={form.formState.errors.current_password?.message}
+                  />
                 </Col>
               </Form.Group>
 
@@ -65,7 +66,11 @@ const ChangePassword = () => {
                   Password
                 </Form.Label>
                 <Col sm={9}>
-                  <PasswordInput {...register("new_password")} />
+                  <PasswordInput
+                    {...form.register("new_password")}
+                    isInvalid={!!form.formState.errors.new_password}
+                    errorMessage={form.formState.errors.new_password?.message}
+                  />
                 </Col>
               </Form.Group>
 
@@ -74,7 +79,13 @@ const ChangePassword = () => {
                   Konfirmasi Password
                 </Form.Label>
                 <Col sm={9}>
-                  <PasswordInput {...register("new_password_confirmation")} />
+                  <PasswordInput
+                    {...form.register("new_password_confirmation")}
+                    isInvalid={!!form.formState.errors.new_password_confirmation}
+                    errorMessage={
+                      form.formState.errors.new_password_confirmation?.message
+                    }
+                  />
                 </Col>
               </Form.Group>
 
