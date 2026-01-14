@@ -5,6 +5,7 @@ export interface Login {
   otp_required?: boolean;
   otp_expires_at?: string;
   otp_sent_to?: string;
+  otp_resend_available_at?: string;
   email?: string;
 }
 

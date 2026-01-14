@@ -159,7 +159,6 @@ const WishlistItem = (props: WishlistItemProps) => {
             className="cart-product-link"
           >
             <ProductImage
-              width={60}
               url={product.image}
               alt={product.name}
               className="cart-product-image"

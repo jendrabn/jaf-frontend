@@ -35,5 +35,5 @@ export const getUnreadCount = async (): Promise<UnreadCountResponse> => {
 };
 
 export const updateFcmToken = async (token: string | null) => {
-  return api.put("/user/fcm-token", { fcm_token: token });
+  return api.put("/notifications/fcm-token", { fcm_token: token });
 };

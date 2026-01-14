@@ -33,53 +33,54 @@ export default function RegisterForm() {
     <>
       <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
-          <Form.Group className="mb-3">
-            <Form.Label>Nama</Form.Label>
-            <Form.Control
-              type="text"
-              {...form.register("name")}
-              autoFocus
-              isInvalid={!!form.formState.errors.name}
-            />
-            <Form.Control.Feedback type="invalid">
-              {form.formState.errors.name?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              {...form.register("email")}
-              name="email"
-              isInvalid={!!form.formState.errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              {form.formState.errors.email?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
-            <PasswordInput
-              {...form.register("password")}
-              isInvalid={!!form.formState.errors.password}
-              errorMessage={form.formState.errors.password?.message}
-            />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Konfirmasi Password</Form.Label>
-            <PasswordInput
-              {...form.register("password_confirmation")}
-              isInvalid={!!form.formState.errors.password_confirmation}
-              errorMessage={
-                form.formState.errors.password_confirmation?.message
-              }
-            />
-          </Form.Group>
-          <div className="d-grid mb-3">
-            <Button variant="primary" type="submit">
-              Daftar
-            </Button>
+          <div className="d-flex flex-column gap-3 mb-5">
+            <Form.Group>
+              <Form.Label>Nama</Form.Label>
+              <Form.Control
+                type="text"
+                {...form.register("name")}
+                autoFocus
+                isInvalid={!!form.formState.errors.name}
+              />
+              <Form.Control.Feedback type="invalid">
+                {form.formState.errors.name?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                {...form.register("email")}
+                name="email"
+                isInvalid={!!form.formState.errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {form.formState.errors.email?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <PasswordInput
+                {...form.register("password")}
+                isInvalid={!!form.formState.errors.password}
+                errorMessage={form.formState.errors.password?.message}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Konfirmasi Password</Form.Label>
+              <PasswordInput
+                {...form.register("password_confirmation")}
+                isInvalid={!!form.formState.errors.password_confirmation}
+                errorMessage={
+                  form.formState.errors.password_confirmation?.message
+                }
+              />
+            </Form.Group>
+            <div className="d-grid">
+              <Button variant="primary" type="submit">
+                Daftar
+              </Button>
+            </div>
           </div>
           <p className="mb-0 text-center">
             Sudah punya akun? <Link to={paths.auth.login.root()}>Login</Link>

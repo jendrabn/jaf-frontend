@@ -10,6 +10,7 @@ export type ResendLoginOtpResponse = {
   otp_required: boolean;
   otp_expires_at: string; // ISO timestamp when OTP expires
   otp_sent_to: string; // destination email
+  otp_resend_available_at?: string; // ISO timestamp when resend is available
 };
 
 export const resendLoginOtp = ({

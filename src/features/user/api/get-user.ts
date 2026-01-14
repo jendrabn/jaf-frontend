@@ -4,7 +4,7 @@ import type { QueryConfig } from "@/lib/react-query";
 import type { User } from "@/types/user";
 
 export const getUser = (): Promise<User> => {
-  return api.get("/user");
+  return api.get("/account/me");
 };
 
 export const getUserQueryOptions = () => {

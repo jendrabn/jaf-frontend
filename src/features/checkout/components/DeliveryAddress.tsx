@@ -1,6 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import { useCheckoutState } from "@/contexts/CheckoutContext";
-import NoData from "@/components/ui/no-data";
+import EmptyState from "@/components/ui/empty-state";
 
 interface DeliveryAddressProps {
   className?: string;
@@ -31,9 +31,11 @@ function DeliveryAddress({
               {`${address?.subdistrict?.name}, ${address?.district?.name}, ${address?.city?.name}, ${address?.province?.name}, ${address.zip_code}`}
             </address>
           ) : (
-            <NoData
-              title="Belum Ada Alamat Tersimpan"
-              message="Anda belum menambahkan alamat pengiriman. Tambahkan alamat terlebih dahulu untuk melanjutkan proses pemesanan."
+            <EmptyState
+              title="Alamat Belum Ditambahkan"
+              message="Silakan tambahkan alamat pengiriman"
+              iconClass="bi bi-geo-alt"
+              iconSize="3rem"
             />
           )}
         </div>

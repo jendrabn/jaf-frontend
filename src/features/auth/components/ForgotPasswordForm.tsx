@@ -31,23 +31,24 @@ export default function ForgotPasswordForm() {
     <>
       <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              {...form.register("email")}
-              autoFocus
-              isInvalid={!!form.formState.errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              {form.formState.errors.email?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <div className="d-grid">
-            <Button variant="primary" type="submit">
-              Kirim Link Reset Password
-            </Button>
+          <div className="d-flex flex-column gap-3">
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                {...form.register("email")}
+                autoFocus
+                isInvalid={!!form.formState.errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {form.formState.errors.email?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <div className="d-grid">
+              <Button variant="primary" type="submit">
+                Kirim Link Reset Password
+              </Button>
+            </div>
           </div>
         </fieldset>
       </Form>

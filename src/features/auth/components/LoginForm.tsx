@@ -28,17 +28,26 @@ export default function LoginForm() {
             if (data.email) {
               sessionStorage.setItem("pendingLoginEmail", data.email);
             }
+            sessionStorage.setItem("pendingLoginOtp", "true");
 
-            const { otp_expires_at, otp_sent_to } = resp as {
-              otp_expires_at?: string;
-              otp_sent_to?: string;
-            };
+            const { otp_expires_at, otp_sent_to, otp_resend_available_at } =
+              resp as {
+                otp_expires_at?: string;
+                otp_sent_to?: string;
+                otp_resend_available_at?: string;
+              };
 
             if (otp_expires_at) {
               sessionStorage.setItem("otpExpiresAt", otp_expires_at);
             }
             if (otp_sent_to) {
               sessionStorage.setItem("otpSentTo", otp_sent_to);
+            }
+            if (otp_resend_available_at) {
+              sessionStorage.setItem(
+                "otpResendAvailableAt",
+                otp_resend_available_at
+              );
             }
 
             navigate(paths.auth.verifyLogin(), {
@@ -47,6 +56,12 @@ export default function LoginForm() {
             });
             return;
           }
+
+          sessionStorage.removeItem("pendingLoginEmail");
+          sessionStorage.removeItem("pendingLoginOtp");
+          sessionStorage.removeItem("otpExpiresAt");
+          sessionStorage.removeItem("otpSentTo");
+          sessionStorage.removeItem("otpResendAvailableAt");
 
           const token = (resp as { auth_token?: string }).auth_token;
           if (!token) {
@@ -70,38 +85,40 @@ export default function LoginForm() {
     <>
       <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              {...form.register("email")}
-              autoFocus
-              autoSave="email"
-              isInvalid={!!form.formState.errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              {form.formState.errors.email?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
+          <div className="d-flex flex-column gap-3 mb-5">
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                {...form.register("email")}
+                autoFocus
+                autoSave="email"
+                isInvalid={!!form.formState.errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {form.formState.errors.email?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Password</Form.Label>
-            <PasswordInput
-              {...form.register("password")}
-              isInvalid={!!form.formState.errors.password}
-              errorMessage={form.formState.errors.password?.message}
-            />
-          </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <PasswordInput
+                {...form.register("password")}
+                isInvalid={!!form.formState.errors.password}
+                errorMessage={form.formState.errors.password?.message}
+              />
+            </Form.Group>
 
-          <p className="text-end mb-3">
-            <Link to={paths.auth.forgotPassword()}>Lupa Password?</Link>
-          </p>
+            <p className="text-end">
+              <Link to={paths.auth.forgotPassword()}>Lupa Password?</Link>
+            </p>
 
-          <div className="d-grid gap-2 mb-5">
-            <Button variant="primary" type="submit">
-              Log in
-            </Button>
-            <GoogleLoginButton />
+            <div className="d-grid gap-2">
+              <Button variant="primary" type="submit">
+                Log in
+              </Button>
+              <GoogleLoginButton />
+            </div>
           </div>
 
           <p className="text-center mb-0">

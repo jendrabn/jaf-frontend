@@ -114,7 +114,6 @@ const OrderItem = (props: OrderItemProps) => {
                   <div className="d-flex align-items-center">
                     <ProductImage
                       url={product.image}
-                      width={50}
                       alt={item.name}
                       className="me-2"
                     />

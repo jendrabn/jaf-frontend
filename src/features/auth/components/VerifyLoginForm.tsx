@@ -23,13 +23,14 @@ export default function VerifyLoginForm() {
   const emailFromStorage =
     sessionStorage.getItem("pendingLoginEmail") || undefined;
   const email = emailFromState || emailFromStorage;
+  const hasPendingLogin = sessionStorage.getItem("pendingLoginOtp") === "true";
 
   useEffect(() => {
     // If there's no email context, redirect back to login
-    if (!email) {
+    if (!email || !hasPendingLogin) {
       navigate(paths.auth.login.root(), { replace: true });
     }
-  }, [email, navigate]);
+  }, [email, hasPendingLogin, navigate]);
 
   const { mutate, error, isPending } = useVerifyLoginOtp();
 
@@ -46,9 +47,25 @@ export default function VerifyLoginForm() {
   const [sentTo, setSentTo] = useState<string | undefined>(
     (sessionStorage.getItem("otpSentTo") || undefined) as string | undefined
   );
-  const [otpExpiresAt, setOtpExpiresAt] = useState<string | undefined>(
+  const [, setOtpExpiresAt] = useState<string | undefined>(
     (sessionStorage.getItem("otpExpiresAt") || undefined) as string | undefined
   );
+  const [resendAvailableAt, setResendAvailableAt] = useState<
+    string | undefined
+  >(
+    (sessionStorage.getItem("otpResendAvailableAt") || undefined) as
+      | string
+      | undefined
+  );
+  const [nowTick, setNowTick] = useState<number>(() => Date.now());
+
+  useEffect(() => {
+    if (!resendAvailableAt) return;
+    const intervalId = window.setInterval(() => {
+      setNowTick(Date.now());
+    }, 1000);
+    return () => window.clearInterval(intervalId);
+  }, [resendAvailableAt]);
 
   // OTP inputs management (6 individual inputs)
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
@@ -121,8 +138,10 @@ export default function VerifyLoginForm() {
           setAuthToken(token);
           setSelectedCartIds([]);
           sessionStorage.removeItem("pendingLoginEmail");
+          sessionStorage.removeItem("pendingLoginOtp");
           sessionStorage.removeItem("otpExpiresAt");
           sessionStorage.removeItem("otpSentTo");
+          sessionStorage.removeItem("otpResendAvailableAt");
           // No client-side rate limit cleanup needed
 
           navigate(location.state?.from || "/", { replace: true });
@@ -135,6 +154,26 @@ export default function VerifyLoginForm() {
 
   useServerValidation(error as Error, form);
   useServerValidation(resendError as unknown as Error, form);
+
+  const formatCountdown = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  const resendCountdown = (() => {
+    if (!resendAvailableAt) {
+      return 0;
+    }
+    const target = new Date(resendAvailableAt).getTime();
+    if (Number.isNaN(target)) {
+      return 0;
+    }
+    const diffMs = target - nowTick;
+    return Math.max(0, Math.ceil(diffMs / 1000));
+  })();
 
   return (
     <>
@@ -170,9 +209,6 @@ export default function VerifyLoginForm() {
                 />
               ))}
             </div>
-            <Form.Text className="text-muted">
-              Periksa spam jika tidak menemukan email OTP.
-            </Form.Text>
             <Form.Control.Feedback type="invalid">
               {form.formState.errors.otp?.message}
             </Form.Control.Feedback>
@@ -186,16 +222,17 @@ export default function VerifyLoginForm() {
 
           <div className="d-flex justify-content-between align-items-center mb-3">
             <small className="text-muted">
-              {otpExpiresAt
-                ? `Kode berlaku hingga ${new Date(
-                    otpExpiresAt
-                  ).toLocaleString()}`
-                : ""}
+              {/* {resendCountdown > 0
+                ? `Kirim ulang tersedia dalam ${formatCountdown(
+                    resendCountdown
+                  )}`
+                : ""} */}
             </small>
             <div className="d-flex align-items-center gap-2">
               <Button
                 variant="link"
                 size="sm"
+                className="text-decoration-none"
                 type="button"
                 onClick={() => {
                   resetResendError();
@@ -203,7 +240,11 @@ export default function VerifyLoginForm() {
                   resend(
                     { data: { email } },
                     {
-                      onSuccess: ({ otp_expires_at, otp_sent_to }) => {
+                      onSuccess: ({
+                        otp_expires_at,
+                        otp_sent_to,
+                        otp_resend_available_at,
+                      }) => {
                         // Laravel API handles rate limit and cooldown. No client-side timer here.
                         if (otp_expires_at) {
                           setOtpExpiresAt(otp_expires_at);
@@ -216,6 +257,13 @@ export default function VerifyLoginForm() {
                           setSentTo(otp_sent_to);
                           sessionStorage.setItem("otpSentTo", otp_sent_to);
                         }
+                        if (otp_resend_available_at) {
+                          setResendAvailableAt(otp_resend_available_at);
+                          sessionStorage.setItem(
+                            "otpResendAvailableAt",
+                            otp_resend_available_at
+                          );
+                        }
                         // clear inputs and focus first
                         const cleared = Array(6).fill("");
                         setDigits(cleared);
@@ -225,9 +273,11 @@ export default function VerifyLoginForm() {
                     }
                   );
                 }}
-                disabled={isResending}
+                disabled={isResending || resendCountdown > 0}
               >
-                Kirim ulang kode
+                {resendCountdown > 0
+                  ? `Kirim Ulang Kode (${formatCountdown(resendCountdown)})`
+                  : "Kirim Ulang Kode"}
               </Button>
             </div>
           </div>

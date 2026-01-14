@@ -62,6 +62,7 @@ export interface OrderDetail {
     province: string;
     city: string;
     district: string;
+    subdistrict: string;
     postal_code: string;
     address: string;
   };

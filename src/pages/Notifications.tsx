@@ -8,6 +8,7 @@ import {
 } from "@/features/notifications/api/get-notifications";
 import { Button, Badge, Spinner, Alert, Pagination } from "react-bootstrap";
 import Loading from "@/components/ui/loading";
+import EmptyState from "@/components/ui/empty-state";
 import { initializeFcmToken, refreshFcmToken } from "@/utils/fcm";
 import SEO from "@/components/SEO";
 
@@ -293,16 +294,12 @@ const Notifications = () => {
           )}
         </>
       ) : (
-        <div className="text-center py-5">
-          <div className="mb-3">
-            <i
-              className="bi bi-bell text-muted"
-              style={{ fontSize: "3rem" }}
-            ></i>
-          </div>
-          <h5 className="text-muted">Belum ada notifikasi</h5>
-          <p className="text-muted">Anda belum memiliki notifikasi saat ini.</p>
-        </div>
+        <EmptyState
+          title="Belum ada notifikasi"
+          message="Kabar baik akan segera datang"
+          iconClass="bi bi-bell"
+          iconSize="3rem"
+        />
       )}
     </AccountLayout>
   );

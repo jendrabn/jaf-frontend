@@ -42,44 +42,43 @@ export default function ResetPasswordForm() {
     <>
       <Form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset disabled={isPending}>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <FormControl
-              type="email"
-              {...form.register("email")}
-              disabled
-              isInvalid={!!form.formState.errors.email}
-            />
-            <Form.Control.Feedback type="invalid">
-              {form.formState.errors.email?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Password</Form.Label>
-            <PasswordInput
-              {...form.register("password")}
-              className="mb-3"
-              autofocus
-              isInvalid={!!form.formState.errors.password}
-              errorMessage={form.formState.errors.password?.message}
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label>Konfirmasi Password</Form.Label>
-            <PasswordInput
-              {...form.register("password_confirmation")}
-              className="mb-3"
-              isInvalid={!!form.formState.errors.password_confirmation}
-              errorMessage={form.formState.errors.password_confirmation?.message}
-            />
-          </Form.Group>
-
-          <div className="d-grid">
-            <Button type="submit" variant="primary">
-              Reset Password
-            </Button>
+          <div className="d-flex flex-column gap-3">
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <FormControl
+                type="email"
+                {...form.register("email")}
+                disabled
+                isInvalid={!!form.formState.errors.email}
+              />
+              <Form.Control.Feedback type="invalid">
+                {form.formState.errors.email?.message}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <PasswordInput
+                {...form.register("password")}
+                autofocus
+                isInvalid={!!form.formState.errors.password}
+                errorMessage={form.formState.errors.password?.message}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Konfirmasi Password</Form.Label>
+              <PasswordInput
+                {...form.register("password_confirmation")}
+                isInvalid={!!form.formState.errors.password_confirmation}
+                errorMessage={
+                  form.formState.errors.password_confirmation?.message
+                }
+              />
+            </Form.Group>
+            <div className="d-grid">
+              <Button type="submit" variant="primary">
+                Reset Password
+              </Button>
+            </div>
           </div>
         </fieldset>
       </Form>

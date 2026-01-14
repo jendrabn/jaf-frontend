@@ -68,7 +68,7 @@ const BlogDetail = () => {
             structuredData={articleSchema ? [articleSchema] : undefined}
           />
 
-          <div className="container">
+          <div className="container-xs">
             <Breadcrumb className="mb-5">
               <Breadcrumb.Item
                 linkAs={Link}

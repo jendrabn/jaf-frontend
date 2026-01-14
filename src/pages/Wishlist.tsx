@@ -6,7 +6,7 @@ import {
 import { Button, Form } from "react-bootstrap";
 import WishlistItem from "@/features/wishlist/components/WishlistItem";
 import { useDeleteWishlist } from "@/features/wishlist/api";
-import NoData from "@/components/ui/no-data";
+import EmptyState from "@/components/ui/empty-state";
 import SEO from "@/components/SEO";
 
 const Wishlist = () => {
@@ -39,9 +39,11 @@ const Wishlist = () => {
       />
 
       {wishlists && wishlists?.length === 0 && (
-        <NoData
+        <EmptyState
           title="Wishlist Kosong"
-          message="Tambahkan parfum favorit Anda ke daftar keinginan agar mudah ditemukan nanti."
+          message="Ayo tambahkan ke favorit!"
+          iconClass="bi bi-heart"
+          iconSize="3rem"
         />
       )}
 

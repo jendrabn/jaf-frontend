@@ -6,7 +6,7 @@ import Pagination from "@/components/ui/pagination";
 import Layout from "@/components/layouts/Layout";
 import BlogHeader from "@/features/blogs/components/BlogHeader";
 import useFilters from "@/hooks/use-filters";
-import NoData from "@/components/ui/no-data";
+import EmptyState from "@/components/ui/empty-state";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import BlogSidebar from "@/features/blogs/components/BlogSidebar";
@@ -45,9 +45,11 @@ const Blog = () => {
 
             {/* No Data */}
             {blogs?.data?.length === 0 && (
-              <NoData
-                title="Belum Ada Artikel"
-                message="Kami sedang menyiapkan tulisan menarik untuk Anda. Nantikan insight, tips, dan inspirasi parfum terbaru dari kami."
+              <EmptyState
+                title="Artikel Kosong"
+                message="Segera hadir dengan konten menarik"
+                iconClass="bi bi-journal"
+                iconSize="3rem"
               />
             )}
 

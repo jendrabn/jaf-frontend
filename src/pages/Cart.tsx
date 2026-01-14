@@ -6,7 +6,7 @@ import { Button, Form } from "react-bootstrap";
 import { useDeleteCart } from "@/features/carts/api";
 import CartItem from "@/features/carts/components/CartItem";
 import { useCartDispatch, useCartState } from "@/contexts/CartContext";
-import NoData from "@/components/ui/no-data";
+import EmptyState from "@/components/ui/empty-state";
 import SEO from "@/components/SEO";
 import { paths } from "@/config/paths";
 import PageHeader from "@/components/layouts/PageHeader";
@@ -60,9 +60,11 @@ const Cart = () => {
         <PageHeader title="Keranjang Belanja" align="start" />
 
         {carts.length === 0 && (
-          <NoData
-            title="Keranjang Belanja Kosong"
-            message="Belum ada produk di keranjang Anda. Yuk, temukan parfum favorit Anda dan mulai berbelanja sekarang!"
+          <EmptyState
+            title="Keranjang Kosong"
+            message="Ayo tambahkan parfum favoritmu!"
+            iconClass="bi bi-cart"
+            iconSize="3rem"
           />
         )}
 

@@ -252,18 +252,28 @@ const OrderDetail = () => {
 
           <div className="card">
             <div className="card-body">
-              <div className="order__status">
+              <div className="order-status">
                 <Alert
                   variant={ORDER_STATUS_COLORS[order.status]}
-                  className="p-2"
+                  className="p-2 small"
                 >
-                  <small>
-                    Status Pesanan: <b>{ORDER_STATUSES[order.status]}</b>
-                  </small>
+                  Status pesanan: <b>{ORDER_STATUSES[order.status]}</b>
                 </Alert>
+
+                {order.status === "pending_payment" && (
+                  <Alert variant="danger" className="p-2 small d-flex gap-2">
+                    <i className="bi bi-stopwatch"></i>
+                    <span>Bayar sebelum</span>
+                    <span className="fw-semibold">
+                      {dayjs(order.payment_due_date).format(
+                        "DD MMM YYYY HH:mm"
+                      )}
+                    </span>
+                  </Alert>
+                )}
               </div>
 
-              <div className="order__info border-top py-3">
+              <div className="order-info border-top py-3">
                 <div className="row">
                   <div className="col">
                     <strong>Tanggal Pesanan</strong> <br />{" "}
@@ -281,14 +291,20 @@ const OrderDetail = () => {
                 </div>
               </div>
 
-              <div className="order__address border-top py-3">
+              <div className="order-address border-top py-3">
                 <div className="row">
                   <div className="col-md-5 border-end">
                     <strong>Alamat Pengiriman</strong>
                     <br />
-                    {order.shipping_address.name} <br />
-                    {order.shipping_address.phone} <br />
-                    {`${order.shipping_address.address}, ${order.shipping_address.district}, ${order.shipping_address.city}, ${order.shipping_address.province}, ${order.shipping_address.postal_code}`}
+                    {order.shipping_address.name ?? "-"} <br />
+                    {order.shipping_address.phone ?? "-"} <br />
+                    {`${order.shipping_address.address ?? "-"}, ${
+                      order.shipping_address.subdistrict ?? "-"
+                    }, ${order.shipping_address.district ?? "-"}, ${
+                      order.shipping_address.city ?? "-"
+                    }, ${order.shipping_address.province ?? "-"}, ${
+                      order.shipping_address.postal_code ?? "-"
+                    }`}
                   </div>
                   <div className="col-md-7">
                     <div className="row">
@@ -327,7 +343,7 @@ const OrderDetail = () => {
                 </div>
               </div>
 
-              <div className="order__payment border-top py-3">
+              <div className="order-payment border-top py-3">
                 <div className="row">
                   <div className="col border-end d-flex justify-content-between">
                     <div>
@@ -339,21 +355,11 @@ const OrderDetail = () => {
                   <div className="col">
                     <strong>Status Pembayaran</strong> <br />
                     {order.invoice.status.toUpperCase()}
-                    {order.status === "pending_payment" && (
-                      <>
-                        <br />
-                        <span className="text-danger">
-                          {`Batas waktu pembayaran ${dayjs(
-                            order.payment_due_date
-                          )}`}
-                        </span>
-                      </>
-                    )}
                   </div>
                 </div>
               </div>
 
-              <div className="order__product py-3 border-top">
+              <div className="order-product py-3 border-top">
                 <ul className="list-unstyled mb-0">
                   {order.items.map((item, index) => {
                     const {
@@ -474,7 +480,7 @@ const OrderDetail = () => {
                 </p>
               </div>
 
-              <div className="order__summary py-3">
+              <div className="order-summary py-3">
                 <div className="row mb-2">
                   <div className="col-md-9 text-end">
                     <span>Total Harga</span>
@@ -540,7 +546,7 @@ const OrderDetail = () => {
                 </div>
               </div>
 
-              <div className="order__action d-flex justify-content-start gap-2">
+              <div className="order-action d-flex justify-content-start gap-2">
                 {order.status === "completed" && (
                   <>
                     <Button

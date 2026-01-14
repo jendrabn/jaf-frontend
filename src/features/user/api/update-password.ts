@@ -16,7 +16,7 @@ export const updatePassword = ({
 }: {
   data: UpdatePasswordInput;
 }): Promise<UpdatePasswordResponse> => {
-  return api.put("/user/change_password", data);
+  return api.put("/account/change-password", data);
 };
 
 type UseUpdatePasswordOptions = {

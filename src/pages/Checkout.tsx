@@ -6,7 +6,7 @@ import type { ChangeEvent } from "react";
 import { Button, Form, Table } from "react-bootstrap";
 import { formatCurrency, toNumber } from "@/utils/functions";
 import { toast } from "react-toastify";
-import DeliveryAddressModal from "@/features/checkout/components/DeliveryAddressModal";
+import DeliveryAddressFormModal from "@/features/checkout/components/DeliveryAddressFormModal";
 import DeliveryAddress from "@/features/checkout/components/DeliveryAddress";
 import ProductOrderedList from "@/features/checkout/components/ProductOrderedList";
 import PaymentMethod from "@/features/checkout/components/PaymentMethod";
@@ -213,7 +213,7 @@ const Checkout = () => {
         noFollow={true}
       />
 
-      <DeliveryAddressModal
+      <DeliveryAddressFormModal
         show={showAddressModal}
         onClose={handleHideAddressModal}
       />

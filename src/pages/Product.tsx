@@ -8,7 +8,7 @@ import useFilters from "@/hooks/use-filters";
 import Layout from "@/components/layouts/Layout";
 import { Button, Offcanvas, Dropdown } from "react-bootstrap";
 import { useState } from "react";
-import NoData from "@/components/ui/no-data";
+import EmptyState from "@/components/ui/empty-state";
 import { env } from "@/config/env";
 import SEO from "@/components/SEO";
 import { generateItemListSchema } from "@/utils/seo-schemas";
@@ -163,9 +163,11 @@ const Product = () => {
 
             {/* No Data */}
             {products?.data?.length === 0 && (
-              <NoData
-                title="Belum Ada Produk"
-                message="Kami belum menemukan produk untuk ditampilkan. Yuk, periksa kembali nanti!"
+              <EmptyState
+                title="Produk Tidak Ditemukan"
+                message="Coba kata kunci lain"
+                iconClass="bi bi-box"
+                iconSize="3rem"
               />
             )}
 

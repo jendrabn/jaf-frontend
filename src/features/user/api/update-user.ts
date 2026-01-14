@@ -12,7 +12,7 @@ export const updateUser = ({
 }: {
   data: UpdateUserInput;
 }): Promise<UpdateUserResponse> => {
-  return api.post("/user?_method=PUT", data);
+  return api.put("/account/me", data);
 };
 
 type UseUpdateUserOptions = {

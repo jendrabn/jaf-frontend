@@ -8,7 +8,7 @@ import Loading from "@/components/ui/loading";
 import { ORDER_STATUSES } from "@/utils/constans";
 import ConfirmOrderReceivedModal from "@/features/orders/components/ConfirmOrderReceivedModal";
 import { Alert, Dropdown } from "react-bootstrap";
-import NoData from "@/components/ui/no-data";
+import EmptyState from "@/components/ui/empty-state";
 import SEO from "@/components/SEO";
 
 type OrderStatusKey = keyof typeof ORDER_STATUSES;
@@ -179,7 +179,14 @@ const Order = () => {
 
       {isLoading && <Loading className="py-5" />}
 
-      {!isLoading && orders?.data?.length === 0 && <NoData />}
+      {!isLoading && orders?.data?.length === 0 && (
+        <EmptyState
+          title="Belum Ada Pesanan"
+          message="Mulai belanja sekarang!"
+          iconClass="bi bi-receipt"
+          iconSize="3rem"
+        />
+      )}
 
       {orders?.data && orders?.data?.length > 0 && (
         <>
