@@ -143,22 +143,26 @@ const Order = () => {
         onClose={handleCloseConfirmOrderDeliveredModal}
       />
 
-      <div className="d-flex mb-4 gap-3">
-        <div className="d-flex align-items-center gap-2">
-          <span className="text-muted">Status:</span>
-          <StatusDropdown
-            value={params.status as string | undefined}
-            onSelect={handleStatusSelect}
-            className="w-auto"
-          />
+      <div className="d-flex flex-column flex-sm-row mb-4 gap-3">
+        <div className="d-flex flex-column flex-sm-row align-items-sm-center gap-2">
+          <span className="text-muted text-nowrap">Status:</span>
+          <div className="flex-grow-1 flex-sm-grow-0">
+            <StatusDropdown
+              value={params.status as string | undefined}
+              onSelect={handleStatusSelect}
+              className="w-100"
+            />
+          </div>
         </div>
-        <div className="d-flex align-items-center gap-2">
-          <span className="text-muted">Urutkan:</span>
-          <SortDropdown
-            value={params.sort as string | undefined}
-            onSelect={handleSortSelect}
-            className="w-auto"
-          />
+        <div className="d-flex flex-column flex-sm-row align-items-sm-center gap-2">
+          <span className="text-muted text-nowrap">Urutkan:</span>
+          <div className="flex-grow-1 flex-sm-grow-0">
+            <SortDropdown
+              value={params.sort as string | undefined}
+              onSelect={handleSortSelect}
+              className="w-100"
+            />
+          </div>
         </div>
       </div>
 
