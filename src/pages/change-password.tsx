@@ -38,7 +38,7 @@ const ChangePassword = () => {
   return (
     <AccountLayout title="Ubah Password">
       <SEO
-        title="Ubah Password"
+        title="Ubah Password & Keamanan"
         description="Kelola dan ubah password akun Anda untuk keamanan yang lebih baik."
         noIndex={true}
         noFollow={true}

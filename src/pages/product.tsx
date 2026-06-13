@@ -61,27 +61,18 @@ const Product = () => {
     <Layout>
       {products && (
         <SEO
-          title="Produk"
+          title="Koleksi Parfum Original & Aroma Eksklusif"
           description="Temukan parfum berkualitas dengan harga terjangkau. Jelajahi koleksi parfum kami yang lengkap dan nikmati penawaran menarik."
           keywords="parfum murah, parfum original, jual parfum, toko parfum online"
           canonical={`${env.APP_URL}/products`}
           ogType="website"
-          structuredData={
-            products.data
-              ? [
-                  generateItemListSchema(
-                    products.data.slice(0, 10).map((p) => ({
-                      name: p.name,
-                      url: `${env.APP_URL}/products/${p.slug}`,
-                      image: p.image,
-                      price: p.price,
-                    }))
-                  ),
-                ]
-              : undefined
-          }
+          structuredData={products.data?.length > 0 ? [generateItemListSchema(products.data.slice(0, 10).map(p => ({name: p.name, url: `${env.APP_URL}/products/${p.slug}`, image: p.image, price: p.price})))] : undefined}
         />
       )}
+
+      <div className="container mt-4">
+        <h1 className="visually-hidden">Koleksi Parfum Original</h1>
+      </div>
 
       <div className="container">
         <div className="row g-5">

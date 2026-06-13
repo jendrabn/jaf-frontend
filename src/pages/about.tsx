@@ -23,11 +23,18 @@ const About = () => {
   return (
     <Layout>
       <SEO
-        title="Tentang Kami"
+        title="Tentang JAF Parfum's - Toko Parfum Original Sejak 2009"
         description="Pelajari lebih lanjut tentang JAF Parfum's, layanan kami, dan komitmen kami terhadap kualitas dan kepuasan pelanggan. Sejak 2009, JAF Parfum's menyediakan parfum berkualitas dengan harga terjangkau."
         keywords="tentang jaf parfum, sejarah jaf, jember art fragrance, parfum jember, toko parfum jember"
         canonical={`${env.APP_URL}/about`}
         ogType="website"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "Tentang JAF Parfum's",
+          description: "Pelajari lebih lanjut tentang JAF Parfum's, toko parfum original sejak 2009.",
+          isPartOf: { "@id": `${env.APP_URL}/#website` },
+        }}
       />
 
       <div className="container">

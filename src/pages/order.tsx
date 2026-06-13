@@ -131,7 +131,7 @@ const Order = () => {
   return (
     <AccountLayout title="Pesanan">
       <SEO
-        title="Pesanan Saya"
+        title="Riwayat Pesanan Saya"
         description="Kelola pesanan Anda"
         noIndex={true}
         noFollow={true}

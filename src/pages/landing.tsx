@@ -35,7 +35,7 @@ const Landing = () => {
   return (
     <>
       <SEO
-        title="Home"
+        title="Toko Parfum Online Original & Terpercaya"
         description="Belanja parfum original dengan pilihan aroma eksklusif, promo harian, dan layanan pengiriman cepat hanya di JAF Parfum's."
         keywords="toko parfum, parfum original, parfum pria, parfum wanita, diskon parfum, jual parfum online, parfum murah, parfum branded"
         canonical={`${env.APP_URL}/`}

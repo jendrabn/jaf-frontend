@@ -167,7 +167,7 @@ const Notifications = () => {
   return (
     <AccountLayout title="Notifikasi">
       <SEO
-        title="Notifikasi Saya"
+        title="Notifikasi & Update Pesanan"
         description="Kelola notifikasi akun Anda"
         noIndex={true}
         noFollow={true}

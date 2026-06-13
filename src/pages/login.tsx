@@ -9,7 +9,7 @@ const Login = () => {
       subtitle="Masuk untuk melanjutkan belanja dan akses akunmu dengan cepat."
     >
       <SEO
-        title="Login"
+        title="Masuk ke Akun"
         description="Login ke akun JAF Parfum's Anda"
         noIndex={true}
         noFollow={true}

@@ -207,7 +207,7 @@ const Checkout = () => {
   return (
     <Layout>
       <SEO
-        title="Checkout & Pembayaran"
+        title="Checkout & Pembayaran Pesanan"
         description="Proses checkout dan pembayaran pesanan Anda"
         noIndex={true}
         noFollow={true}

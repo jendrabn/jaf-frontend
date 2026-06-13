@@ -17,7 +17,7 @@ const Faq = () => {
   return (
     <Layout>
       <SEO
-        title="Pertanyaan Umum"
+        title="Pertanyaan Umum (FAQ) Parfum"
         description="Temukan jawaban untuk pertanyaan umum seputar JAF Parfum's, pengiriman, pembayaran, dan layanan kami."
         keywords="FAQ, pertanyaan umum, bantuan, customer service"
         canonical={`${env.APP_URL}/faqs`}

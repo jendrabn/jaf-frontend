@@ -158,7 +158,7 @@ const OrderDetail = () => {
   return (
     <AccountLayout title="Detail Pesanan">
       <SEO
-        title="Detail Pesanan"
+        title="Detail Riwayat Pesanan"
         description="Detail pesanan Anda"
         noIndex={true}
         noFollow={true}

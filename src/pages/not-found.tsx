@@ -7,7 +7,7 @@ const NotFound = () => {
   return (
     <>
       <SEO
-        title="404 - Halaman Tidak Ditemukan"
+        title="404 Halaman Tidak Ditemukan"
         description="Maaf, halaman yang Anda cari tidak ditemukan."
         noIndex={true}
         noFollow={false}

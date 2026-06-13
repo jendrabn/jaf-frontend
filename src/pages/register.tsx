@@ -9,7 +9,7 @@ const Register = () => {
       subtitle="Buat akun baru untuk mulai berbelanja dan simpan parfum favorit."
     >
       <SEO
-        title="Register"
+        title="Daftar Akun Baru"
         description="Daftar akun baru di JAF Parfum's"
         noIndex={true}
         noFollow={true}

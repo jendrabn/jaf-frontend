@@ -9,6 +9,8 @@ export interface SEOProps {
   ogType?: "website" | "article" | "product" | "profile";
   ogImage?: string;
   ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   twitterCard?: "summary" | "summary_large_image" | "app" | "player";
   noIndex?: boolean;
   noFollow?: boolean;
@@ -16,6 +18,7 @@ export interface SEOProps {
   author?: string;
   publishedTime?: string;
   modifiedTime?: string;
+  articleTags?: string[];
   // Product-specific
   productPrice?: number;
   productCurrency?: string;
@@ -31,6 +34,8 @@ export default function SEO({
   ogType = "website",
   ogImage,
   ogImageAlt,
+  ogImageWidth = 1200,
+  ogImageHeight = 630,
   twitterCard = "summary_large_image",
   noIndex = false,
   noFollow = false,
@@ -38,6 +43,7 @@ export default function SEO({
   author,
   publishedTime,
   modifiedTime,
+  articleTags,
   productPrice,
   productCurrency = "IDR",
   productAvailability,
@@ -84,8 +90,8 @@ export default function SEO({
       <meta property="og:site_name" content={siteName} />
       <meta property="og:image" content={ogImageUrl} />
       {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+      <meta property="og:image:width" content={String(ogImageWidth)} />
+      <meta property="og:image:height" content={String(ogImageHeight)} />
       <meta property="og:locale" content="id_ID" />
 
       {/* Article-specific OG tags */}
@@ -98,6 +104,10 @@ export default function SEO({
       {ogType === "article" && author && (
         <meta property="article:author" content={author} />
       )}
+      {ogType === "article" &&
+        articleTags?.map((tag) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
 
       {/* Product-specific OG tags */}
       {ogType === "product" && productPrice && (

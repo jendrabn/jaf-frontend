@@ -32,7 +32,7 @@ const Wishlist = () => {
   return (
     <AccountLayout title="Wishlist">
       <SEO
-        title="Wishlist Saya"
+        title="Wishlist Produk Favorit"
         description="Lihat dan kelola daftar keinginan produk favorit Anda di sini."
         noIndex={true}
         noFollow={true}

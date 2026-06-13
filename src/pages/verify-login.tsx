@@ -9,7 +9,7 @@ const VerifyLogin = () => {
       subtitle="Masukkan kode verifikasi untuk melanjutkan proses login."
     >
       <SEO
-        title="Verifikasi Login"
+        title="Verifikasi Login Aman"
         description="Verifikasi login akun Anda"
         noIndex={true}
         noFollow={true}

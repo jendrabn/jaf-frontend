@@ -8,11 +8,17 @@ const Help = () => {
   return (
     <Layout>
       <SEO
-        title="Pusat Bantuan"
+        title="Pusat Bantuan & Customer Service"
         description="Pusat bantuan JAF Parfum's. Temukan panduan penggunaan, pelacakan pengiriman, pengembalian & penukaran, dan bantuan lainnya."
         keywords="bantuan, panduan penggunaan, pelacakan pengiriman, pengembalian, penukaran, customer service"
         canonical={`${env.APP_URL}/help`}
         ogType="website"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Pusat Bantuan JAF Parfum's",
+          isPartOf: { "@id": `${env.APP_URL}/#website` },
+        }}
       />
 
       <div className="container">

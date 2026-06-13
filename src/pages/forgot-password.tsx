@@ -9,7 +9,7 @@ const ForgotPassword = () => {
       subtitle="Masukkan email untuk menerima tautan pemulihan password."
     >
       <SEO
-        title="Lupa Password"
+        title="Lupa Password Akun"
         description="Lupa password akun Anda? Dapatkan link reset password melalui email."
         noIndex={true}
         noFollow={true}

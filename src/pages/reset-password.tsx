@@ -9,7 +9,7 @@ const ResetPassword = () => {
       subtitle="Buat kata sandi baru yang aman untuk akunmu."
     >
       <SEO
-        title="Reset Password"
+        title="Reset Password Akun"
         description="Reset password akun Anda"
         noIndex={true}
         noFollow={true}

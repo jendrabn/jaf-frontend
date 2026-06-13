@@ -97,7 +97,7 @@ const Profile = () => {
   return (
     <AccountLayout title="Profil">
       <SEO
-        title="Profil Saya"
+        title="Profil Akun Saya"
         description="Kelola informasi profil akun Anda di sini."
         noIndex={true}
         noFollow={true}

@@ -50,7 +50,7 @@ const Cart = () => {
   return (
     <Layout>
       <SEO
-        title="Keranjang Belanja"
+        title="Keranjang Belanja Saya"
         description="Keranjang belanja Anda"
         noIndex={true}
         noFollow={true}

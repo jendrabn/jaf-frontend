@@ -86,11 +86,17 @@ const FlashSale = () => {
   return (
     <Layout>
       <SEO
-        title="Flash Sale"
+        title="Flash Sale Diskon Parfum Spesial"
         description="Nikmati harga spesial untuk pilihan parfum dan home care favorit, stok terbatas dan hanya tersedia pada jam tertentu."
         keywords="flash sale, diskon parfum, promo parfum, harga murah, parfum diskon"
         canonical={`${env.APP_URL}/flash-sale`}
         ogType="website"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: "Flash Sale Parfum | JAF Parfum's",
+          isPartOf: { "@id": `${env.APP_URL}/#website` },
+        }}
       />
 
       <div className="container flash-sale-page">

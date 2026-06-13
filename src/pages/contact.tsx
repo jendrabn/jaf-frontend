@@ -80,7 +80,7 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Kontak Kami"
+        title="Hubungi JAF Parfum's"
         description="Hubungi JAF Parfum's untuk pertanyaan, bantuan, atau kerjasama. Kami siap membantu Anda!"
         keywords="kontak, customer service, hubungi kami, alamat toko"
         canonical={`${env.APP_URL}/contact`}

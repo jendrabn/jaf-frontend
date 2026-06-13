@@ -28,11 +28,18 @@ const Blog = () => {
   return (
     <Layout>
       <SEO
-        title="Blog"
+        title="Blog & Artikel Dunia Parfum"
         description="Temukan artikel menarik seputar dunia parfum di blog kami. Baca tips, ulasan, dan berita terbaru tentang parfum."
         keywords="blog parfum, tips parfum, ulasan parfum, berita parfum, aroma parfum, jenis parfum"
         canonical={`${env.APP_URL}/blog`}
         ogType="website"
+        structuredData={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Blog & Artikel Parfum | JAF Parfum's",
+          description: "Temukan artikel menarik seputar dunia parfum di blog JAF Parfum's.",
+          isPartOf: { "@id": `${env.APP_URL}/#website` },
+        }}
       />
 
       <div className="container">
