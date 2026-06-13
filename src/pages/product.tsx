@@ -1,0 +1,203 @@
+import { useGetProducts } from "@/features/products/api";
+import type { Product, ProductParams } from "@/types/product";
+import ProductCard from "@/features/products/components/product-card";
+import ProductFilters from "@/features/products/components/product-filters";
+import Loading from "@/components/ui/loading";
+import Pagination from "@/components/ui/pagination";
+import useFilters from "@/hooks/use-filters";
+import Layout from "@/components/layouts/layout";
+import { Button, Offcanvas, Dropdown } from "react-bootstrap";
+import { useState } from "react";
+import EmptyState from "@/components/ui/empty-state";
+import { env } from "@/config/env";
+import SEO from "@/components/seo";
+import { generateItemListSchema } from "@/utils/seo-schemas";
+
+const FILTER_OPTIONS: { label: string; value: string }[] = [
+  {
+    label: "Relevansi",
+    value: "",
+  },
+  {
+    label: "Terbaru",
+    value: "newest",
+  },
+  {
+    label: "Terlama",
+    value: "oldest",
+  },
+  {
+    label: "Terlaris",
+    value: "sales",
+  },
+  {
+    label: "Harga: Rendah ke Tinggi",
+    value: "cheapest",
+  },
+  {
+    label: "Harga: Tinggi ke Rendah",
+    value: "expensive",
+  },
+];
+
+const Product = () => {
+  const { setFilter, clearFilters, params } = useFilters<ProductParams>();
+
+  const { data: products, isLoading } = useGetProducts(params);
+
+  const [showFilters, setShowFilters] = useState(false);
+
+  const handlePageClick = (page: number) => {
+    setFilter("page", page);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
+  return (
+    <Layout>
+      {products && (
+        <SEO
+          title="Produk"
+          description="Temukan parfum berkualitas dengan harga terjangkau. Jelajahi koleksi parfum kami yang lengkap dan nikmati penawaran menarik."
+          keywords="parfum murah, parfum original, jual parfum, toko parfum online"
+          canonical={`${env.APP_URL}/products`}
+          ogType="website"
+          structuredData={
+            products.data
+              ? [
+                  generateItemListSchema(
+                    products.data.slice(0, 10).map((p) => ({
+                      name: p.name,
+                      url: `${env.APP_URL}/products/${p.slug}`,
+                      image: p.image,
+                      price: p.price,
+                    }))
+                  ),
+                ]
+              : undefined
+          }
+        />
+      )}
+
+      <div className="container">
+        <div className="row g-5">
+          <div className="col-lg-2 d-none d-lg-block">
+            <ProductFilters />
+          </div>
+          <div className="col-lg-10">
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              {/* Sort Dropdown */}
+              <Dropdown>
+                <Dropdown.Toggle
+                  id="sort-btn-desktop"
+                  variant="outline-dark"
+                  aria-label="Urutkan"
+                  title="Urutkan"
+                >
+                  Urutkan:{" "}
+                  {FILTER_OPTIONS.find(
+                    (o) => o.value === (params.sort_by || "")
+                  )?.label || "Relevansi"}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {FILTER_OPTIONS.map((option) => (
+                    <Dropdown.Item
+                      key={option.value}
+                      active={params.sort_by === option.value}
+                      onClick={() => {
+                        setFilter("sort_by", option.value);
+                        clearFilters("page");
+                      }}
+                    >
+                      {option.label}
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+
+              {/* Filter Button */}
+              <Button
+                variant="outline-dark"
+                className="d-lg-none"
+                onClick={() => setShowFilters(true)}
+              >
+                <i className="bi bi-funnel"></i>
+              </Button>
+
+              <Offcanvas
+                show={showFilters}
+                onHide={() => setShowFilters(false)}
+                placement="end"
+              >
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>
+                    <i className="bi bi-funnel"></i> Filter
+                  </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <ProductFilters />
+                </Offcanvas.Body>
+              </Offcanvas>
+
+              {/* Product Count */}
+              <div className="text-secondary-emphasis mb-0 d-none d-lg-block">
+                {products?.page?.from || 0} - {products?.page?.to || 0} dari{" "}
+                {products?.page?.total || 0} produk
+              </div>
+            </div>
+
+            {/* Search Message */}
+            {params.search && (
+              <div className="text-body-emphasis line-clamp-1 mb-4">
+                <i className="bi bi-search me-2"></i>Hasil pencarian untuk{" "}
+                <span className="fw-bold text-body">{params.search}</span>
+              </div>
+            )}
+
+            {/* Loading */}
+            {isLoading && <Loading className="py-5" />}
+
+            {/* No Data */}
+            {products?.data?.length === 0 && (
+              <EmptyState
+                title="Produk Tidak Ditemukan"
+                message="Coba kata kunci lain"
+                iconClass="bi bi-box"
+                iconSize="3rem"
+              />
+            )}
+
+            {/* Product List */}
+            {products?.data && products?.data?.length > 0 && (
+              <>
+                <div className="row g-4">
+                  {products.data.map((product: Product) => (
+                    <div
+                      className="col-6 col-md-4 col-lg-1of5"
+                      key={`product-${product.id}`}
+                    >
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
+
+                {products?.page && (
+                  <Pagination
+                    {...products.page}
+                    onClick={(page: number) => handlePageClick(page)}
+                  />
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default Product;

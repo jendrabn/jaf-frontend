@@ -1,0 +1,80 @@
+import Layout from "@/components/layouts/layout";
+import CustomerServiceContact from "@/components/customer-service-contact";
+import { env } from "@/config/env";
+import SEO from "@/components/seo";
+import PageHeader from "@/components/layouts/page-header";
+
+const Help = () => {
+  return (
+    <Layout>
+      <SEO
+        title="Pusat Bantuan"
+        description="Pusat bantuan JAF Parfum's. Temukan panduan penggunaan, pelacakan pengiriman, pengembalian & penukaran, dan bantuan lainnya."
+        keywords="bantuan, panduan penggunaan, pelacakan pengiriman, pengembalian, penukaran, customer service"
+        canonical={`${env.APP_URL}/help`}
+        ogType="website"
+      />
+
+      <div className="container">
+        <PageHeader title="Pusat Bantuan" />
+
+        <div className="row g-4">
+          <div className="col-md-6">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body">
+                <h5 className="card-title">Panduan Penggunaan</h5>
+                <ul className="mb-0">
+                  <li>Cara mendaftar dan login akun</li>
+                  <li>Cara mencari dan membeli parfum</li>
+                  <li>Cara menambah produk ke keranjang</li>
+                  <li>Cara melakukan pembayaran</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body">
+                <h5 className="card-title">Pelacakan & Pengiriman</h5>
+                <ul className="mb-0">
+                  <li>Cara melacak status pesanan dan nomor resi</li>
+                  <li>Estimasi waktu pengiriman 2-5 hari kerja</li>
+                  <li>Jasa ekspedisi: JNE, J&T, SiCepat, dll</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body">
+                <h5 className="card-title">Pengembalian & Penukaran</h5>
+                <ul className="mb-0">
+                  <li>Retur/tukar produk maksimal 2x24 jam setelah diterima</li>
+                  <li>Hubungi customer service untuk proses retur</li>
+                  <li>Produk harus dalam kondisi asli & belum digunakan</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="card h-100 shadow-sm">
+              <div className="card-body">
+                <h5 className="card-title">Bantuan Lainnya</h5>
+                <ul className="mb-0">
+                  <li>Cara reset password & update profil</li>
+                  <li>Informasi promo & diskon</li>
+                  <li>Layanan gift wrapping & pesan hadiah</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-5">
+          <CustomerServiceContact />
+        </div>
+      </div>
+    </Layout>
+  );
+};
+
+export default Help;

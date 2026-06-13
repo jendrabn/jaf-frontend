@@ -1,0 +1,308 @@
+import { useCallback, useEffect, useState } from "react";
+import AccountLayout from "@/components/layouts/account-layout";
+import NotificationItem from "@/features/notifications/components/notification-item";
+import {
+  useGetNotifications,
+  useMarkNotificationAsRead,
+  useMarkAllNotificationsAsRead,
+} from "@/features/notifications/api/get-notifications";
+import { Button, Badge, Spinner, Alert, Pagination } from "react-bootstrap";
+import Loading from "@/components/ui/loading";
+import EmptyState from "@/components/ui/empty-state";
+import { initializeFcmToken, refreshFcmToken } from "@/utils/fcm";
+import SEO from "@/components/seo";
+
+const Notifications = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pushPermission, setPushPermission] = useState<
+    NotificationPermission | "unsupported"
+  >(
+    typeof window !== "undefined" && "Notification" in window
+      ? Notification.permission
+      : "unsupported"
+  );
+  const [syncedToken, setSyncedToken] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string | null;
+  }>({ type: "success", text: null });
+
+  const {
+    data: notificationsData,
+    isLoading,
+    error,
+    refetch,
+  } = useGetNotifications(currentPage);
+  const markAsReadMutation = useMarkNotificationAsRead();
+  const markAllAsReadMutation = useMarkAllNotificationsAsRead();
+  const notifications = notificationsData?.data ?? [];
+  const pagination = notificationsData?.page;
+  const unreadCount = notifications.filter((n) => !n.is_read).length;
+
+  const handleMarkAsRead = (id: number) => markAsReadMutation.mutate(id);
+  const handleMarkAllAsRead = () =>
+    notifications.length > 0 && markAllAsReadMutation.mutate();
+  const handlePageChange = (page: number) => setCurrentPage(page);
+
+  const syncToken = useCallback(
+    async (token: string | null, silent = false) => {
+      try {
+        if (token && token !== syncedToken) {
+          setIsProcessing(true);
+          setSyncedToken(token);
+          if (!silent)
+            setMessage({
+              type: "success",
+              text: "Push notification berhasil diaktifkan.",
+            });
+        } else if (!token && syncedToken) {
+          setIsProcessing(true);
+          setSyncedToken(null);
+        }
+      } catch {
+        if (!silent)
+          setMessage({
+            type: "error",
+            text: token
+              ? "Gagal mendaftarkan token notifikasi."
+              : "Gagal menghapus token notifikasi.",
+          });
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    [syncedToken]
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("Notification" in window)) {
+      setPushPermission("unsupported");
+      return;
+    }
+
+    const init = async () => {
+      const permission = Notification.permission;
+      setPushPermission(permission);
+
+      if (permission === "granted") {
+        // Refresh FCM token to ensure we have the latest one
+        const token = await refreshFcmToken();
+        await syncToken(token, true);
+      } else {
+        await syncToken(null, true);
+      }
+    };
+
+    init();
+  }, [syncToken]);
+
+  const handleEnablePush = async () => {
+    if (typeof window === "undefined" || !("Notification" in window)) {
+      setMessage({
+        type: "error",
+        text: "Browser tidak mendukung push notification.",
+      });
+      return;
+    }
+
+    setIsProcessing(true);
+    setMessage({ type: "success", text: null });
+
+    try {
+      const token = await initializeFcmToken();
+      const permission = Notification.permission;
+      setPushPermission(permission);
+
+      if (permission !== "granted") {
+        await syncToken(null);
+        setMessage({ type: "error", text: "Izin notifikasi belum diberikan." });
+      } else if (token) {
+        await syncToken(token);
+      } else {
+        await syncToken(null);
+        setMessage({
+          type: "error",
+          text: "Token tidak dapat diperoleh. Silakan coba lagi.",
+        });
+      }
+    } catch {
+      setMessage({
+        type: "error",
+        text: "Terjadi kesalahan saat mengaktifkan push notification.",
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <AccountLayout title="Notifikasi">
+        <Loading className="py-5" />
+      </AccountLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <AccountLayout title="Notifikasi">
+        <Alert variant="danger">
+          <i className="bi bi-exclamation-triangle me-2"></i>
+          Terjadi kesalahan saat memuat notifikasi.
+          <Button
+            variant="outline-danger"
+            size="sm"
+            className="ms-2"
+            onClick={() => refetch()}
+          >
+            <i className="bi bi-arrow-clockwise me-1"></i>
+            Refresh
+          </Button>
+        </Alert>
+      </AccountLayout>
+    );
+  }
+
+  return (
+    <AccountLayout title="Notifikasi">
+      <SEO
+        title="Notifikasi Saya"
+        description="Kelola notifikasi akun Anda"
+        noIndex={true}
+        noFollow={true}
+      />
+      <div className="notifications-toolbar mb-4">
+        {pushPermission === "unsupported" ? (
+          <Alert variant="warning" className="notification-alert">
+            <i className="bi bi-exclamation-triangle me-2"></i>
+            Browser tidak mendukung push notification.
+          </Alert>
+        ) : (
+          <Alert variant="light" className="notification-alert">
+            <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-3">
+              <div className="flex-grow-1">
+                <div className="fw-semibold mb-1">Notifikasi Browser</div>
+                <div className="text-muted small">
+                  {pushPermission === "granted"
+                    ? "Notifikasi browser aktif. Anda akan menerima pembaruan secara otomatis."
+                    : "Aktifkan notifikasi untuk menerima pemberitahuan pesanan dan promo secara real-time."}
+                </div>
+                {message.text && (
+                  <div className={`text-${message.type} small mt-2`}>
+                    <i
+                      className={`bi bi-${
+                        message.type === "success" ? "check" : "exclamation"
+                      }-circle me-1`}
+                    ></i>
+                    {message.text}
+                  </div>
+                )}
+              </div>
+              <div>
+                {pushPermission === "granted" ? (
+                  <Badge bg="success" pill>
+                    Notifikasi aktif
+                  </Badge>
+                ) : (
+                  <Button
+                    variant="primary"
+                    onClick={handleEnablePush}
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <Spinner as="span" animation="border" size="sm" />
+                        <span className="ms-2">Memproses...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-bell me-1"></i>
+                        Izinkan Notifikasi
+                      </>
+                    )}
+                  </Button>
+                )}
+              </div>
+            </div>
+          </Alert>
+        )}
+      </div>
+
+      <div className="notifications-actions mb-4">
+        <div className="text-body-secondary">
+          {notifications.length} notifikasi
+        </div>
+        {unreadCount > 0 && (
+          <Button
+            variant="outline-primary"
+            size="sm"
+            onClick={handleMarkAllAsRead}
+            disabled={markAllAsReadMutation.isPending}
+          >
+            {markAllAsReadMutation.isPending ? (
+              <>
+                <Spinner as="span" animation="border" size="sm" />
+                <span className="ms-2">Memproses...</span>
+              </>
+            ) : (
+              <>
+                <i className="bi bi-check-all me-1"></i>
+                Tandai semua dibaca
+              </>
+            )}
+          </Button>
+        )}
+      </div>
+
+      {notifications.length > 0 ? (
+        <>
+          <div className="notifications-list">
+            {notifications.map((notification) => (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+                onMarkAsRead={handleMarkAsRead}
+              />
+            ))}
+          </div>
+          {pagination && pagination.last_page > 1 && (
+            <div className="d-flex justify-content-center mt-4">
+              <Pagination>
+                <Pagination.Prev
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                />
+                {Array.from(
+                  { length: pagination.last_page },
+                  (_, i) => i + 1
+                ).map((page) => (
+                  <Pagination.Item
+                    key={page}
+                    active={page === currentPage}
+                    onClick={() => handlePageChange(page)}
+                  >
+                    {page}
+                  </Pagination.Item>
+                ))}
+                <Pagination.Next
+                  disabled={currentPage === pagination.last_page}
+                  onClick={() => handlePageChange(currentPage + 1)}
+                />
+              </Pagination>
+            </div>
+          )}
+        </>
+      ) : (
+        <EmptyState
+          title="Belum ada notifikasi"
+          message="Kabar baik akan segera datang"
+          iconClass="bi bi-bell"
+          iconSize="3rem"
+        />
+      )}
+    </AccountLayout>
+  );
+};
+
+export default Notifications;
