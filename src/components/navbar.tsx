@@ -150,16 +150,6 @@ const Navbar = () => {
                 <SearchBar className="mx-4 d-none d-lg-block" />
 
                 <ul className="navbar-nav nav-primary gap-2">
-                  <li className="nav-item">
-                    <NavLink
-                      className={({ isActive }) =>
-                        "nav-link " + (isActive ? "active" : "")
-                      }
-                      to={paths.landing.root()}
-                    >
-                      Home
-                    </NavLink>
-                  </li>
                   <Dropdown as="li" className="nav-item">
                     <Dropdown.Toggle
                       as={NavDropdownToggle}
@@ -201,7 +191,13 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        "nav-link " + (isActive ? "active" : "")
+                        [
+                          "nav-link",
+                          "active-text-primary",
+                          isActive ? "active" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")
                       }
                       to={paths.products.root()}
                     >
@@ -211,7 +207,13 @@ const Navbar = () => {
                   <li className="nav-item">
                     <NavLink
                       className={({ isActive }) =>
-                        "nav-link " + (isActive ? "active" : "")
+                        [
+                          "nav-link",
+                          "active-text-primary",
+                          isActive ? "active" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")
                       }
                       to={paths.blog.root()}
                     >
@@ -397,31 +399,31 @@ const Navbar = () => {
                     <div className="mobile-menu-section">
                       <div className="mobile-menu-title">Akun</div>
                       <NavLink
-                        className="mobile-menu-item"
+                        className="mobile-menu-item active-text-primary"
                         to={paths.account.profile()}
                       >
                         <span>Profil</span>
                       </NavLink>
                       <NavLink
-                        className="mobile-menu-item"
+                        className="mobile-menu-item active-text-primary"
                         to={paths.account.orders.root()}
                       >
                         <span>Pesanan</span>
                       </NavLink>
                       <NavLink
-                        className="mobile-menu-item"
+                        className="mobile-menu-item active-text-primary"
                         to={paths.account.wishlist()}
                       >
                         <span>Wishlist</span>
                       </NavLink>
                       <NavLink
-                        className="mobile-menu-item"
+                        className="mobile-menu-item active-text-primary"
                         to={paths.account.notifications()}
                       >
                         <span>Notifikasi</span>
                       </NavLink>
                       <NavLink
-                        className="mobile-menu-item"
+                        className="mobile-menu-item active-text-primary"
                         to={paths.account.changePassword()}
                       >
                         <span>Ubah Password</span>
@@ -434,12 +436,6 @@ const Navbar = () => {
 
                 <div className="mobile-menu-section">
                   <div className="mobile-menu-title">Menu</div>
-                  <NavLink
-                    className="mobile-menu-item"
-                    to={paths.landing.root()}
-                  >
-                    <span>Beranda</span>
-                  </NavLink>
                   <details className="mobile-menu-details">
                     <summary className="mobile-menu-item">
                       <span>Kategori</span>
@@ -473,12 +469,15 @@ const Navbar = () => {
                     </div>
                   </details>
                   <NavLink
-                    className="mobile-menu-item"
+                    className="mobile-menu-item active-text-primary"
                     to={paths.products.root()}
                   >
                     <span>Produk</span>
                   </NavLink>
-                  <NavLink className="mobile-menu-item" to={paths.blog.root()}>
+                  <NavLink
+                    className="mobile-menu-item active-text-primary"
+                    to={paths.blog.root()}
+                  >
                     <span>Blog</span>
                   </NavLink>
                   <div className="mobile-menu-item">

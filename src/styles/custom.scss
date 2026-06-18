@@ -359,7 +359,7 @@ a {
 
     &.active {
       color: $primary;
-      background-color: rgba($primary, 0.12);
+      background-color: transparent;
     }
   }
 
@@ -492,6 +492,11 @@ a {
     color: $primary;
   }
 
+  .mobile-menu-item.active {
+    color: $primary;
+    background: transparent;
+  }
+
   .mobile-menu-divider {
     border-top: 1px solid $gray-200;
     margin: 1rem 0;
@@ -521,6 +526,11 @@ html[data-bs-theme="dark"] {
     .mobile-menu-item:focus {
       background: rgba($primary, 0.2);
       color: $gray-100;
+    }
+
+    .mobile-menu-item.active {
+      color: $primary;
+      background: transparent;
     }
 
     .mobile-menu-subitem {
